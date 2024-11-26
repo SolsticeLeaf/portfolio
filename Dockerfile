@@ -1,6 +1,6 @@
 FROM node:16.15.0-slim
 
-COPY /nuxt/.output /nuxt/.output
+COPY /.output /nuxt/.output
 
 RUN mkdir -p /nuxt/.output/server/content/projects
 COPY /content/projects /nuxt/.output/server/content/projects
