@@ -9,7 +9,7 @@
                 <img
                     id="hero-avatar"
                     :src="this.hero_avatar"
-                    alt="kiinse"
+                    alt="SolsticeLeaf"
                     loading="eager"
                 />
               </div>
@@ -48,13 +48,13 @@
                   </span>
                 </h6>
                 <div class="hero__content__main-btns">
-                  <a href="mailto:me@kiinse.dev">
+                  <a href="mailto:solsticeleaf@kiinse.dev">
                     <b-button :variant="'info'" size="lg">
                       <icons icon="fas fa-envelope" class="main-btn" />
                       {{ $t('hero_email') }}
                     </b-button>
                   </a>
-                  <a href='https://discord.com/users/kiinse' target="_blank" rel="noopener noreferrer" class="hero__content__main-btns-outline">
+                  <a href='https://discord.com/users/SolsticeLeaf' target="_blank" rel="noopener noreferrer" class="hero__content__main-btns-outline">
                     <b-button :variant="'outline-info'" size="lg">
                       <icons icon="fa-brands fa-discord" class="main-btn"/>
                     </b-button>
@@ -66,7 +66,7 @@
               <img
                   id="hero-avatar"
                   :src="this.hero_avatar"
-                  alt="kiinse"
+                  alt="SolsticeLeaf"
                   loading="eager"
               />
             </b-col>

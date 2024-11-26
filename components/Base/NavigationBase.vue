@@ -4,35 +4,40 @@
       <div class="nav__brand">
         <ul>
           <li>
-            <NuxtLink to="/">
-              {{$t(nickname)}}
+            <NuxtLink to="/" class="siteName">
+              {{ $t(siteName) }}
             </NuxtLink>
+            <p class="abbr">
+              <span class="line">Knowledge Integration Intelligent</span>
+              <span class="line">Network Systems Engineering</span>
+            </p>
           </li>
         </ul>
       </div>
-      <div class="nav__btn justify-content-center align-content-center">
-
-      </div>
+      <div class="nav__btn justify-content-center align-content-center"></div>
       <div class="nav__links">
         <ul>
-          <li v-for="item in menuItems">
+          <li v-for="item in menuItems" :key="item.path">
             <NuxtLink
                 :to="item.path"
-                :style="[stateParam.isActive ? 'color: #ff5403' : null]"
+                active-class="active-menu-link"
                 class="nav__btn__link"
             >
               {{ $t(item.name) }}
             </NuxtLink>
           </li>
           <li @click="changeLocale()">
-            <icons icon="fa-solid fa-globe"/>
+            <icons icon="fa-solid fa-globe" />
           </li>
         </ul>
       </div>
       <b-container fluid class="nav_mobile_setting align-content-center justify-content-center text-center">
-        <NuxtLink v-for="item in menuItems"
-                  :to="item.path"
-                  class="nav__btn__link__mobile m-2"
+        <NuxtLink
+            v-for="item in menuItems"
+            :key="item.path"
+            :to="item.path"
+            active-class="active-menu-link"
+            class="nav__btn__link__mobile m-2"
         >
           {{ $t(item.name) }}
         </NuxtLink>
@@ -48,38 +53,57 @@ export default {
   name: "NavigationBase",
   data() {
     return {
-      nickname: initialConfig.nickname,
+      siteName: initialConfig.siteName,
       menuItems: [
         {
-          name: 'nav_home',
-          path: '/'
+          name: "nav_home",
+          path: "/",
         },
         {
-          name: 'nav_projects',
-          path: '/projects'
-        }
-        ,
-        {
-          name: 'nav_blog',
-          path: '/blog'
-        }
+          name: "nav_projects",
+          path: "/projects",
+        },
       ],
-      stateParam: {
-        isActive: false
-      }
-    }
+    };
   },
   methods: {
     changeLocale() {
-      if (this.$i18n.locale !== 'ru') this.$i18n.setLocale('ru')
-      else this.$i18n.setLocale('en')
-    }
-  }
-}
+      if (this.$i18n.locale !== "ru") this.$i18n.setLocale("ru");
+      else this.$i18n.setLocale("en");
+    },
+  },
+};
 </script>
 
 <style scoped lang="scss">
 @import "assets/style/scss/variables";
+.active-menu-link {
+  color: #007bff;
+  font-weight: bold;
+}
+
+.abbr {
+  text-align: justify;
+  width: fit-content;
+  line-height: 1.3;
+  max-height: 12px;
+  position: relative;
+  display: inline-block;
+  margin: 0 auto;
+  font-style: italic;
+  font-size: 10px;
+  color: #949494;
+}
+
+.line {
+  width: fit-content;
+  position: relative;
+  display: inline-block;
+  line-height: 1.3;
+  max-height: 12px;
+  text-align: justify;
+}
+
 .nav__btn__link__mobile {
   font-size: 3vh;
 }
@@ -115,6 +139,7 @@ li {
 a:hover,
 a:active {
   color: $color-primary-1;
+  font-style: italic;
   text-decoration: none;
 }
 }

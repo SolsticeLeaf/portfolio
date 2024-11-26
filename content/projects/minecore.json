@@ -1,16 +1,25 @@
 {
-  "title": "MineCore",
-  "imageLink": "minecore.webp",
-  "tech": [
+  "title": "Minecore",
+  "description": "A library for SpigotMC 1.18 and above that aims to improve plugin code.",
+  "imageLink": "https://raw.githubusercontent.com/kiinse/MineCore/master/.github/img/logo.png",
+  "sources": [
     {
-      "tooltip": "Kotlin",
-      "icon": "fa-brands fa-java"
+      "name": "Github",
+      "icon": "fa fa-code",
+      "iconColor": "gray",
+      "link": "https://github.com/SolsticeLeaf/MineCore"
     },
     {
-      "tooltip": "Minecraft",
-      "icon": "fa-solid fa-gamepad"
+      "name": "Wiki",
+      "icon": "fa fa-book",
+      "iconColor": "teal",
+      "link": "https://github.com/SolsticeLeaf/MineCore/wiki/Connecting-MineCore"
+    },
+    {
+      "name": "Download",
+      "icon": "download",
+      "iconColor": "green",
+      "link": "https://github.com/SolsticeLeaf/MineCore/releases/latest"
     }
-  ],
-  "liveLink": "https://github.com/kiinse/minecore",
-  "gitLink": "https://github.com/kiinse/minecore"
+  ]
 }

@@ -1,20 +1,6 @@
-# Dockerfile
-FROM node:16.15.0-alpine as dep-base
-RUN mkdir -p /nuxt
-WORKDIR /nuxt
+FROM node:16.15.0-slim
 
-COPY package.json .
-COPY package-lock.json .
-RUN npm ci
-
-FROM dep-base as prod-base
-
-COPY . .
-RUN npm run build
-
-FROM node:16.15.0-slim as production
-
-COPY --from=prod-base /nuxt/.output /nuxt/.output
+COPY /nuxt/.output /nuxt/.output
 
 RUN mkdir -p /nuxt/.output/server/content/projects
 COPY /content/projects /nuxt/.output/server/content/projects

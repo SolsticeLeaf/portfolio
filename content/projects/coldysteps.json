@@ -1,16 +1,25 @@
 {
   "title": "ColdySteps",
-  "imageLink": "coldysteps.webp",
-  "tech": [
+  "description": "A plugin for SpigotMC 1.18 and above that adding a cold system.",
+  "imageLink": "https://raw.githubusercontent.com/NubilumDev/ColdySteps/master/.github/coldysteps.png",
+  "sources": [
     {
-      "tooltip": "Java",
-      "icon": "fa-brands fa-java"
+      "name": "Github",
+      "icon": "fa fa-code",
+      "iconColor": "gray",
+      "link": "https://github.com/ZoneZeroDev/ColdySteps"
     },
     {
-      "tooltip": "Minecraft",
-      "icon": "fa-solid fa-gamepad"
+      "name": "Spigot",
+      "icon": "cube",
+      "iconColor": "brown",
+      "link": "https://www.spigotmc.org/resources/coldysteps.105678/"
+    },
+    {
+      "name": "Download",
+      "icon": "download",
+      "iconColor": "green",
+      "link": "https://github.com/ZoneZeroDev/ColdySteps/releases/latest"
     }
-  ],
-  "liveLink": "https://www.spigotmc.org/resources/coldysteps.105678/",
-  "gitLink": "https://github.com/ZoneZeroDev/ColdySteps"
+  ]
 }

@@ -3,7 +3,6 @@ export default {
         "kotlin",
         "java",
         "micronaut",
-        "spigotmc",
         "android",
         "mysql",
         "bcrypt",
@@ -12,7 +11,7 @@ export default {
         "junit",
         "mongodb",
         "postgresql",
-        "reddis",
+        "redis",
         "encryption",
         "proguard"
     ]

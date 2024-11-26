@@ -3,43 +3,29 @@
     <div class="project-card">
       <b-container>
         <b-card class="bg-dark">
-          <NuxtImg class ="card-image" :src="getImageUrl(imageLink)" height="200" />
           <b-card-body>
             <b-row>
-              <b-col>
-                <b-card-title>{{ this.title }}</b-card-title>
+              <b-col class="project-card__image">
+                <NuxtImg class="card-image" :src="getImageUrl(imageLink)" height="200" />
               </b-col>
-              <b-col>
-                <div class="project-card__details__tech-stack">
-                  <icons v-for="item in tech" :key="item.title" :id="item.icon" :title="item.tooltip" :icon="item.icon"></icons>
-                </div>
+              <b-col class="project-card__information">
+                <b-card-title>{{ this.title }}</b-card-title>
+                <b-card-text>{{ this.description }}</b-card-text>
+                <b-row class="project-card__links">
+                  <b-col class="text-center" v-for="source in sources" :key="source.name">
+                    <a
+                        :href="source.link"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                      <icons :icon="source.icon" :color="source.iconColor"/>
+                      {{$t(source.name)}}
+                    </a>
+                  </b-col>
+                </b-row>
               </b-col>
             </b-row>
           </b-card-body>
-          <b-card-footer>
-            <b-row class="project-card__links">
-              <b-col class="text-center">
-                <a
-                    :href="gitLink"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                  <icons icon="fab fa-github"/>
-                  Github
-                </a>
-              </b-col>
-              <b-col class="text-center">
-                <a
-                    :href="liveLink"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                  <icons icon="fas fa-eye"/>
-                  {{$t('content_prew')}}
-                </a>
-              </b-col>
-            </b-row>
-          </b-card-footer>
         </b-card>
       </b-container>
     </div>
@@ -56,19 +42,15 @@ export default {
     title: {
       type: String
     },
-    tech: {
-      type: Array,
-      required: false
+    description: {
+      type: String
     },
     imageLink: {
       type: String
     },
-    gitLink: {
-      type: String
+    sources: {
+      type: Array
     },
-    liveLink: {
-      type: String
-    }
   },
   data: function () {
     return {
@@ -82,7 +64,7 @@ export default {
   },
   methods: {
     getImageUrl(path) {
-      return new URL(`../../images/`+path, import.meta.url).href
+      return new URL(path, import.meta.url).href
     },
   }
 }
@@ -103,46 +85,24 @@ export default {
   }
   .card-image {
     display: block;
+    height: 8rem;
+    max-width: 15rem;
     margin-left: auto;
     margin-right: auto;
     width: auto;
   }
-  &__image {
-    .placeholder {
-      height: 15rem;
-      border-radius: $border-radius-1;
-      @media (max-width: $screen-sm) {
-        height: 10rem;
-      }
-      @media (max-width: $screen-xs) {
-        height: 20rem;
-      }
-      @media (max-width: $screen-xss) {
-        height: 15rem;
-      }
-    }
+  &__information {
+    align-content: center;
   }
-  &__details {
-    &__tech-stack {
-      display: flex;
-      justify-content: space-evenly;
-      padding: 0.5rem 0.2rem;
-      border-radius: $border-radius-2;
-      background: $color-primary-2;
-      svg {
-        width: 10%;
-        height: auto;
-        color: $text-color-dark !important;
-        &:hover {
-          box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
-        }
-        @media screen and (max-width: $screen-sm) {
-          width: 20%;
-        }
-      }
-    }
+  &__image {
+    max-width: 15rem;
+    margin-right: 2rem;
   }
   &__links {
+    background: #1d2125;
+    border: 1px solid #1d2125;
+    border-radius: 1rem;
+    width: 100%;
     .col {
       white-space: nowrap;
     }

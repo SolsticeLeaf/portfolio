@@ -9,15 +9,14 @@
         </div>
         <div class="projects__container">
           <b-row>
-            <b-col class="mt-5" sm="4" md="4" v-for="item in items" :key="item.title">
+            <div class="mt-3" v-for="item in items" :key="item.title">
               <ProjectCard
                   v-bind:title="item.title"
+                  :description="item.description"
                   :image-link="item.imageLink"
-                  :tech="item.tech"
-                  :git-link="item.gitLink"
-                  :live-link="item.liveLink"
+                  :sources="item.sources"
               />
-            </b-col>
+            </div>
           </b-row>
         </div>
       </div>

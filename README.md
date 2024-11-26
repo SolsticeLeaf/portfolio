@@ -4,7 +4,7 @@
 </h1>
 
 <p align="center">
-  <b>A portfolio made by <code>nuxt 3</code> for kiinse</b><br><br>
+  <b>A portfolio made by <code>nuxt 3</code> for SolsticeLeaf</b><br><br>
 
   <a href="https://github.com/VannaKarenina/portfolio-nuxt3/releases">
     <img src="https://img.shields.io/github/v/release/VannaKarenina/portfolio-nuxt3?include_prereleases&style=flat-square" alt="release">
