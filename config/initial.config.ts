@@ -20,7 +20,7 @@ export default {
         desktopSpeed: 8 as number
     },
     dirs: {
-        projects: '/nuxt/.output/server/content/projects'
-        //projects: 'content/projects'
+        //projects: '/nuxt/.output/server/content/projects'
+        projects: 'content/projects'
     }
 }

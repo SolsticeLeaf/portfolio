@@ -6,7 +6,7 @@
           <b-card-body>
             <b-row>
               <b-col class="project-card__image">
-                <NuxtImg class="card-image" :src="getImageUrl(imageLink)" height="200" />
+                <img class="card-image" :src="getImageUrl(imageLink)" height="200" />
               </b-col>
               <b-col class="project-card__information">
                 <b-card-title>{{ this.title }}</b-card-title>
