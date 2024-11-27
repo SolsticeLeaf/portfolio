@@ -10,7 +10,7 @@
               </b-col>
               <b-col class="project-card__information">
                 <b-card-title>{{ this.title }}</b-card-title>
-                <b-card-text>{{ this.description }}</b-card-text>
+                <b-card-text class="description">{{ this.description }}</b-card-text>
                 <b-row class="project-card__links">
                   <b-col class="text-center" v-for="source in sources" :key="source.name">
                     <a
@@ -82,6 +82,9 @@ export default {
   }
   .card-title {
     color: $color-primary-9;
+  }
+  .description {
+    white-space: pre-line;
   }
   .card-image {
     display: block;

@@ -10,13 +10,13 @@
       "link": "https://github.com/ZoneZeroDev/ColdySteps"
     },
     {
-      "name": "Spigot",
+      "name": "SpigotMC",
       "icon": "cube",
       "iconColor": "brown",
       "link": "https://www.spigotmc.org/resources/coldysteps.105678/"
     },
     {
-      "name": "Download",
+      "name": "download",
       "icon": "download",
       "iconColor": "green",
       "link": "https://github.com/ZoneZeroDev/ColdySteps/releases/latest"

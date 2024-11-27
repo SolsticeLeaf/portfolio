@@ -10,13 +10,13 @@
       "link": "https://github.com/ZoneZeroDev/ThirstForWater"
     },
     {
-      "name": "Spigot",
+      "name": "SpigotMC",
       "icon": "fa fa-cube",
       "iconColor": "brown",
       "link": "https://www.spigotmc.org/resources/thirstforwater.105680/"
     },
     {
-      "name": "Download",
+      "name": "download",
       "icon": "fas fa-download",
       "iconColor": "green",
       "link": "https://github.com/ZoneZeroDev/ThirstForWater/releases/latest"

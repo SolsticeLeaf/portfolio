@@ -10,12 +10,13 @@
   "hero_typer4": "Software engineer",
   "read_more": "Read More",
   "read_less": "Read Less",
-  "content_download": "Download",
+  "download": "Download",
+  "wiki": "Wiki",
   "page_projects": "Projects",
   "nav_home": "Home",
   "nav_projects": "Projects",
   "nav_blog": "Blog",
   "announcements": {
-    "Site_reboot": "The site will be completely rewritten soon!"
+    "siteRebuild": "The site will be completely rewritten soon!"
   }
 }

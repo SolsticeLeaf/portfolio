@@ -10,12 +10,13 @@
   "hero_typer4": "Software engineer",
   "read_more": "Читать дальше",
   "read_less": "Скрыть",
-  "content_download": "Скачать",
+  "download": "Скачать",
+  "wiki": "Документация",
   "page_projects": "Проекты",
   "nav_home": "Главная",
   "nav_projects": "Проекты",
   "nav_blog": "Блог",
   "announcements": {
-    "Site_reboot": "Сайт скоро будет полностью переписан!"
+    "siteRebuild": "Сайт скоро будет полностью переписан!"
   }
 }

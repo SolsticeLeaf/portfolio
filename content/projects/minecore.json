@@ -10,13 +10,13 @@
       "link": "https://github.com/SolsticeLeaf/MineCore"
     },
     {
-      "name": "Wiki",
+      "name": "wiki",
       "icon": "fa fa-book",
       "iconColor": "teal",
       "link": "https://github.com/SolsticeLeaf/MineCore/wiki/Connecting-MineCore"
     },
     {
-      "name": "Download",
+      "name": "download",
       "icon": "download",
       "iconColor": "green",
       "link": "https://github.com/SolsticeLeaf/MineCore/releases/latest"
