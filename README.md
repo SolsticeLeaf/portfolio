@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="https://raw.githubusercontent.com/SolsticeLeaf/portfolio/master/.github/images/img.png"  alt=""/>
+  <img src="https://raw.githubusercontent.com/SolsticeLeaf/portfolio/master/.github/images/home.png"  alt=""/>
   <br>Portfolio<br>
 </h1>
 
