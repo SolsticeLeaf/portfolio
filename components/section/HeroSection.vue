@@ -1,5 +1,5 @@
 <script>
-import TyperUtil from "~/components/utils/TyperUtil.vue";
+import TyperUtil from "~/components/utilities/TyperUtil.vue";
 import initialConfig from "~/config/initial.config.ts";
 import toolsConfig from "~/config/tools.config.ts";
 import {Vue3Marquee} from "vue3-marquee";
