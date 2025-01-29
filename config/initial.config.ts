@@ -15,12 +15,11 @@ export default {
         },
     ],
     announcements: {
-        show: false,
-        mobileSpeed: 6 as number,
+        otherSpeed: 6 as number,
         desktopSpeed: 8 as number
     },
-    dirs: {
-        //projects: '/nuxt/.output/server/content/projects'
-        projects: 'content/projects'
+    api: {
+        projects: 'https://kiinse.dev:7272/api/getProjects',
+        announcements: 'https://kiinse.dev:7272/api/getAnnouncements'
     }
 }

@@ -3,16 +3,17 @@ export default {
         "kotlin",
         "java",
         "micronaut",
-        "android",
+        "spring",
+        "typescript",
+        "javascript",
+        "nuxtjs",
+        "gradle",
+        "devops",
         "mysql",
-        "bcrypt",
-        "toml",
-        "yaml",
         "junit",
         "mongodb",
         "postgresql",
         "redis",
-        "encryption",
-        "proguard"
+        "encryption"
     ]
 }

@@ -1,0 +1,11 @@
+{
+  "apps": [
+    {
+      "name": "Portfolio",
+      "autorestart": true,
+      "watch": true,
+      "script": "node",
+      "args": ".output/server/index.mjs"
+    }
+  ]
+}

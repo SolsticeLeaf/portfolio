@@ -1,47 +1,85 @@
+<script setup lang="ts">
+import ProjectCard from "@/components/card/ProjectCard.vue";
+const { data: items } = await useFetch('/api/getProjectsData')
+
+function hasItems(): boolean {
+  return (items.value !== null && items.value.length > 0)
+}
+</script>
+
 <template>
   <ClientOnly>
-    <b-container>
-      <div
-          style="min-height: 100vh; margin-bottom: 70px"
-          class="all-projects">
-        <div class="projects__header">
-          <h2 class="header">{{ $t('page_projects') }}</h2>
+    <div class="wrapper blur__glass">
+      <div class="projects">
+        <div class="projects__card" v-if="hasItems()" v-for="item in items" :key="item.title">
+          <ProjectCard
+              v-bind:title="item.title"
+              :description="item.description"
+              :image-link="item.imageLink"
+              :sources="item.sources"
+          />
         </div>
-        <div class="projects__container">
-          <b-row>
-            <div class="mt-3" v-for="item in items" :key="item.title">
-              <ProjectCard
-                  v-bind:title="item.title"
-                  :description="item.description"
-                  :image-link="item.imageLink"
-                  :sources="item.sources"
-              />
-            </div>
-          </b-row>
+        <div class="projects__empty" v-if="!hasItems()">
+          <h1>
+            {{ $t('empty') }}
+          </h1>
         </div>
       </div>
-    </b-container>
+    </div>
   </ClientOnly>
 </template>
 
-<script setup lang="ts">
-import ProjectCard from "~/components/Projects/ProjectCard.vue";
-
-const { data: items } = await useFetch('/api/getProjectsData')
-
-</script>
-
 <style scoped lang="scss">
 
-@import '@/assets/style/scss/variables.scss';
+@use '@/assets/scss/variables.scss' as *;
 
-.projects__header {
-  text-align: center;
+//* {
+//  border: 1px solid white !important;
+//}
+
+
+.wrapper {
+  max-height: 70vh;
+  clip-path: inset(0 round 3rem);
+  overflow-y: scroll;
+
+  @media screen and (max-width: $screen-sm) {
+    max-height: 90vh;
+  }
 }
 
-.header {
-  color: $color-primary-9;
-  font-weight: bold;
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 3rem;
+  background-color: rgba(0, 0, 0, .5);
+  box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+}
+
+.projects {
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+
+  &__card {
+    margin: 1rem;
+  }
+
+  &__empty {
+    font-size: 2vw;
+    font-weight: bold;
+
+    @media screen and (max-width: $screen-md) {
+      font-size: 2rem;
+    }
+
+    @media screen and (max-width: $screen-sm) {
+      font-size: 1rem;
+    }
+  }
 }
 
 

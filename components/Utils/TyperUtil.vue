@@ -1,13 +1,3 @@
-<template>
-  <div>
-    <h1>
-      <span class="typed-text">{{ typeValue }}</span>
-      <span class="blinking-cursor">|</span>
-      <span class="cursor" :class="{ typing: typeStatus }"></span>
-    </h1>
-  </div>
-</template>
-
 <script>
 export default {
   name: "TyperUtil",
@@ -62,25 +52,52 @@ export default {
 }
 </script>
 
+<template>
+  <div>
+    <h1>
+      <span class="typed-text">{{ typeValue }}</span>
+      <span class="blinking-cursor">|</span>
+      <span class="cursor" :class="{ typing: typeStatus }"></span>
+    </h1>
+  </div>
+</template>
+
 <style scoped lang="scss">
-@import "@/assets/style/scss/variables.scss";
+@use "@/assets/scss/variables.scss" as *;
+
 h1 {
-  font-size: 1.5rem;
+  font-size: 1.3vw;
   font-weight: normal;
   font-family: $font-family-primary;
+
   span.typed-text {
     color: $color-primary-7;
   }
+
+  @media screen and (max-width: $screen-md) {
+    font-size: 1em;
+  }
 }
+
+.typed-text {
+  margin-right: -1.5%;
+}
+
 .blinking-cursor {
-  font-size: 2rem;
+  font-size: 1.8vw;
+  line-height: 1;
   color: $color-primary-1;
   -webkit-animation: 1s blink step-end infinite;
   -moz-animation: 1s blink step-end infinite;
-  -ms-animation: 1s blink step-end infinite;
   -o-animation: 1s blink step-end infinite;
   animation: 1s blink step-end infinite;
+
+  @media screen and (max-width: $screen-md) {
+    font-size: 1.4em;
+    font-weight: bold;
+  }
 }
+
 @keyframes blink {
   from,
   to {
@@ -90,6 +107,7 @@ h1 {
     color: $color-primary-1;
   }
 }
+
 @-moz-keyframes blink {
   from,
   to {
@@ -99,6 +117,7 @@ h1 {
     color: $color-primary-1;
   }
 }
+
 @-webkit-keyframes blink {
   from,
   to {
@@ -108,6 +127,7 @@ h1 {
     color: $color-primary-1;
   }
 }
+
 @-ms-keyframes blink {
   from,
   to {
@@ -117,6 +137,7 @@ h1 {
     color: $color-primary-1;
   }
 }
+
 @-o-keyframes blink {
   from,
   to {

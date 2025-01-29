@@ -1,11 +1,12 @@
-@import './variables';
+@use 'variables' as *;
+@use "sass:color";
 
 @mixin anchor($color) {
   a {
     color: $color;
     &:hover,
     &:focus {
-      color: darken($color, 10%);
+      color: color.adjust($color, $lightness: -10%)
     }
   }
 }

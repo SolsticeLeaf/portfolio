@@ -1,19 +1,13 @@
+<script setup lang="ts">
+import HeroSection from "~/components/section/HeroSection.vue";
+</script>
+
 <template>
   <section>
-    <HeroBase/>
+    <HeroSection />
   </section>
 </template>
 
-<script>
-import HeroBase from "~/components/Base/HeroBase.vue";
-
-export default {
-  name: "index",
-  components: {HeroBase}
-}
-</script>
-
 <style scoped lang="scss">
-@use "assets/style/scss/mixins";
-@import "assets/style/scss/main";
+@use "assets/scss/variables" as *;
 </style>
