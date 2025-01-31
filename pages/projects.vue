@@ -3,7 +3,8 @@ import ProjectCard from "@/components/card/ProjectCard.vue";
 const { data: projects, status: status } = useFetch('/api/getProjectsData', {
   key: 'projects',
   default: () => [],
-  cache: "no-cache"
+  cache: "no-cache",
+  server: false
 });
 
 const hasProjects = computed(() => {
