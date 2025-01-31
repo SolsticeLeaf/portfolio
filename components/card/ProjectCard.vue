@@ -13,10 +13,11 @@ export default {
     },
     sources: {
       type: Array
-    },
+    }
   },
 
   methods: {
+
     getImageUrl(path) {
       return new URL(path, import.meta.url).href
     },
@@ -68,7 +69,10 @@ export default {
                    :to="source.link"
                    target="_blank"
                    rel="noopener noreferrer"
-                   size="xl" :ui="{ rounded: 'rounded-full'}">
+                   size="xl"
+                   :padded=$device.isMobile
+                   class="card__links__button__style"
+                   :ui="{ rounded: 'rounded-full'}">
             <icons class="card__links__button__icon" :icon="source.icon" :color="source.color"/>
             <p class="card__links__button__text">{{ getName(source.name) }}</p>
           </UButton>
@@ -82,7 +86,7 @@ export default {
 @use '@/assets/scss/variables.scss' as *;
 
 //* {
-//  border: 1px solid white !important;
+//  border: 1px solid deepskyblue !important;
 //}
 
 ::-webkit-scrollbar {
@@ -109,18 +113,19 @@ export default {
 }
 
 .card {
-  height: 14vw;
+  height: 12vw;
   width: 70vw;
   display: flex;
   flex-direction: row;
 
   @media screen and (max-width: $screen-md) {
     height: 30vw;
+    width: 100%;
   }
 
   @media screen and (max-width: $screen-sm) {
     height: 50vw;
-    width: 95vw;
+    padding: 1rem 0.5rem;
   }
 
   &__image {
@@ -224,6 +229,7 @@ export default {
 
       &__text {
         font-size: 0.8vw !important;
+        padding: 0.5em;
 
         @media screen and (max-width: $screen-md) {
           font-size: 0.7rem !important;

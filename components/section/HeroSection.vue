@@ -3,10 +3,12 @@ import TyperUtil from "~/components/utilities/TyperUtil.vue";
 import initialConfig from "~/config/initial.config.ts";
 import toolsConfig from "~/config/tools.config.ts";
 import {Vue3Marquee} from "vue3-marquee";
+import NavigationSection from "~/components/section/NavigationSection.vue";
 
 export default {
   name: "HeroSection",
   components: {
+    NavigationSection,
     Vue3Marquee,
     TyperUtil
   },

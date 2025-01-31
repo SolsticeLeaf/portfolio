@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
 import {Vue3Marquee} from "vue3-marquee";
 const { isDesktop } = useDevice();
 const { locale } = useI18n()
-const { data: items } = await useFetch('/api/getAnnouncementsData')
+const { data: items } = await useFetch('/api/getAnnouncementsData').then(res => {
+  console.log("Loaded announcements: " + res.data.value.length)
+  return res
+});
 import initialConfig from "~/config/initial.config.js";
 
 const duration = ref(0);
@@ -67,7 +69,7 @@ function getLocaled(value: any): string {
 
     @media screen and (max-width: $screen-md) {
       padding-left: 10rem;
-      font-size: 0.8rem;
+      font-size: 1rem;
     }
 
     @media screen and (max-width: $screen-sm) {
@@ -76,7 +78,7 @@ function getLocaled(value: any): string {
   }
 
   @media screen and (max-width: $screen-md) {
-    height: 1.6rem;
+    height: 7vw;
   }
 
   @media screen and (max-width: $screen-sm) {

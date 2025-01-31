@@ -49,15 +49,42 @@ export default {
         </div>
       </div>
     </div>
-
-    <NavigationSection/>
-    <slot/>
-    <AnnouncementSection/>
+    <div class="body">
+      <div class="top_footer">
+        <NavigationSection/>
+      </div>
+      <slot/>
+      <div class="top_footer">
+        <AnnouncementSection/>
+      </div>
+    </div>
   </div>
 </template>
 
 <style scoped lang="scss">
 @use '@/assets/scss/variables.scss' as *;
+
+.body {
+  border: 3px solid red !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-content: space-between;
+  width: 100vw;
+  height: 100vh;
+  max-width: 100vw;
+  max-height: 100vh;
+}
+
+.top_footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100vw;
+  height: 12vh;
+  border: 1px solid white !important;
+}
 
 .background {
   &__blur {

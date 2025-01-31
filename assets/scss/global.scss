@@ -26,12 +26,9 @@ body {
   }
 
   .wrapper {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     display: flex;
     flex-direction: row;
+    border: 3px solid yellow !important;
 
     @media screen and (max-width: $screen-md) {
       flex-direction: column-reverse;
@@ -50,13 +47,6 @@ body {
   border: 1px solid rgba(0, 0, 0, 0.3);
   background: rgba(0, 0, 0, 0.2);
   padding: 2rem;
-
-  //@media screen and (max-width: $screen-xss) {
-  //  backdrop-filter: none;
-  //  -webkit-backdrop-filter: none;
-  //  background: transparent;
-  //  border: 0;
-  //}
 }
 
 .transparent__glass {
@@ -66,13 +56,6 @@ body {
   border: 1px solid rgba(0, 0, 0, 0.3);
   background: rgba(0, 0, 0, 0.2);
   padding: 2rem;
-
-  //@media screen and (max-width: $screen-xss) {
-  //  backdrop-filter: none;
-  //  -webkit-backdrop-filter: none;
-  //  background: transparent;
-  //  border: 0;
-  //}
 }
 
 ::selection {

@@ -64,11 +64,16 @@ export default {
 <style scoped lang="scss">
 @use "assets/scss/variables" as *;
 
+//* {
+//  border: 1px solid deepskyblue !important;
+//}
+
 nav {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   vertical-align: middle;
+  width: 100%;
   padding: 1.5vw 7%;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -81,10 +86,11 @@ nav {
 
   .nav__logo {
     width: fit-content;
-    height: fit-content;
+    height: 100%;
     max-height: 100%;
     display: inline-flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     cursor: pointer;
 
