@@ -2,10 +2,7 @@
 import {Vue3Marquee} from "vue3-marquee";
 const { isDesktop } = useDevice();
 const { locale } = useI18n()
-const { data: items } = await useFetch('/api/getAnnouncementsData').then(res => {
-  console.log("Loaded announcements: " + res.data.value.length)
-  return res
-});
+const { data: announcements, status: status } = await useFetch('/api/getAnnouncementsData');
 import initialConfig from "~/config/initial.config.js";
 
 const duration = ref(0);
@@ -23,7 +20,7 @@ onMounted(() => {
 });
 
 function isShow(): boolean {
-  return (items.value !== null && items.value.length > 0)
+  return (status.value === "success") && (announcements.value !== null && announcements.value.length > 0)
 }
 
 function getLocaled(value: any): string {
@@ -38,13 +35,15 @@ function getLocaled(value: any): string {
 
 <template>
   <ClientOnly>
-    <div class="announcements" v-if="isShow()">
-      <Vue3Marquee v-if="isLoaded" pause-on-hover clone :duration="duration">
-        <div class="announcements__text" v-for="announcement in items" v-bind:key="announcement">
-          {{ getLocaled(announcement) }}
-        </div>
-      </Vue3Marquee>
-    </div>
+    <Suspense>
+      <div class="announcements" v-if="isShow()">
+        <Vue3Marquee v-if="isLoaded" pause-on-hover clone :duration="duration">
+          <div class="announcements__text" v-for="announcement in announcements" v-bind:key="announcement">
+            {{ getLocaled(announcement) }}
+          </div>
+        </Vue3Marquee>
+      </div>
+    </Suspense>
   </ClientOnly>
 </template>
 
