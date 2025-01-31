@@ -50,12 +50,12 @@ export default {
       </div>
     </div>
     <div class="body">
-      <div class="top_footer">
+      <div class="footer__top">
         <NavigationSection/>
       </div>
       <slot/>
-      <div class="top_footer">
-        <AnnouncementSection/>
+      <div class="footer__bottom">
+        <AnnouncementSection />
       </div>
     </div>
   </div>
@@ -76,12 +76,23 @@ export default {
   max-height: 100vh;
 }
 
-.top_footer {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100vw;
-  height: 12vh;
+.footer {
+
+  &__top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100vw;
+    height: 12vh;
+  }
+
+  &__bottom {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100vw;
+    height: 8vh;
+  }
 }
 
 .background {

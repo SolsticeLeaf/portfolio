@@ -344,7 +344,7 @@ export default {
 
     @media screen and (max-width: $screen-md) {
       max-width: 20rem;
-      height: 2.3rem;
+      height: 2.2rem;
       margin-top: 1.5rem;
       margin-bottom: 1.5rem;
       border-radius: 2em;

@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import ProjectCard from "@/components/card/ProjectCard.vue";
-const { data: projects, status: status } = await useFetch('/api/getProjectsData');
+const { data: projects, status: status } = useFetch('/api/getProjectsData');
 
-function hasProjects() {
+const hasProjects = computed(() => {
   const items = projects.value
   return (items !== null && items.length > 0);
-}
+})
 
-function isPending(): boolean {
+const isPending = computed(() => {
   return status.value === "pending";
-}
+})
 </script>
 
 <template>
@@ -17,11 +17,11 @@ function isPending(): boolean {
     <Suspense>
       <div class="wrapper blur__glass">
         <div class="projects">
-          <div v-if="isPending()" class="projects__message">
+          <div v-if="isPending" class="projects__message">
             <UProgress size="xl" animation="carousel" class="projects__message__indicator" />
           </div>
           <div v-else class="projects">
-            <div v-if="!hasProjects()" class="projects__message">
+            <div v-if="!hasProjects" class="projects__message">
               <h1>
                 {{ $t('empty') }}
               </h1>
@@ -82,10 +82,10 @@ function isPending(): boolean {
   &__message {
     font-size: 2vw;
     font-weight: bold;
+    padding: 1rem;
 
     &__indicator {
       width: 14rem;
-      padding: 1rem;
     }
 
     @media screen and (max-width: $screen-md) {

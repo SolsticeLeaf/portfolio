@@ -2,7 +2,7 @@
 import {Vue3Marquee} from "vue3-marquee";
 const { isDesktop } = useDevice();
 const { locale } = useI18n()
-const { data: announcements, status: status } = await useFetch('/api/getAnnouncementsData');
+const { data: announcements, status: status } = useFetch('/api/getAnnouncementsData');
 import initialConfig from "~/config/initial.config.js";
 
 const duration = ref(0);
@@ -19,9 +19,9 @@ onMounted(() => {
   }
 });
 
-function isShow(): boolean {
+const isShow = computed(() => {
   return (status.value === "success") && (announcements.value !== null && announcements.value.length > 0)
-}
+})
 
 function getLocaled(value: any): string {
   const currentLocale = locale.value;
@@ -36,7 +36,7 @@ function getLocaled(value: any): string {
 <template>
   <ClientOnly>
     <Suspense>
-      <div class="announcements" v-if="isShow()">
+      <div class="announcements" v-if="isShow">
         <Vue3Marquee v-if="isLoaded" pause-on-hover clone :duration="duration">
           <div class="announcements__text" v-for="announcement in announcements" v-bind:key="announcement">
             {{ getLocaled(announcement) }}
@@ -68,7 +68,7 @@ function getLocaled(value: any): string {
 
     @media screen and (max-width: $screen-md) {
       padding-left: 10rem;
-      font-size: 1rem;
+      font-size: 1.5rem;
     }
 
     @media screen and (max-width: $screen-sm) {
