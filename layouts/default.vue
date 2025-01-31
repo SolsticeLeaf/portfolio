@@ -65,7 +65,6 @@ export default {
 @use '@/assets/scss/variables.scss' as *;
 
 .body {
-  border: 3px solid red !important;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -83,7 +82,6 @@ export default {
   justify-content: space-between;
   width: 100vw;
   height: 12vh;
-  border: 1px solid white !important;
 }
 
 .background {
