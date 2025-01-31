@@ -2,8 +2,13 @@
 import {Vue3Marquee} from "vue3-marquee";
 const { isDesktop } = useDevice();
 const { locale } = useI18n()
-const { data: announcements, status: status } = useFetch('/api/getAnnouncementsData');
 import initialConfig from "~/config/initial.config.js";
+const { data: announcements, status: status } = useFetch('/api/getAnnouncementsData', {
+  key: 'announcements',
+  default: () => [],
+  cache: "no-cache",
+  server: false
+});
 
 const duration = ref(0);
 const isLoaded = ref(false);

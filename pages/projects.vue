@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import ProjectCard from "@/components/card/ProjectCard.vue";
-const { data: projects, status: status } = useFetch('/api/getProjectsData');
+const { data: projects, status: status } = useFetch('/api/getProjectsData', {
+  key: 'projects',
+  default: () => [],
+  cache: "no-cache"
+});
 
 const hasProjects = computed(() => {
   const items = projects.value
