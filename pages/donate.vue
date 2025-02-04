@@ -29,7 +29,9 @@ const pay = async () => {
       })
     });
     if (response_success && response_url) {
-      window.open(response_url + `?lang=${locale.value}`, '_blank');
+      const url = response_url + `?lang=${locale.value}`;
+      window.location.assign(url);
+      window.open(url);
     } else {
       alert('Ошибка: не удалось получить ссылку на оплату');
     }
