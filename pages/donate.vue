@@ -15,8 +15,9 @@ function getDefaultCurrency(list: any) {
   return defaultCurrency;
 };
 
-const amount = ref(currencies[0].default)
-const currency = ref(getDefaultCurrency(currencies))
+const defaultCurrency = getDefaultCurrency(currencies)
+const amount = ref(defaultCurrency.default)
+const currency = ref(defaultCurrency)
 
 const changeAmount = () => {
   amount.value = currency.value.default
