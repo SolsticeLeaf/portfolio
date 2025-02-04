@@ -35,11 +35,10 @@ export default {
 </script>
 
 <template>
-  <ClientOnly>
-    <div>
-      <div class="background__blur">
-        <div class="background__text">
-          <div v-for="(row, rowIndex) in repeatRows" :key="'row-' + rowIndex" class="background__text__row">
+  <div>
+    <div class="background__blur">
+      <div class="background__text">
+        <div v-for="(row, rowIndex) in repeatRows" :key="'row-' + rowIndex" class="background__text__row">
           <span
               v-for="(col, colIndex) in repeatCols"
               :id="'row-' + rowIndex + 'col-' + colIndex"
@@ -47,20 +46,19 @@ export default {
               class="background__text__word">
             {{ $t(nickname) }}
           </span>
-          </div>
-        </div>
-      </div>
-      <div class="body">
-        <div class="footer__top">
-          <NavigationSection/>
-        </div>
-        <slot/>
-        <div class="footer__bottom">
-          <AnnouncementSection />
         </div>
       </div>
     </div>
-  </ClientOnly>
+    <div class="body">
+      <div class="footer__top">
+        <NavigationSection/>
+      </div>
+      <slot/>
+      <div class="footer__bottom">
+        <AnnouncementSection />
+      </div>
+    </div>
+  </div>
 </template>
 
 <style scoped lang="scss">
