@@ -90,7 +90,7 @@ const pay = async () => {
               </template>
             </UInput>
             /
-            <select class="card__main__select" v-if="isIOS" v-model="currency">
+            <select class="card__main__select" v-if="isIOS" v-model="currency" @change="changeAmount">
               <option v-for="curr in currencies" :value="curr">
                 {{curr.name + " " + curr.symbol}}
               </option>
@@ -187,7 +187,7 @@ const pay = async () => {
       width: fit-content;
       background: transparent;
       border: 1px solid #62baf3;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       word-spacing: -0.4rem;
     }
   }
