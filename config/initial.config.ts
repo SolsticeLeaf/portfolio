@@ -20,6 +20,7 @@ export default {
     },
     api: {
         projects: 'https://kiinse.dev:7272/api/getProjects',
+        project: 'https://kiinse.dev:7272/api/getProject/{id}',
         announcements: 'https://kiinse.dev:7272/api/getAnnouncements'
     }
 }

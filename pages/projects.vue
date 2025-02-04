@@ -20,18 +20,20 @@ const isPending = computed(() => {
 <template>
   <ClientOnly>
     <Suspense>
-      <div class="wrapper blur__glass">
+      <div v-if="!hasProjects" class="blur__glass">
+        <div v-if="isPending" class="projects__message">
+          <UProgress size="xl" animation="carousel" class="projects__message__indicator" />
+        </div>
+        <div v-else class="projects__message">
+          <h1>
+            {{ $t('empty') }}
+          </h1>
+        </div>
+      </div>
+      <div v-else class="wrapper blur__glass">
         <div class="projects">
-          <div v-if="isPending" class="projects__message">
-            <UProgress size="xl" animation="carousel" class="projects__message__indicator" />
-          </div>
-          <div v-else class="projects">
-            <div v-if="!hasProjects" class="projects__message">
-              <h1>
-                {{ $t('empty') }}
-              </h1>
-            </div>
-            <div v-else class="projects__card" v-for="item in projects ?? []" :key="item.title">
+          <div class="projects">
+            <div class="projects__card" v-for="item in projects ?? []" :key="item.title">
               <ProjectCard
                   v-bind:title="item.title"
                   :description="item.description"
@@ -47,7 +49,6 @@ const isPending = computed(() => {
 </template>
 
 <style scoped lang="scss">
-
 @use '@/assets/scss/variables.scss' as *;
 
 //* {
@@ -57,6 +58,7 @@ const isPending = computed(() => {
 .wrapper {
   clip-path: inset(0 round 3rem);
   overflow-y: scroll;
+  flex-direction: column;
 
   @media screen and (max-width: $screen-md) {
     width: fit-content;

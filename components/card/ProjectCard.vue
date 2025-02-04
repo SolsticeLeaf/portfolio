@@ -67,11 +67,10 @@ export default {
           <UButton variant="ghost"
                    block
                    :to="source.link"
-                   target="_blank"
                    rel="noopener noreferrer"
                    size="xl"
                    :padded=$device.isMobile
-                   class="card__links__button__style"
+                   class="card__links__button"
                    :ui="{ rounded: 'rounded-full'}">
             <icons class="card__links__button__icon" :icon="source.icon" :color="source.color"/>
             <p class="card__links__button__text">{{ getName(source.name) }}</p>
@@ -124,8 +123,11 @@ export default {
   }
 
   @media screen and (max-width: $screen-sm) {
-    height: 50vw;
+    height: fit-content;
+    flex-direction: column;
     padding: 1rem 0.5rem;
+    justify-content: center;
+    align-items: center;
   }
 
   &__image {
@@ -136,9 +138,21 @@ export default {
     justify-content: center;
     width: 30%;
 
+    @media screen and (max-width: $screen-sm) {
+      display: grid;
+      justify-items: center;
+      align-items: center;
+      width: 100%;
+      height: 20vh;
+    }
+
     &__content {
       max-width: 100%;
       max-height: 100%;
+
+      @media screen and (max-width: $screen-sm) {
+        height: inherit;
+      }
     }
   }
 
@@ -150,6 +164,10 @@ export default {
     margin-left: 1vw;
     margin-right: 1vw;
 
+    @media screen and (max-width: $screen-sm) {
+      width: 100%;
+    }
+
     &__title {
       display: block;
       height: fit-content;
@@ -157,6 +175,10 @@ export default {
       max-height: 35%;
       width: 100%;
       text-align: center;
+
+      @media screen and (max-width: $screen-sm) {
+        padding: 1rem 0;
+      }
 
       &__text {
         overflow: hidden;
@@ -171,6 +193,11 @@ export default {
           font-size: 1.2rem;
           line-height: 1.2rem;
         }
+
+        @media screen and (max-width: $screen-sm) {
+          font-size: 1.5rem;
+          line-height: 1.5rem;
+        }
       }
     }
 
@@ -179,10 +206,19 @@ export default {
       height: 65%;
       max-height: 65%;
       width: 100%;
-      overflow-y: scroll;
+
+      @media screen and (max-width: $screen-sm) {
+        height: fit-content;
+      }
 
       &__text {
         font-size: 0.8vw;
+        max-height: 100%;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        line-clamp: 3;
+        -webkit-line-clamp: 3;
 
         @media screen and (max-width: $screen-md) {
           font-size: 1rem;
@@ -190,6 +226,10 @@ export default {
 
         @media screen and (max-width: $screen-sm) {
           font-size: 0.7rem;
+          -webkit-box-orient: vertical;
+          overflow-y: hidden;
+          line-clamp: 4;
+          -webkit-line-clamp: 4;
         }
       }
     }
@@ -200,6 +240,13 @@ export default {
     flex-direction: column;
     justify-content: space-evenly;
     width: 20%;
+
+    @media screen and (max-width: $screen-sm) {
+      flex-direction: row;
+      width: 100%;
+      padding-top: 0.8rem;
+      overflow-x: scroll;
+    }
 
     &__button {
 
@@ -213,10 +260,6 @@ export default {
         @media screen and (max-width: $screen-sm) {
           max-width: fit-content;
         }
-
-        @media screen and (max-width: $screen-sm) {
-          max-width: 100%;
-        }
       }
 
       &__icon {
@@ -224,6 +267,10 @@ export default {
 
         @media screen and (max-width: $screen-md) {
           height: 0.8rem !important;
+        }
+
+        @media screen and (max-width: $screen-sm) {
+          height: 1.2rem !important;
         }
       }
 
@@ -236,7 +283,7 @@ export default {
         }
 
         @media screen and (max-width: $screen-sm) {
-          display: none !important;
+          font-size: 0.8rem !important;
         }
       }
 

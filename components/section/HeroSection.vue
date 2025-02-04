@@ -4,10 +4,12 @@ import initialConfig from "~/config/initial.config.ts";
 import toolsConfig from "~/config/tools.config.ts";
 import {Vue3Marquee} from "vue3-marquee";
 import NavigationSection from "~/components/section/NavigationSection.vue";
+import TechIcon from "~/components/utilities/TechIcon.vue";
 
 export default {
   name: "HeroSection",
   components: {
+    TechIcon,
     NavigationSection,
     Vue3Marquee,
     TyperUtil
@@ -41,9 +43,10 @@ export default {
           <p class="main__content__spell">{{ $t('main_spell') }}</p>
           <div class="stack">
             <div class="stack__background">
-              <Vue3Marquee pause-on-hover :duration="120" class="stack__background__text">
+              <Vue3Marquee pause-on-hover :duration="60" class="stack__background__text">
                 <div class="stack__text" v-for="tool in tools">
-                  {{tool}}
+                  <TechIcon class="stack__text__icon" :icon="tool"/>
+                  {{ tool }}
                 </div>
               </Vue3Marquee>
             </div>
@@ -284,6 +287,10 @@ export default {
     @media screen and (max-width: $screen-md) {
       width: 12em;
     }
+
+    @media screen and (max-width: $screen-sm) {
+      width: 10em;
+    }
   }
 
   .image__content > img {
@@ -327,6 +334,7 @@ export default {
     max-height: 100%;
     border-radius: 2vw;
     background: -webkit-linear-gradient(0deg, rgb(16, 143, 227) 19%, rgb(1, 218, 185) 100%);
+    overflow: hidden;
     margin-top: 3%;
     margin-bottom: 3%;
     -webkit-user-select: none;
@@ -356,13 +364,23 @@ export default {
   }
 
   &__text {
-    padding-left: 2vw;
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    max-height: 100%;
+    padding: 0 1vw;
     font-weight: bold;
     font-size: 0.8vw;
     color: #1c1c1c;
+    align-items: center;
 
     @media screen and (max-width: $screen-md) {
       font-size: 1em;
+    }
+
+    &__icon {
+      padding-right: 0.2rem;
+      height: 1.3vw;
     }
   }
 }

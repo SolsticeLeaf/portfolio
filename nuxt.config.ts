@@ -34,5 +34,13 @@ export default defineNuxtConfig({
     strategy: 'prefix',
     defaultLocale: 'en',
   },
-  css: ['@/assets/scss/global.scss']
+  css: ['@/assets/scss/global.scss'],
+  runtimeConfig: {
+    public: {
+      CRYPTOCLOUD_SHOP_ID: process.env.CRYPTOCLOUD_SHOP_ID
+    },
+    private: {
+      CRYPTOCLOUD_API_KEY: process.env.CRYPTOCLOUD_API_KEY
+    }
+  }
 })

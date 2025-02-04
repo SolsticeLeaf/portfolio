@@ -8,12 +8,9 @@ export default {
         "javascript",
         "nuxtjs",
         "gradle",
-        "devops",
         "mysql",
-        "junit",
         "mongodb",
         "postgresql",
-        "redis",
-        "encryption"
+        "redis"
     ]
 }

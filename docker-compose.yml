@@ -7,5 +7,8 @@ services:
         - './config:/nuxt/config'
         - './locale:/nuxt/locale'
         - './content:/nuxt/content'
+    environment:
+      - CRYPTOCLOUD_API_KEY=${CRYPTOCLOUD_API_KEY}
+      - CRYPTOCLOUD_SHOP_ID=${CRYPTOCLOUD_SHOP_ID}
     ports:
       - "3000:3000"

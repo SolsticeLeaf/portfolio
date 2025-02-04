@@ -27,7 +27,11 @@ export default {
         {
           label: 'nav_projects',
           icon: 'i-heroicons-queue-list',
-          to: `/${currentLocale}/projects`
+          to: `/${currentLocale}/projects/`
+        },
+        {
+          icon: 'i-heroicons-heart',
+          to: `/${currentLocale}/donate/`
         },
         {
           label: alternateLocale.toUpperCase(),
@@ -53,8 +57,11 @@ export default {
         </div>
       </ULink>
       <UHorizontalNavigation :links="links" class="nav__links" >
+        <template #icon="{ link }">
+          <UIcon :name="link.icon" class="nav__links__icon" />
+        </template>
         <template #default="{ link }">
-          <span class="group-hover:sky relative nav__links__label">{{ $t(link.label) }}</span>
+          <span v-if="link.label" class="group-hover:sky relative nav__links__label">{{ $t(link.label) }}</span>
         </template>
       </UHorizontalNavigation>
     </nav>
@@ -160,6 +167,24 @@ nav {
 
       @media screen and (max-width: $screen-md) {
         font-size: 1.3em;
+      }
+
+      @media screen and (max-width: $screen-sm) {
+        display: none;
+      }
+    }
+
+    &__icon {
+      width: 1.2rem;
+      height: 1.2rem;
+
+      @media screen and (max-width: $screen-md) {
+        width: 1.6rem;
+        height: 1.6rem;
+      }
+
+      @media screen and (max-width: $screen-sm) {
+        padding: 0 1.6rem;
       }
     }
   }
