@@ -187,6 +187,7 @@ const pay = async () => {
       width: fit-content;
       background: transparent;
       border: 1px solid #62baf3;
+      font-size: 0.9rem;
       word-spacing: -0.4rem;
     }
   }

@@ -187,11 +187,11 @@ function getButtonName(name: any): string {
 
         @media screen and (max-width: $screen-md) {
           font-size: 5vw;
-          padding-bottom: 1vw;
+          padding-bottom: 1rem;
         }
 
         @media screen and (max-width: $screen-sm) {
-          font-size: 8vw;
+          font-size: 7.5vw;
           line-height: 8vw;
         }
       }
@@ -203,6 +203,7 @@ function getButtonName(name: any): string {
         width: 100%;
         flex-direction: row;
         overflow-x: scroll;
+        overflow-y: hidden;
         justify-content: center;
         align-items: center;
         align-content: center;
@@ -382,15 +383,14 @@ function getButtonName(name: any): string {
 
     &__tablet {
       width: 30%;
-      max-width: 40%;
       height: 100%;
       display: none;
       align-items: center;
       justify-content: center;
+      vertical-align: center;
 
       &__img {
-        height: fit-content;
-        width: fit-content;
+        width: 100%;
       }
 
       @media screen and (max-width: $screen-md) {
