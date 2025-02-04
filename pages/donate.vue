@@ -2,11 +2,30 @@
 import currencies from "~/config/currencies.config";
 const { locale } = useI18n()
 
+
+const isIOS = computed(() => {
+  return /iPad|iPhone|iPod/.test(navigator.userAgent);
+});
+
+function getDefaultCurrency(list: any) {
+  let defaultCurrency = list[0];
+  if (locale.value === "ru") {
+    defaultCurrency = list.filter((item: any) => { return item.name === "RUB" })[0];
+  }
+  return defaultCurrency;
+};
+
 const amount = ref(currencies[0].default)
-const currency = ref(currencies[0])
+const currency = ref(getDefaultCurrency(currencies))
 
 const changeAmount = () => {
   amount.value = currency.value.default
+}
+
+const checkAmount = () => {
+  if (amount.value < currency.value.default) {
+    amount.value = currency.value.default
+  }
 }
 const pay = async () => {
   try {
@@ -44,6 +63,7 @@ const pay = async () => {
 </script>
 
 <template>
+
   <ClientOnly>
     <div class="wrapper">
       <div class="card">
@@ -56,9 +76,11 @@ const pay = async () => {
           </div>
           <div class="card__main">
             <UInput required
+                    color="primary"
                     v-model="amount"
                     variant="outline"
                     type="number"
+                    @change="checkAmount"
                     :ui="{ rounded: 'rounded-full' }"
                     :placeholder="$t('donate_amount')"
             >
@@ -67,14 +89,20 @@ const pay = async () => {
               </template>
             </UInput>
             /
+            <select class="card__main__select" v-if="isIOS" v-model="currency">
+              <option v-for="curr in currencies" :value="curr">
+                {{curr.name + " " + curr.symbol}}
+              </option>
+            </select>
             <UInputMenu
+                v-else
+                color="primary"
                 v-model="currency"
                 :options="currencies"
                 :placeholder="$t('donate_amount')"
                 :popper="{ arrow: true }"
                 by="id"
                 option-attribute="name"
-                class="w-20"
                 @change="changeAmount"
                 :ui="{ rounded: 'rounded-full' }"
                 :search-attributes="['name', 'symbol']"
@@ -87,11 +115,11 @@ const pay = async () => {
           </div>
           <div class="card__bottom">
             <UButton color="primary"
+                     variant="solid"
                      block
-                     variant="soft"
                      @click="pay"
                      :ui="{ rounded: 'rounded-full' }"
-                     class="card__bottom__button"
+                     class="p-4"
             >
               <UIcon name="i-heroicons-banknotes-20-solid" class="w-5 h-5" />
               {{ $t('donate_send') }}
@@ -105,6 +133,12 @@ const pay = async () => {
 
 <style scoped lang="scss">
 @use '@/assets/scss/variables.scss' as *;
+
+.wrapper {
+  @media screen and (max-width: $screen-sm) {
+    padding: 1rem;
+  }
+}
 
 .donate-container {
   display: flex;
@@ -142,15 +176,18 @@ const pay = async () => {
     column-gap: 1rem;
     padding-top: 0.8rem;
     padding-bottom: 1.4rem;
-  }
+    justify-content: center;
+    align-items: center;
+    -webkit-align-items: center;
 
-  &__bottom {
-
-    &__button {
-      display: flex;
-      justify-content: center;
+    &__select {
+      border-radius: 3rem;
+      padding: 5px;
+      width: fit-content;
+      background: transparent;
+      border: 1px solid #62baf3;
+      word-spacing: -0.4rem;
     }
-
   }
 }
 

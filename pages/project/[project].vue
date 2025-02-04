@@ -92,17 +92,18 @@ function getButtonName(name: any): string {
             </h1>
           </div>
           <div class="content__info__buttons">
-            <div class="content__info__buttons__button__glass" v-for="source in project.mainSources" :key="source.name">
-              <UButton variant="ghost"
+            <div class="content__info__buttons__button" v-for="source in project.mainSources" :key="source.name">
+              <UButton variant="soft"
+                       color="cyan"
                        block
                        :to="source.link"
                        target="_blank"
                        rel="noopener noreferrer"
                        size="xl"
-                       class="content__info__buttons__button__style"
+                       class="p-5"
                        :ui="{ rounded: 'rounded-full'}">
-                <icons class="content__info__buttons__button__icon" :icon="source.icon" :color="source.color"/>
-                <p class="content__info__buttons__button__text">{{ getButtonName(source.name) }}</p>
+                <icons :icon="source.icon" :color="source.color"/>
+                <p>{{ getButtonName(source.name) }}</p>
               </UButton>
             </div>
             <UButton variant="soft"
@@ -111,9 +112,9 @@ function getButtonName(name: any): string {
                      :to="getProjectsPath"
                      rel="noopener noreferrer"
                      size="xl"
-                     class="content__info__buttons__button__style"
+                     class="content__info__buttons__button p-5"
                      :ui="{ rounded: 'rounded-full'}">
-              <icons class="content__info__buttons__button__icon" icon="fa-solid fa-chevron-left" color="red"/>
+              <icons icon="fa-solid fa-chevron-left" color="red"/>
               {{ $t('back_button') }}
             </UButton>
           </div>
@@ -143,6 +144,8 @@ function getButtonName(name: any): string {
   height: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
+  -webkit-align-items: center;
 
   @media screen and (max-width: $screen-md) {
     flex-direction: column;
@@ -276,7 +279,7 @@ function getButtonName(name: any): string {
           display: flex;
           flex-direction: row;
           height: 4.3vh;
-          padding: 0 1vw;
+          padding: 0 1.5rem;
           font-weight: bold;
           font-size: 0.8vw;
           color: #1c1c1c;
@@ -287,7 +290,7 @@ function getButtonName(name: any): string {
           }
 
           @media screen and (max-width: $screen-sm) {
-            font-size: 2.8vw;
+            font-size: 3.5vw;
           }
 
           &__icon {
@@ -299,7 +302,7 @@ function getButtonName(name: any): string {
             }
 
             @media screen and (max-width: $screen-sm) {
-              height: 4.5vw;
+              height: 5vw;
             }
           }
         }
@@ -314,62 +317,8 @@ function getButtonName(name: any): string {
       padding: 0 2vw;
       row-gap: 2vh;
 
-      @media screen and (max-width: $screen-sm) {
+      @media screen and (max-width: $screen-md) {
         padding-top: 3vh;
-      }
-
-      &__button {
-
-        &__style {
-          @media screen and (max-width: $screen-md) {
-            font-size: 1.2rem !important;
-          }
-
-          @media screen and (max-width: $screen-sm) {
-            font-size: 0.9rem !important;
-          }
-        }
-
-        &__glass {
-          filter: none !important;
-          -webkit-filter: none !important;
-          border-radius: 3rem;
-          border: 1px solid rgba(0, 85, 94, 0.31);
-          background: rgba(0, 59, 64, 0.2);
-
-          @media screen and (max-width: $screen-sm) {
-            max-width: fit-content;
-          }
-
-          @media screen and (max-width: $screen-sm) {
-            max-width: 100%;
-          }
-        }
-
-        &__icon {
-          height: 0.8vw !important;
-
-          @media screen and (max-width: $screen-md) {
-            height: 1.5rem !important;
-          }
-
-          @media screen and (max-width: $screen-sm) {
-            height: 1.3rem !important;
-          }
-        }
-
-        &__text {
-          font-size: 0.8vw !important;
-          padding: 0.5em;
-
-          @media screen and (max-width: $screen-md) {
-            font-size: 1.2rem !important;
-          }
-
-          @media screen and (max-width: $screen-sm) {
-            font-size: 0.9rem !important;
-          }
-        }
       }
     }
   }
@@ -378,9 +327,11 @@ function getButtonName(name: any): string {
 
     &__desktop {
       width: 40%;
-      height: 100%;
       overflow-y: scroll;
-      padding: 0 1.5vw;
+      padding: 0 1.8vw;
+      font-size: 1.5em;
+      height: fit-content;
+      max-height: 100%;
 
       @media screen and (max-width: $screen-md) {
         display: none;
@@ -414,15 +365,14 @@ function getButtonName(name: any): string {
 
     &__desktop {
       width: 30%;
-      max-width: 40%;
       height: 100%;
-      display: grid;
+      display: flex;
       align-items: center;
       justify-content: center;
+      vertical-align: center;
 
       &__img {
-        height: fit-content;
-        width: fit-content;
+        width: 100%;
       }
 
       @media screen and (max-width: $screen-md) {
@@ -444,7 +394,7 @@ function getButtonName(name: any): string {
       }
 
       @media screen and (max-width: $screen-md) {
-        display: grid;
+        display: flex;
       }
 
       @media screen and (max-width: $screen-sm) {

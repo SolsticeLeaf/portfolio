@@ -63,17 +63,18 @@ export default {
         </div>
       </div>
       <div class="card__links">
-        <div class="card__links__button__glass" v-for="source in sources" :key="source.name">
-          <UButton variant="ghost"
+        <div class="card__links__button" v-for="source in sources" :key="source.name">
+          <UButton variant="soft"
+                   color="cyan"
                    block
                    :to="source.link"
                    rel="noopener noreferrer"
                    size="xl"
                    :padded=$device.isMobile
-                   class="card__links__button"
+                   class="p-5"
                    :ui="{ rounded: 'rounded-full'}">
-            <icons class="card__links__button__icon" :icon="source.icon" :color="source.color"/>
-            <p class="card__links__button__text">{{ getName(source.name) }}</p>
+            <icons :icon="source.icon" :color="source.color"/>
+            <p class="text-gray-300">{{ getName(source.name) }}</p>
           </UButton>
         </div>
       </div>
@@ -246,47 +247,6 @@ export default {
       width: 100%;
       padding-top: 0.8rem;
       overflow-x: scroll;
-    }
-
-    &__button {
-
-      &__glass {
-        filter: none !important;
-        -webkit-filter: none !important;
-        border-radius: 3rem;
-        border: 1px solid rgba(0, 59, 64, 0.3);
-        background: rgba(0, 59, 64, 0.2);
-
-        @media screen and (max-width: $screen-sm) {
-          max-width: fit-content;
-        }
-      }
-
-      &__icon {
-        height: 0.8vw !important;
-
-        @media screen and (max-width: $screen-md) {
-          height: 0.8rem !important;
-        }
-
-        @media screen and (max-width: $screen-sm) {
-          height: 1.2rem !important;
-        }
-      }
-
-      &__text {
-        font-size: 0.8vw !important;
-        padding: 0.5em;
-
-        @media screen and (max-width: $screen-md) {
-          font-size: 0.7rem !important;
-        }
-
-        @media screen and (max-width: $screen-sm) {
-          font-size: 0.8rem !important;
-        }
-      }
-
     }
   }
 }

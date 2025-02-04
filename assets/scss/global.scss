@@ -12,19 +12,6 @@ body {
   color: $text-color-light;
   line-height: 2;
 
-  a {
-    text-decoration: none;
-    color: inherit;
-    &:hover {
-      color: inherit;
-    }
-  }
-
-  p,
-  em {
-    color: $p-color-dark;
-  }
-
   .wrapper {
     display: flex;
     flex-direction: row;

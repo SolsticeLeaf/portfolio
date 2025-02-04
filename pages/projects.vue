@@ -6,7 +6,6 @@ const { data: projects, status: status } = useFetch('/api/getProjectsData', {
   cache: "no-cache",
   server: false
 });
-
 const hasProjects = computed(() => {
   const items = projects.value
   return (items !== null && items.length > 0);
@@ -14,6 +13,13 @@ const hasProjects = computed(() => {
 
 const isPending = computed(() => {
   return status.value === "pending";
+})
+
+const getSortedProjects = computed(() => {
+  const items = projects.value
+  if (!hasProjects) return []
+  items.sort((a: any, b: any) => a.title.localeCompare(b.title));
+  return items;
 })
 </script>
 
@@ -33,7 +39,7 @@ const isPending = computed(() => {
       <div v-else class="wrapper blur__glass">
         <div class="projects">
           <div class="projects">
-            <div class="projects__card" v-for="item in projects ?? []" :key="item.title">
+            <div class="projects__card" v-for="item in getSortedProjects" :key="item.title">
               <ProjectCard
                   v-bind:title="item.title"
                   :description="item.description"
@@ -58,6 +64,7 @@ const isPending = computed(() => {
 .wrapper {
   clip-path: inset(0 round 3rem);
   overflow-y: scroll;
+  max-height: 84%;
   flex-direction: column;
 
   @media screen and (max-width: $screen-md) {

@@ -129,6 +129,7 @@ export default {
 
     &__spell {
       font-size: 0.8vw;
+      color: $p-color-dark !important;
 
       @media screen and (max-width: $screen-md) {
         font-size: 0.8em;
