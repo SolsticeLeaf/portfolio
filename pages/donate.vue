@@ -64,7 +64,6 @@ const pay = async () => {
 </script>
 
 <template>
-
   <ClientOnly>
     <div class="wrapper">
       <div class="card">
