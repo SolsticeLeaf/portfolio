@@ -64,14 +64,14 @@ export default {
       </div>
       <div class="card__links">
         <div class="card__links__button" v-for="source in sources" :key="source.name">
-          <UButton variant="soft"
+          <UButton variant="outline"
                    color="cyan"
                    block
                    :to="source.link"
                    rel="noopener noreferrer"
                    size="xl"
                    :padded=$device.isMobile
-                   class="p-5"
+                   class="p-3 gap-1"
                    :ui="{ rounded: 'rounded-full'}">
             <icons :icon="source.icon" :color="source.color"/>
             <p class="text-gray-300">{{ getName(source.name) }}</p>

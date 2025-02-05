@@ -77,11 +77,13 @@ const pay = async () => {
           <div class="card__main">
             <UInput required
                     color="primary"
+                    name="amount"
                     v-model="amount"
-                    variant="outline"
+                    variant="none"
+                    class="card__main__input"
                     type="number"
                     @change="checkAmount"
-                    :ui="{ rounded: 'rounded-full' }"
+                    :ui="{ rounded: 'rounded-full'}"
                     :placeholder="$t('donate_amount')"
             >
               <template #leading>
@@ -89,7 +91,7 @@ const pay = async () => {
               </template>
             </UInput>
             /
-            <select class="card__main__select" v-if="isIOS" v-model="currency" @change="changeAmount">
+            <select class="transparent__glass__sky card__main__select" v-if="isIOS" v-model="currency" @change="changeAmount">
               <option v-for="curr in currencies" :value="curr">
                 {{curr.name + " " + curr.symbol}}
               </option>
@@ -180,14 +182,19 @@ const pay = async () => {
     align-items: center;
     -webkit-align-items: center;
 
+    &__input {
+      border: 1px solid #62baf3 !important;
+      border-radius: 10rem;
+    }
+
     &__select {
       border-radius: 3rem;
       padding: 5px;
       width: fit-content;
       background: transparent;
-      border: 1px solid #62baf3;
       font-size: 0.8rem;
       word-spacing: -0.4rem;
+      border: 1px solid #62baf3 !important;
     }
   }
 }

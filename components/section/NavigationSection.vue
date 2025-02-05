@@ -1,47 +1,37 @@
-<script>
+<script setup lang="ts">
 import initialConfig from "@/config/initial.config.ts";
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-export default {
-  name: "NavigationSection",
-  components: { FontAwesomeIcon },
+const { locale } = useI18n()
+const route = useRoute()
+const siteName = initialConfig.siteName;
 
-  data() {
-    return {
-      siteName: initialConfig.siteName,
-    };
-  },
-
-  computed: {
-    links() {
-      const currentLocale = this.$i18n.locale;
-      const alternateLocale = currentLocale === 'en' ? 'ru' : 'en';
-      const currentPath = this.$route.path;
-      const alternatePath = currentPath.replace(`/${currentLocale}`, `/${alternateLocale}`)
-      return [
-        {
-          label: 'nav_home',
-          icon: 'i-heroicons-home',
-          to: `/${currentLocale}/`
-        },
-        {
-          label: 'nav_projects',
-          icon: 'i-heroicons-queue-list',
-          to: `/${currentLocale}/projects/`
-        },
-        {
-          icon: 'i-heroicons-heart',
-          to: `/${currentLocale}/donate/`
-        },
-        {
-          label: alternateLocale.toUpperCase(),
-          icon: 'i-heroicons-globe-alt',
-          to: alternatePath
-        }
-      ];
+const links = computed((): [any] => {
+  const currentLocale = locale.value;
+  const alternateLocale = currentLocale === 'en' ? 'ru' : 'en';
+  const currentPath = route.path;
+  const alternatePath = currentPath.replace(`/${currentLocale}`, `/${alternateLocale}`)
+  return [
+    {
+      label: 'nav_home',
+      icon: 'i-heroicons-home',
+      to: `/${currentLocale}/`
+    },
+    {
+      label: 'nav_projects',
+      icon: 'i-heroicons-queue-list',
+      to: `/${currentLocale}/projects/`
+    },
+    {
+      icon: 'i-heroicons-heart',
+      to: `/${currentLocale}/donate/`
+    },
+    {
+      label: alternateLocale.toUpperCase(),
+      icon: 'i-heroicons-globe-alt',
+      to: alternatePath
     }
-  }
-};
+  ];
+})
 </script>
 
 <template>
@@ -185,6 +175,7 @@ nav {
 
       @media screen and (max-width: $screen-sm) {
         padding: 0 1.6rem;
+        color: $p-color-dark;
       }
     }
   }

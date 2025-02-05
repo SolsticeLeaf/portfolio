@@ -1,28 +1,14 @@
-<script>
+<script setup lang="ts">
 import TyperUtil from "~/components/utilities/TyperUtil.vue";
 import initialConfig from "~/config/initial.config.ts";
 import toolsConfig from "~/config/tools.config.ts";
 import {Vue3Marquee} from "vue3-marquee";
-import NavigationSection from "~/components/section/NavigationSection.vue";
 import TechIcon from "~/components/utilities/TechIcon.vue";
 
-export default {
-  name: "HeroSection",
-  components: {
-    TechIcon,
-    NavigationSection,
-    Vue3Marquee,
-    TyperUtil
-  },
-  data: function () {
-    return {
-      nickname: initialConfig.nickname,
-      main_avatar: initialConfig.hero.avatar_url,
-      main_socialLinks: initialConfig.socialLinks,
-      tools: toolsConfig.tools
-    }
-  }
-}
+const nickname = initialConfig.nickname;
+const avatar = initialConfig.hero.avatar_url;
+const links = initialConfig.socialLinks;
+const tools = toolsConfig.tools;
 </script>
 
 <template>
@@ -54,7 +40,7 @@ export default {
           <h6 class="main__content__social">
             {{$t('main_follow')}}
             <a class="main__content__social-icons">
-              <icons :href="link.url" v-for="link in main_socialLinks" :key="link.icon" :icon="'fa-brands fa-'+link.icon" class="social-icon github" />
+              <icons :href="link.url" v-for="link in links" :key="link.icon" :icon="'fa-brands fa-'+link.icon" class="social-icon github" />
             </a>
           </h6>
           <div class="main__content__button">
@@ -81,7 +67,7 @@ export default {
         <div class="image__content">
           <NuxtImg
               id="hero-avatar"
-              :src="this.main_avatar"
+              :src="avatar"
               alt="SolsticeLeaf"
               fit="cover"
               height="80%"
@@ -360,7 +346,7 @@ export default {
     }
 
     @media screen and (max-width: $screen-sm) {
-      max-width: 15rem;
+      max-width: 20rem;
     }
   }
 
@@ -377,11 +363,16 @@ export default {
 
     @media screen and (max-width: $screen-md) {
       font-size: 1em;
+      padding: 0 2vw;
     }
 
     &__icon {
       padding-right: 0.2rem;
       height: 1.3vw;
+
+      @media screen and (max-width: $screen-md) {
+        height: 1em;
+      }
     }
   }
 }

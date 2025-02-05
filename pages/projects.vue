@@ -64,12 +64,17 @@ const getSortedProjects = computed(() => {
 .wrapper {
   clip-path: inset(0 round 3rem);
   overflow-y: scroll;
-  max-height: 84%;
   flex-direction: column;
 
   @media screen and (max-width: $screen-md) {
     width: fit-content;
     padding: 0;
+  }
+
+  @media screen and (max-width: $screen-sm) {
+    height: fit-content;
+    max-height: fit-content;
+    overflow-y: visible;
   }
 }
 
@@ -88,6 +93,12 @@ const getSortedProjects = computed(() => {
   height: fit-content;
   display: flex;
   flex-direction: column;
+
+  @media screen and (max-width: $screen-sm) {
+    height: fit-content;
+    max-height: fit-content;
+    overflow-y: visible;
+  }
 
   &__card {
     margin: 1rem;

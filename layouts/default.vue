@@ -1,37 +1,38 @@
-<script>
+<script setup lang="ts">
+import {Vue3Marquee} from "vue3-marquee";
 import NavigationSection from "~/components/section/NavigationSection.vue";
 import AnnouncementSection from "~/components/section/AnnouncementSection.vue";
 import initialConfig from "@/config/initial.config.ts";
 
-export default {
-  name: "default",
-  components: { AnnouncementSection, NavigationSection },
+const nickname = initialConfig.nickname;
+const repeatRows = ref(4)
 
-  data() {
-    return {
-      nickname: initialConfig.nickname,
-      repeatCols: 2,
-      repeatRows: 4
-    };
-  },
-  mounted() {
-    this.calculateRepeatCount();
-    window.addEventListener('resize', this.calculateRepeatCount);
-  },
-  beforeUnmount() {
-    window.removeEventListener('resize', this.calculateRepeatCount);
-  },
-  methods: {
-    calculateRepeatCount() {
-      const screenHeight = window.innerHeight;
-      const row = document.querySelector('.background__text__row');
-      const clientHeight = row.clientHeight;
-      if (clientHeight > 0) {
-        this.repeatRows = Math.ceil(screenHeight/clientHeight) - 1;
-      }
-    }
+function calculateDirection(index) : 'normal' | 'reverse' {
+  if (index % 2 === 0) {
+    return "reverse";
   }
-};
+  return "normal";
+}
+
+const resizeEvent = function() {
+  const screenHeight = window.innerHeight;
+  const row = document.querySelector('.background__text__row');
+  const clientHeight = row.clientHeight;
+  if (clientHeight > 0) {
+    repeatRows.value = Math.ceil(screenHeight/clientHeight) - 1;
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('resize', resizeEvent);
+  nextTick(() => {
+    resizeEvent();
+  })
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', resizeEvent);
+})
 </script>
 
 <template>
@@ -39,13 +40,11 @@ export default {
     <div class="background__blur">
       <div class="background__text">
         <div v-for="(row, rowIndex) in repeatRows" :key="'row-' + rowIndex" class="background__text__row">
-          <span
-              v-for="(col, colIndex) in repeatCols"
-              :id="'row-' + rowIndex + 'col-' + colIndex"
-              :key="'col-' + colIndex"
-              class="background__text__word">
-            {{ $t(nickname) }}
-          </span>
+          <Vue3Marquee :duration="60" clone :direction='calculateDirection(rowIndex)' >
+            <div class="background__text__word">
+              {{ $t(nickname) }}
+            </div>
+          </Vue3Marquee>
         </div>
       </div>
     </div>
@@ -74,6 +73,10 @@ export default {
   height: 100vh;
   max-width: 100vw;
   max-height: 100vh;
+
+  @media screen and (max-width: $screen-sm) {
+    height: fit-content;
+  }
 }
 
 .footer {
