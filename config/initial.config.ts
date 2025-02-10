@@ -1,6 +1,6 @@
 export default {
     nickname: "SolsticeLeaf",
-    siteName: "Kiinse",
+    siteName: "SLEAF",
     hero: {
         avatar_url: 'https://ik.imagekit.io/kiinse/8b283c0366762231-sticker-transformed.webp?updatedAt=1723924643048'
     },
@@ -19,8 +19,8 @@ export default {
         desktopSpeed: 8 as number
     },
     api: {
-        projects: 'https://kiinse.dev:7272/api/getProjects',
-        project: 'https://kiinse.dev:7272/api/getProject/{id}',
-        announcements: 'https://kiinse.dev:7272/api/getAnnouncements'
+        projects: 'https://sleaf.dev:7272/api/getProjects',
+        project: 'https://sleaf.dev:7272/api/getProject/{id}',
+        announcements: 'https://sleaf.dev:7272/api/getAnnouncements'
     }
 }

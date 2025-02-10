@@ -330,7 +330,7 @@ function getButtonName(name: any): string {
       width: 40%;
       overflow-y: scroll;
       padding: 0 1.8vw;
-      font-size: 1.5em;
+      font-size: 1.2em;
       height: fit-content;
       max-height: 100%;
 

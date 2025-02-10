@@ -1,2 +1,2 @@
 User-agent: *
-Allow: https://kiinse.dev
+Allow: https://sleaf.dev

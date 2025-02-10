@@ -41,10 +41,6 @@ const links = computed((): [any] => {
         <a class="nav__logo__name">
           {{ $t(siteName) }}
         </a>
-        <div class="nav__logo__text">
-          <a class="nav__logo__text__first">Knowledge Integration Intelligent</a>
-          <a class="nav__logo__text__second">Network Systems Engineering</a>
-        </div>
       </ULink>
       <UHorizontalNavigation :links="links" class="nav__links" >
         <template #icon="{ link }">
@@ -93,51 +89,16 @@ nav {
 
     &__name {
       position: relative !important;
-      font-size: 2.8vw;
+      font-size: 2vw;
       background: -webkit-linear-gradient(0deg, rgb(2, 127, 252) 35%, rgb(3, 209, 255) 51%, rgb(5, 209, 255) 86%, rgb(2, 254, 216) 100%);
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
-      line-height: 2.8vw;
+      line-height: 2vw;
 
       @media screen and (max-width: $screen-md) {
         font-size: 2em;
         line-height: 2em;
-      }
-    }
-
-    &__text {
-      display: inline-flex;
-      flex-direction: column;
-
-      &__first {
-        margin-top: 0.1vw;
-        text-align: justify;
-        width: fit-content;
-        line-height: 0.7vw;
-        max-height: 0.6vw;
-        position: relative;
-        display: inline-block;
-        font-style: italic;
-        font-size: 0.5vw;
-        color: #949494;
-
-      }
-
-      &__second {
-        width: fit-content;
-        position: relative;
-        display: inline-block;
-        line-height: 0.7vw;
-        max-height: 0.6vw;
-        text-align: justify;
-        font-style: italic;
-        font-size: 0.5vw;
-        color: #949494;
-      }
-
-      @media screen and (max-width: $screen-md) {
-        display: none;
       }
     }
 

@@ -44,7 +44,7 @@ const tools = toolsConfig.tools;
             </a>
           </h6>
           <div class="main__content__button">
-            <a href="mailto:solsticeleaf@kiinse.dev" class="main__content__button__solid">
+            <a href="mailto:me@sleaf.dev" class="main__content__button__solid">
               <UButton variant="solid" class="main__content__button__style" size="xl" :ui="{ rounded: 'rounded-full' }">
                 <template #leading>
                   <icons color="sky" icon="fas fa-envelope"/>
