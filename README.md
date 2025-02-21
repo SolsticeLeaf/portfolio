@@ -15,8 +15,8 @@
   <a href="https://github.com/SolsticeLeaf/portfolio/blob/master/LICENSE">
     <img src="https://img.shields.io/github/license/SolsticeLeaf/portfolio?style=flat-square" alt="licence"> 
   </a>
-  <a href="https://jenkins.kiinse.dev/job/Portfolio/">
-    <img src="https://jenkins.kiinse.dev/job/Portfolio/badge/icon?style=flat-square" alt="jenkins">
+  <a href="https://jenkins.sleaf.dev/job/Portfolio/">
+    <img src="https://jenkins.sleaf.dev/job/Portfolio/badge/icon?style=flat-square" alt="jenkins">
   </a>
 <br>
 </p>
