@@ -1,5 +1,9 @@
 <script setup lang="ts">
-const { locale } = useI18n()
+import config from "~/config/initial.config";
+
+const { locale, getLocaleMessage } = useI18n()
+
+useHead({title: getLocaleMessage(locale.value)["donate_error"] + " | " + config.siteName});
 
 const getProjectsPath = computed(() => {
   const currentLocale = locale.value;
@@ -16,16 +20,12 @@ const getProjectsPath = computed(() => {
             {{ $t('donate_error') }}
           </div>
           <div class="card__bottom">
-            <UButton color="red"
-                     block
-                     :to="getProjectsPath"
-                     variant="soft"
-                     :ui="{ rounded: 'rounded-full' }"
-                     class="card__bottom__button"
-            >
-              <UIcon name="i-heroicons-x-mark-20-solid" class="w-5 h-5" />
-              {{ $t('donate_button_home') }}
-            </UButton>
+            <a :href="getProjectsPath" class="card__bottom__button">
+              <el-button class="card__bottom__button" color="red" round>
+                <icons icon="fa-solid fa-xmark" class="card__bottom__button__text icon_padding_right" />
+                <p class="card__bottom__button__text">{{ $t('donate_button_home') }}</p>
+              </el-button>
+            </a>
           </div>
         </div>
       </div>
@@ -34,7 +34,6 @@ const getProjectsPath = computed(() => {
 </template>
 
 <style scoped lang="scss">
-@use '@/assets/scss/variables.scss' as *;
 
 .donate-container {
   display: flex;
@@ -53,15 +52,24 @@ const getProjectsPath = computed(() => {
     text-align: center;
     font-size: 1.2rem;
     padding-bottom: 1rem;
+    color: var(--text-color-primary)
   }
 
   &__bottom {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    justify-items: center;
 
     &__button {
-      display: flex;
-      justify-content: center;
-    }
+      width: 100%;
+      height: 2.5rem;
 
+      &__text {
+        font-size: 1rem;
+        color: var(--text-color-light);
+      }
+    }
   }
 }
 

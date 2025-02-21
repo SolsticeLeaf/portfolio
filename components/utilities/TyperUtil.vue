@@ -63,15 +63,15 @@ export default {
 </template>
 
 <style scoped lang="scss">
-@use "@/assets/scss/variables.scss" as *;
+@use "@/assets/scss/screens.scss" as *;
 
 h1 {
   font-size: 1.3vw;
   font-weight: normal;
-  font-family: $font-family-primary;
+  font-family: 'Roboto Mono', monospace;
 
   span.typed-text {
-    color: $color-primary-7;
+    color: var(--color-typer-text);
   }
 
   @media screen and (max-width: $screen-md) {
@@ -86,7 +86,7 @@ h1 {
 .blinking-cursor {
   font-size: 1.8vw;
   line-height: 1;
-  color: $color-primary-1;
+  color: var(--co);
   -webkit-animation: 1s blink step-end infinite;
   -moz-animation: 1s blink step-end infinite;
   -o-animation: 1s blink step-end infinite;
@@ -104,7 +104,7 @@ h1 {
     color: transparent;
   }
   50% {
-    color: $color-primary-1;
+    color: var(--color-typer-cursor);
   }
 }
 
@@ -114,7 +114,7 @@ h1 {
     color: transparent;
   }
   50% {
-    color: $color-primary-1;
+    color: var(--color-typer-cursor);
   }
 }
 
@@ -124,7 +124,7 @@ h1 {
     color: transparent;
   }
   50% {
-    color: $color-primary-1;
+    color: var(--color-typer-cursor);
   }
 }
 
@@ -134,7 +134,7 @@ h1 {
     color: transparent;
   }
   50% {
-    color: $color-primary-1;
+    color: var(--color-typer-cursor);
   }
 }
 
@@ -144,7 +144,7 @@ h1 {
     color: transparent;
   }
   50% {
-    color: $color-primary-1;
+    color: var(--color-typer-cursor);
   }
 }
 </style>

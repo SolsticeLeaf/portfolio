@@ -53,7 +53,7 @@ function getLocaled(value: any): string {
 </template>
 
 <style scoped lang="scss">
-@use "assets/scss/variables" as *;
+@use '@/assets/scss/screens' as *;
 
 .announcements {
   display: flex;
@@ -64,7 +64,7 @@ function getLocaled(value: any): string {
   bottom: 0;
   width: 100%;
   z-index: 50;
-  background: -webkit-linear-gradient(0deg, rgb(229, 3, 254) 19%, rgb(132, 2, 254) 100%);
+  background: var(--announcements-gradient);
 
   .announcements__text {
     padding-left: 20rem;

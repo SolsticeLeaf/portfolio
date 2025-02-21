@@ -32,7 +32,7 @@ export default defineI18nConfig(() => ({
                 "Software engineer"
             ],
             SolsticeLeaf: "SolsticeLeaf",
-            Kiinse: "Kiinse",
+            SLEAF: "SLEAF",
             RU: "RU",
             EN: "EN"
         },
@@ -65,7 +65,7 @@ export default defineI18nConfig(() => ({
                 "Software engineer"
             ],
             SolsticeLeaf: "SolsticeLeaf",
-            Kiinse: "Kiinse",
+            SLEAF: "SLEAF",
             RU: "RU",
             EN: "EN"
         },

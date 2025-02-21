@@ -2,7 +2,7 @@ export default {
     nickname: "SolsticeLeaf",
     siteName: "SLEAF",
     hero: {
-        avatar_url: 'https://ik.imagekit.io/kiinse/8b283c0366762231-sticker-transformed.webp?updatedAt=1723924643048'
+        avatar_url: 'https://ik.imagekit.io/kiinse/image.svg?updatedAt=1740156640122'
     },
     socialLinks: [
         {

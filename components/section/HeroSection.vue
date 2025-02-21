@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import TyperUtil from "~/components/utilities/TyperUtil.vue";
-import initialConfig from "~/config/initial.config.ts";
-import toolsConfig from "~/config/tools.config.ts";
+import initialConfig from "~/config/initial.config";
+import toolsConfig from "~/config/tools.config";
 import {Vue3Marquee} from "vue3-marquee";
 import TechIcon from "~/components/utilities/TechIcon.vue";
 
@@ -9,6 +9,27 @@ const nickname = initialConfig.nickname;
 const avatar = initialConfig.hero.avatar_url;
 const links = initialConfig.socialLinks;
 const tools = toolsConfig.tools;
+
+const buttonColor = ref('');
+const secondaryButtonColor = ref('');
+
+const updateColors = () => {
+  if (document.body) {
+    buttonColor.value = getComputedStyle(document.body).getPropertyValue('--button-color').trim();
+    secondaryButtonColor.value = getComputedStyle(document.body).getPropertyValue('--secondary-button-color').trim();
+  }
+};
+
+onMounted(() => {
+  updateColors();
+  const observer = new MutationObserver(() => {
+    updateColors();
+  });
+  observer.observe(document.body, { attributes: true});
+  onBeforeUnmount(() => {
+    observer.disconnect();
+  });
+});
 </script>
 
 <template>
@@ -45,20 +66,16 @@ const tools = toolsConfig.tools;
           </h6>
           <div class="main__content__button">
             <a href="mailto:me@sleaf.dev" class="main__content__button__solid">
-              <UButton variant="solid" class="main__content__button__style" size="xl" :ui="{ rounded: 'rounded-full' }">
-                <template #leading>
-                  <icons color="sky" icon="fas fa-envelope"/>
-                </template>
+              <el-button class="main__content__button__solid" :color="buttonColor" round size="large">
+                <icons class="main__content__button__solid__text icon_padding_right" icon="fas fa-envelope"/>
                 <p class="main__content__button__solid__text">{{ $t('main_email') }}</p>
-              </UButton>
+              </el-button>
             </a>
             <a href='https://discord.com/users/SolsticeLeaf' target="_blank" rel="noopener noreferrer" class="main__content__button__outline">
-              <UButton variant="outline" class="main__content__button__style" size="xl" :ui="{ rounded: 'rounded-full'}">
-                <template #leading>
-                  <icons icon="fa-brands fa-discord" color="#ffffff"/>
-                </template>
+              <el-button class="main__content__button__outline" :color="secondaryButtonColor" round size="large">
+                <icons class="main__content__button__outline__text icon_padding_right" icon="fa-brands fa-discord"/>
                 <p class="main__content__button__outline__text">{{ $t('main_discord') }}</p>
-              </UButton>
+              </el-button>
             </a>
           </div>
         </div>
@@ -80,8 +97,7 @@ const tools = toolsConfig.tools;
 </template>
 
 <style scoped lang="scss">
-@use '@/assets/scss/mixins.scss' as mixins;
-@use '@/assets/scss/variables.scss' as *;
+@use '@/assets/scss/screens' as *;
 
 //* {
 //  border: 1px solid white !important;
@@ -115,7 +131,7 @@ const tools = toolsConfig.tools;
 
     &__spell {
       font-size: 0.8vw;
-      color: $p-color-dark !important;
+      color: var(--text-color-gray) !important;
 
       @media screen and (max-width: $screen-md) {
         font-size: 0.8em;
@@ -141,13 +157,9 @@ const tools = toolsConfig.tools;
       }
 
       &__second {
-        color: $color-primary-7;
+        color: var(--username);
         font-weight: bold;
       }
-    }
-
-    .know-more {
-      @include mixins.anchor($color-primary-1);
     }
 
     &__social {
@@ -173,11 +185,11 @@ const tools = toolsConfig.tools;
       }
 
       .github:hover, .medium:hover {
-        color: #6e6e6e;
+        color: var(--color-gray);
       }
 
       .NuxtLinkedin:hover {
-        color: #0077b5;
+        color: var(--link-hover);
       }
     }
 
@@ -208,9 +220,10 @@ const tools = toolsConfig.tools;
 
 
       &__solid {
+        height: 2.5rem;
 
         &__text {
-          color: #1c1c1c !important;
+          color: var(--solid-button-text) !important;
           font-size: 0.8vw !important;
 
           @media screen and (max-width: $screen-md) {
@@ -218,19 +231,28 @@ const tools = toolsConfig.tools;
             line-height: 0.8rem !important;
           }
         }
+
+        @media screen and (max-width: $screen-sm) {
+          height: 3rem;
+        }
       }
 
       &__outline {
         margin-left: 2%;
+        height: 2.5rem;
 
         &__text {
-          color: $text-color-light !important;
+          color: var(--outline-button-text) !important;
           font-size: 0.8vw !important;
 
           @media screen and (max-width: $screen-md) {
             font-size: 0.8rem !important;
             line-height: 0.8rem !important;
           }
+        }
+
+        @media screen and (max-width: $screen-sm) {
+          height: 3rem;
         }
       }
 
@@ -247,11 +269,11 @@ const tools = toolsConfig.tools;
 
     .type-writer {
       max-height: 100%;
-      color: $color-primary-7;
+      color: var(--color-typer-text);
       font-style: italic;
 
       .Typist .Cursor {
-        color: $color-primary-1;
+        color: var(--color-typer-cursor);
       }
     }
   }
@@ -320,7 +342,7 @@ const tools = toolsConfig.tools;
     max-width: 21vw;
     max-height: 100%;
     border-radius: 2vw;
-    background: -webkit-linear-gradient(0deg, rgb(16, 143, 227) 19%, rgb(1, 218, 185) 100%);
+    background: var(--stack-gradient);
     overflow: hidden;
     margin-top: 3%;
     margin-bottom: 3%;
@@ -358,7 +380,7 @@ const tools = toolsConfig.tools;
     padding: 0 1vw;
     font-weight: bold;
     font-size: 0.8vw;
-    color: #1c1c1c;
+    color: var(--text-stack);
     align-items: center;
 
     @media screen and (max-width: $screen-md) {

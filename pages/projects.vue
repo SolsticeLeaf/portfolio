@@ -1,11 +1,16 @@
 <script setup lang="ts">
 import ProjectCard from "@/components/card/ProjectCard.vue";
+import config from "~/config/initial.config";
+const { locale, getLocaleMessage } = useI18n()
+
 const { data: projects, status: status } = useFetch('/api/getProjectsData', {
   key: 'projects',
   default: () => [],
   cache: "no-cache",
   server: false
 });
+
+useHead({title: getLocaleMessage(locale.value)["nav_projects"] + " | " + config.siteName});
 const hasProjects = computed(() => {
   const items = projects.value
   return (items !== null && items.length > 0);
@@ -55,7 +60,7 @@ const getSortedProjects = computed(() => {
 </template>
 
 <style scoped lang="scss">
-@use '@/assets/scss/variables.scss' as *;
+@use '@/assets/scss/screens' as *;
 
 //* {
 //  border: 1px solid white !important;
@@ -65,6 +70,8 @@ const getSortedProjects = computed(() => {
   clip-path: inset(0 round 3rem);
   overflow-y: scroll;
   flex-direction: column;
+  box-sizing: border-box;
+  height: 80%;
 
   @media screen and (max-width: $screen-md) {
     width: fit-content;
@@ -85,8 +92,8 @@ const getSortedProjects = computed(() => {
 
 ::-webkit-scrollbar-thumb {
   border-radius: 3rem;
-  background-color: rgba(0, 0, 0, .5);
-  box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+  background-color: var(--scrollbar-background);
+  box-shadow: 0 0 1px var(--scrollbar-shadow);
 }
 
 .projects {

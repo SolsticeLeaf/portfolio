@@ -1,5 +1,10 @@
 <script setup lang="ts">
 import HeroSection from "~/components/section/HeroSection.vue";
+import config from "~/config/initial.config";
+
+useHead({
+          title: config.nickname
+        });
 </script>
 
 <template>
@@ -9,5 +14,4 @@ import HeroSection from "~/components/section/HeroSection.vue";
 </template>
 
 <style scoped lang="scss">
-@use "assets/scss/variables" as *;
 </style>

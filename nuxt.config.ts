@@ -14,7 +14,7 @@ export default defineNuxtConfig({
         { key: 'description', name: 'description', content: '' },
         { name: 'format-detection', content: 'telephone=no' },
       ],
-      link: [{ rel: 'icon', type: 'image/x-icon', href: 'https://ik.imagekit.io/kiinse/8b283c0366762231-sticker-transformed.webp?updatedAt=1723924643048' }]
+      link: [{ rel: 'icon', type: 'image/x-icon', href: 'https://ik.imagekit.io/kiinse/icons/icon.svg?updatedAt=1740170186956' }]
     }
   },
   compatibilityDate: '2025-01-29',
@@ -25,7 +25,9 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@vesp/nuxt-fontawesome',
     '@nuxt/ui',
-    '@nuxt/fonts'
+    '@nuxt/fonts',
+    '@nuxtjs/color-mode',
+    '@element-plus/nuxt'
   ],
   plugins: ['@/plugins/Vue3Marquee.client.ts'],
   i18n: {

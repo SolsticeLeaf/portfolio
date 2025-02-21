@@ -1,15 +1,16 @@
-@use "mixins" as *;
-@use "variables" as *;
+@use "themes/light";
+@use "themes/dark";
+@use "screens" as *;
 
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: $font-family-primary;
+  font-family: 'Roboto Mono', monospace;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #1c1c1c;
-  color: $text-color-light;
+  background-color: var(--background);
+  color: var(--text-color-primary);
   line-height: 2;
 
   .wrapper {
@@ -24,14 +25,18 @@ body {
   }
 }
 
+.icon_padding_right {
+  padding-right: 0.5rem;
+}
+
 .blur__glass {
   filter: none !important;
   -webkit-filter: none !important;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-radius: 3rem;
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--glass-border);
+  background: var(--glass-background);
   padding: 2rem;
 }
 
@@ -39,17 +44,17 @@ body {
   filter: none !important;
   -webkit-filter: none !important;
   border-radius: 3rem;
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--glass-border);
+  background: var(--glass-background);
   padding: 2rem;
 }
 
 ::selection {
-  background: $color-primary-1;
-  color: $text-color-light;
+  background: var(--selection-background);
+  color: var(--selection-color);
 }
 
 ::-moz-selection {
-  background: $color-primary-1;
-  color: $text-color-light;
+  background: var(--selection-background);
+  color: var(--selection-color);
 }

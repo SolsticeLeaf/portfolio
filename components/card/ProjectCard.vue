@@ -1,4 +1,5 @@
 <script>
+
 export default {
   name: "ProjectCard",
   props: {
@@ -64,18 +65,15 @@ export default {
       </div>
       <div class="card__links">
         <div class="card__links__button" v-for="source in sources" :key="source.name">
-          <UButton variant="outline"
-                   color="cyan"
-                   block
-                   :to="source.link"
-                   rel="noopener noreferrer"
-                   size="xl"
-                   :padded=$device.isMobile
-                   class="p-3 gap-1"
-                   :ui="{ rounded: 'rounded-full'}">
-            <icons :icon="source.icon" :color="source.color"/>
-            <p class="text-gray-300">{{ getName(source.name) }}</p>
-          </UButton>
+          <a :href="source.link"
+             rel="noopener noreferrer">
+            <el-button class="card__links__button"
+                       :color="source.color"
+                       round size="large">
+              <icons class="card__links__text icon_padding_right" :icon="source.icon"/>
+              <p class="card__links__text">{{ getName(source.name) }}</p>
+            </el-button>
+          </a>
         </div>
       </div>
     </div>
@@ -83,7 +81,7 @@ export default {
 </template>
 
 <style scoped lang="scss">
-@use '@/assets/scss/variables.scss' as *;
+@use '@/assets/scss/screens' as *;
 
 //* {
 //  border: 1px solid deepskyblue !important;
@@ -96,8 +94,8 @@ export default {
 
 ::-webkit-scrollbar-thumb {
   border-radius: 3rem;
-  background-color: rgb(174, 174, 174);
-  box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+  background-color: var(--scrollbar-background);
+  box-shadow: 0 0 1px var(--scrollbar-shadow);
 }
 
 .glass {
@@ -184,7 +182,7 @@ export default {
       &__text {
         overflow: hidden;
         font-size: 1.8vw;
-        background: -webkit-linear-gradient(0deg, rgb(0, 225, 255) 35%, rgb(3, 255, 247) 51%, rgb(5, 247, 255) 86%, rgb(2, 216, 254) 100%);
+        background: var(--card-gradient);
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -247,6 +245,23 @@ export default {
       width: 100%;
       padding-top: 0.8rem;
       overflow-x: scroll;
+    }
+
+    &__button {
+      width: 100%;
+      height: 3.5rem;
+
+      @media screen and (max-width: $screen-md) {
+        height: 3rem;
+      }
+
+      @media screen and (max-width: $screen-sm) {
+        width: 90%;
+      }
+    }
+
+    &__text {
+      color: var(--text-color-light);
     }
   }
 }

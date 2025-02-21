@@ -1,11 +1,43 @@
 <script setup lang="ts">
-import initialConfig from "@/config/initial.config.ts";
+import initialConfig from "@/config/initial.config";
 
+const colorMode = useColorMode()
 const { locale } = useI18n()
 const route = useRoute()
 const siteName = initialConfig.siteName;
 
-const links = computed((): [any] => {
+function changeTheme() {
+  const preferences = colorMode.preference;
+  if (preferences === 'system') {
+    colorMode.value = 'light';
+    colorMode.preference = 'light';
+    document.body.setAttribute("data-theme", "light");
+  } else if (preferences === 'light') {
+    colorMode.value = 'dark';
+    colorMode.preference = 'dark';
+    document.body.setAttribute("data-theme", "dark");
+  } else if (preferences === 'dark') {
+    colorMode.value = 'system';
+    colorMode.preference = 'system';
+    if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+      document.body.setAttribute("data-theme", "light");
+    } else {
+      document.body.setAttribute("data-theme", "dark");
+    }
+  }
+}
+
+const getThemeIcon = computed(() => {
+  const mode = colorMode.value;
+  if (colorMode.preference === 'system') {
+    return 'i-heroicons-computer-desktop';
+  } else if (mode === 'dark') {
+    return 'i-heroicons-moon';
+  } else if (mode === 'light') {
+    return 'i-heroicons-sun';
+  }
+});
+const links = computed((): any => {
   const currentLocale = locale.value;
   const alternateLocale = currentLocale === 'en' ? 'ru' : 'en';
   const currentPath = route.path;
@@ -24,6 +56,10 @@ const links = computed((): [any] => {
     {
       icon: 'i-heroicons-heart',
       to: `/${currentLocale}/donate/`
+    },
+    {
+      icon: getThemeIcon.value,
+      click: changeTheme,
     },
     {
       label: alternateLocale.toUpperCase(),
@@ -55,11 +91,15 @@ const links = computed((): [any] => {
 </template>
 
 <style scoped lang="scss">
-@use "assets/scss/variables" as *;
+@use '@/assets/scss/screens' as *;
 
 //* {
 //  border: 1px solid deepskyblue !important;
 //}
+
+:root {
+  color-scheme: dark;
+}
 
 nav {
   display: flex;
@@ -90,7 +130,7 @@ nav {
     &__name {
       position: relative !important;
       font-size: 2vw;
-      background: -webkit-linear-gradient(0deg, rgb(2, 127, 252) 35%, rgb(3, 209, 255) 51%, rgb(5, 209, 255) 86%, rgb(2, 254, 216) 100%);
+      background: var(--logo-gradient);
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -114,7 +154,8 @@ nav {
     margin: 0 !important;
 
     &__label {
-      font-size: 0.7vw;
+      font-size: 1rem;
+      color: var(--text-navigation);
 
       @media screen and (max-width: $screen-md) {
         font-size: 1.3em;
@@ -128,6 +169,7 @@ nav {
     &__icon {
       width: 1.2rem;
       height: 1.2rem;
+      color: var(--text-navigation);
 
       @media screen and (max-width: $screen-md) {
         width: 1.6rem;
@@ -136,7 +178,7 @@ nav {
 
       @media screen and (max-width: $screen-sm) {
         padding: 0 1.6rem;
-        color: $p-color-dark;
+        color: var(--text-navigation);
       }
     }
   }

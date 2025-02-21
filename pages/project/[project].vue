@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import config from "@/config/initial.config"
 import TechIcon from "~/components/utilities/TechIcon.vue";
 const { locale } = useI18n()
 const route = useRoute()
@@ -10,7 +11,21 @@ const { data: project, status: status } = useFetch('/api/getProjectData', {
   },
   default: () => {},
   cache: "no-cache",
-  server: false
+  server: false,
+  onResponse: (response) => {
+    const item = response.response._data
+    if (item != null) {
+      useHead({
+                title: item.title + " | " + config.siteName,
+                meta: [{
+                  name: 'description',
+                  content: getDescription(item.description),
+                }]
+      });
+    } else {
+      useHead({title: "ERROR | " + config.siteName});
+    }
+  }
 });
 
 const isPending = computed(() => {
@@ -93,30 +108,28 @@ function getButtonName(name: any): string {
           </div>
           <div class="content__info__buttons">
             <div class="content__info__buttons__button" v-for="source in project.mainSources" :key="source.name">
-              <UButton variant="soft"
-                       color="cyan"
-                       block
-                       :to="source.link"
-                       target="_blank"
-                       rel="noopener noreferrer"
-                       size="xl"
-                       class="p-5"
-                       :ui="{ rounded: 'rounded-full'}">
-                <icons :icon="source.icon" :color="source.color"/>
-                <p>{{ getButtonName(source.name) }}</p>
-              </UButton>
+              <a  :href="source.link"
+                  target="_blank"
+                  rel="noopener noreferrer">
+                <el-button :color="source.color"
+                           round size="large"
+                           class="content__info__buttons__button"
+                >
+                  <icons class="content__info__buttons__button_text icon_padding_right" :icon="source.icon"/>
+                  <p class="content__info__buttons__button_text">{{ getButtonName(source.name) }}</p>
+                </el-button>
+              </a>
             </div>
-            <UButton variant="soft"
-                     block
-                     color="red"
-                     :to="getProjectsPath"
-                     rel="noopener noreferrer"
-                     size="xl"
-                     class="content__info__buttons__button p-5"
-                     :ui="{ rounded: 'rounded-full'}">
-              <icons icon="fa-solid fa-chevron-left" color="red"/>
-              {{ $t('back_button') }}
-            </UButton>
+            <a  :href="getProjectsPath"
+                rel="noopener noreferrer">
+              <el-button color="red"
+                         round size="large"
+                         class="content__info__buttons__button"
+              >
+                <icons class="icon_padding_right" icon="fa-solid fa-chevron-left"/>
+                {{ $t('back_button') }}
+              </el-button>
+            </a>
           </div>
         </div>
         <div class="content__description__desktop">
@@ -133,7 +146,7 @@ function getButtonName(name: any): string {
 </template>
 
 <style scoped lang="scss">
-@use '@/assets/scss/variables.scss' as *;
+@use '@/assets/scss/screens' as *;
 
 //* {
 //  border: 1px solid white !important;
@@ -179,7 +192,7 @@ function getButtonName(name: any): string {
       &__title {
         text-align: center;
         font-size: 2.3vw;
-        background: -webkit-linear-gradient(0deg, rgb(0, 225, 255) 35%, rgb(3, 255, 247) 51%, rgb(5, 247, 255) 86%, rgb(2, 216, 254) 100%);
+        background: var(--card-gradient);
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -264,7 +277,7 @@ function getButtonName(name: any): string {
           max-width: 100%;
           height: 4.5vh;
           border-radius: 2vw;
-          background: -webkit-linear-gradient(0deg, rgb(16, 143, 227) 19%, rgb(1, 218, 185) 100%);
+          background: var(--card-stack-gradient);
           overflow: hidden;
           -webkit-user-select: none;
           -moz-user-select: none;
@@ -281,12 +294,12 @@ function getButtonName(name: any): string {
           flex-direction: row;
           height: 4.3vh;
           padding: 0 1.5rem;
-          font-weight: bold;
           font-size: 0.8vw;
-          color: #1c1c1c;
+          color: var(--text-card-stack);
           align-items: center;
 
           @media screen and (max-width: $screen-md) {
+            font-weight: bold;
             font-size: 2.2vw;
           }
 
@@ -309,7 +322,6 @@ function getButtonName(name: any): string {
         }
       }
     }
-
     &__buttons {
       height: 50%;
       display: flex;
@@ -321,6 +333,19 @@ function getButtonName(name: any): string {
       @media screen and (max-width: $screen-md) {
         padding-top: 3vh;
       }
+
+      &__button {
+        width: 100%;
+        height: 2.5rem;
+
+        &__text {
+          color: var(--text-color-light);
+        }
+
+        @media screen and (max-width: $screen-md) {
+          height: 4rem;
+        }
+      }
     }
   }
 
@@ -330,7 +355,7 @@ function getButtonName(name: any): string {
       width: 40%;
       overflow-y: scroll;
       padding: 0 1.8vw;
-      font-size: 1.2em;
+      font-size: 1.4vh;
       height: fit-content;
       max-height: 100%;
 

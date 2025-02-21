@@ -19,8 +19,6 @@ export default {
 </template>
 
 <style scoped lang="scss">
-@use "@/assets/scss/variables.scss" as *;
-
 .icon {
   max-height: 100%;
   max-width: 100%;

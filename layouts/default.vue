@@ -2,28 +2,41 @@
 import {Vue3Marquee} from "vue3-marquee";
 import NavigationSection from "~/components/section/NavigationSection.vue";
 import AnnouncementSection from "~/components/section/AnnouncementSection.vue";
-import initialConfig from "@/config/initial.config.ts";
+import initialConfig from "@/config/initial.config";
 
+const colorMode = useColorMode();
 const nickname = initialConfig.nickname;
-const repeatRows = ref(4)
+const repeatRows = ref(4);
 
-function calculateDirection(index) : 'normal' | 'reverse' {
+const getTheme = computed(() => {
+  const mode = colorMode.value;
+  if (!mode || mode === "system") {
+    if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+      return "light";
+    } else {
+      return "dark";
+    }
+  }
+  return mode;
+});
+
+function calculateDirection(index: any) : 'normal' | 'reverse' {
   if (index % 2 === 0) {
     return "reverse";
   }
   return "normal";
 }
-
 const resizeEvent = function() {
-  const screenHeight = window.innerHeight;
   const row = document.querySelector('.background__text__row');
-  const clientHeight = row.clientHeight;
+  const screenHeight = window.innerHeight;
+  const clientHeight = row!.clientHeight;
   if (clientHeight > 0) {
-    repeatRows.value = Math.ceil(screenHeight/clientHeight) - 1;
+    repeatRows.value = Math.ceil(screenHeight / clientHeight) - 1;
   }
 }
 
 onMounted(() => {
+  document.body.setAttribute("data-theme", getTheme.value);
   window.addEventListener('resize', resizeEvent);
   nextTick(() => {
     resizeEvent();
@@ -39,7 +52,7 @@ onBeforeUnmount(() => {
   <div>
     <div class="background__blur">
       <div class="background__text">
-        <div v-for="(row, rowIndex) in repeatRows" :key="'row-' + rowIndex" class="background__text__row">
+        <div v-for="(rowIndex) in repeatRows" :key="'row-' + rowIndex" class="background__text__row">
           <Vue3Marquee :duration="60" clone :direction='calculateDirection(rowIndex)' >
             <div class="background__text__word">
               {{ $t(nickname) }}
@@ -61,7 +74,7 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped lang="scss">
-@use '@/assets/scss/variables.scss' as *;
+@use '@/assets/scss/screens' as *;
 
 .body {
   display: flex;
@@ -106,8 +119,8 @@ onBeforeUnmount(() => {
     position: absolute;
     display: flex;
     flex-direction: row;
-    filter: blur(12.1px);
-    -webkit-filter: blur(12.1px);
+    filter: var(--blur);
+    -webkit-filter: var(--blur);
     justify-content: center;
     align-items: center;
     @media screen and (max-width: $screen-xss) {
@@ -146,8 +159,7 @@ onBeforeUnmount(() => {
       padding: 0 1.5vw;
       display: inline-flex;
       color: transparent !important;
-      -webkit-text-stroke: 1px $color-primary-2;
-
+      -webkit-text-stroke: var(--text-stroke) var(--background-word);
     }
   }
 }
