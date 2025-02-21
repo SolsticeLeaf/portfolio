@@ -6,21 +6,19 @@
 <p align="center">
   <b>A portfolio made by <code>nuxt 3</code> for SolsticeLeaf</b><br><br>
 
-  <a href="https://github.com/SolsticeLeaf/portfolio/releases">
-    <img src="https://img.shields.io/github/v/release/SolsticeLeaf/portfolio?include_prereleases&style=flat-square" alt="release">
-  </a>
   <a href="https://github.com/SolsticeLeaf/portfolio">
     <img src="https://img.shields.io/github/repo-size/SolsticeLeaf/portfolio?style=flat-square" alt="size"> 
-  </a>
-  <a href="https://github.com/SolsticeLeaf/portfolio/releases">
-    <img src="https://img.shields.io/github/downloads/SolsticeLeaf/portfolio/total?style=flat-square" alt="downloads"> 
   </a>
   <a href="https://github.com/SolsticeLeaf/portfolio/issues">
     <img src="https://img.shields.io/github/issues/SolsticeLeaf/portfolio?style=flat-square" alt="issues"> 
   </a>
   <a href="https://github.com/SolsticeLeaf/portfolio/blob/master/LICENSE">
     <img src="https://img.shields.io/github/license/SolsticeLeaf/portfolio?style=flat-square" alt="licence"> 
-  </a><br>
+  </a>
+  <a href="https://jenkins.kiinse.dev/job/Portfolio/">
+    <img src="https://jenkins.kiinse.dev/job/Portfolio/badge/icon?style=flat-square" alt="jenkins">
+  </a>
+<br>
 </p>
 
 <h3 align="center">
