@@ -8,10 +8,13 @@ const colorMode = useColorMode();
 const nickname = initialConfig.nickname;
 const repeatRows = ref(4);
 
+const matchMedia = computed(() => {
+  return window.matchMedia('(prefers-color-scheme: dark)')
+});
 const getTheme = computed(() => {
   const mode = colorMode.value;
   if (!mode || mode === "system") {
-    if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+    if (matchMedia.value.matches) {
       return "light";
     } else {
       return "dark";
@@ -20,10 +23,15 @@ const getTheme = computed(() => {
   return mode;
 });
 
-function calculateDirection(index: any) : 'normal' | 'reverse' {
-  if (index % 2 === 0) {
-    return "reverse";
+const changeColorMode = (event:  MediaQueryListEvent) => {
+  if (colorMode.preference === 'system') {
+    colorMode.value = event.matches ? "dark" : "light";
+    document.body.setAttribute("data-theme", colorMode.value);
   }
+}
+
+function calculateDirection(index: any) : 'normal' | 'reverse' {
+  if (index % 2 === 0) { return "reverse"; }
   return "normal";
 }
 const resizeEvent = function() {
@@ -37,6 +45,7 @@ const resizeEvent = function() {
 
 onMounted(() => {
   document.body.setAttribute("data-theme", getTheme.value);
+  matchMedia.value.addEventListener('change', changeColorMode);
   window.addEventListener('resize', resizeEvent);
   nextTick(() => {
     resizeEvent();
@@ -45,6 +54,7 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   window.removeEventListener('resize', resizeEvent);
+  matchMedia.value.removeEventListener('change', changeColorMode);
 })
 </script>
 

@@ -17,12 +17,13 @@ function changeTheme() {
     colorMode.preference = 'dark';
     document.body.setAttribute("data-theme", "dark");
   } else if (preferences === 'dark') {
-    colorMode.value = 'system';
     colorMode.preference = 'system';
     if (window.matchMedia('(prefers-color-scheme: light)').matches) {
       document.body.setAttribute("data-theme", "light");
+      colorMode.value = 'light';
     } else {
       document.body.setAttribute("data-theme", "dark");
+      colorMode.value = 'dark';
     }
   }
 }

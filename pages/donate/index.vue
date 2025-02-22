@@ -130,7 +130,7 @@ onMounted(() => {
 </template>
 
 <style scoped lang="scss">
-@use '@/assets/scss/screens' as *;
+@use 'assets/scss/screens' as *;
 
 .wrapper {
   @media screen and (max-width: $screen-sm) {
@@ -183,6 +183,13 @@ onMounted(() => {
     &__input {
       border: 1px solid var(--donate-select) !important;
       border-radius: 10rem;
+
+      @media screen and (max-width: $screen-sm) {
+        height: 3rem;
+        display: flex;
+        justify-content: center;
+        justify-items: center;
+      }
     }
 
     &__select {
@@ -199,6 +206,10 @@ onMounted(() => {
       word-spacing: -0.4rem;
       height: 2.3rem;
       border: 1px solid var(--donate-select) !important;
+
+      @media screen and (max-width: $screen-sm) {
+        height: 3rem;
+      }
     }
   }
 
@@ -215,6 +226,11 @@ onMounted(() => {
       &__text {
         font-size: 1rem;
         color: var(--donate-button-text);
+      }
+
+      @media screen and (max-width: $screen-sm) {
+        height: 3rem;
+        width: fit-content;
       }
     }
   }

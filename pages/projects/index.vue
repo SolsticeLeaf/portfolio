@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ProjectCard from "@/components/card/ProjectCard.vue";
+import ProjectCard from "~/components/card/ProjectCard.vue";
 import config from "~/config/initial.config";
 const { locale, getLocaleMessage } = useI18n()
 
@@ -60,7 +60,7 @@ const getSortedProjects = computed(() => {
 </template>
 
 <style scoped lang="scss">
-@use '@/assets/scss/screens' as *;
+@use 'assets/scss/screens' as *;
 
 //* {
 //  border: 1px solid white !important;

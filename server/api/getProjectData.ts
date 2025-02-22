@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
     const response = await axios.get(destination).catch(function (err) {
         if (err.response) {
             if (err.response.status === 500) {
-                console.error("Error in getting project", err);
+                console.error("Error in getting projects", err);
             }
         }
         return err.response;

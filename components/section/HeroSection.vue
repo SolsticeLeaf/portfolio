@@ -15,20 +15,17 @@ const secondaryButtonColor = ref('');
 
 const updateColors = () => {
   if (document.body) {
-    buttonColor.value = getComputedStyle(document.body).getPropertyValue('--button-color').trim();
-    secondaryButtonColor.value = getComputedStyle(document.body).getPropertyValue('--secondary-button-color').trim();
+    const style = getComputedStyle(document.body);
+    buttonColor.value = style.getPropertyValue('--button-color').trim();
+    secondaryButtonColor.value = style.getPropertyValue('--secondary-button-color').trim();
   }
 };
 
 onMounted(() => {
   updateColors();
-  const observer = new MutationObserver(() => {
-    updateColors();
-  });
+  const observer = new MutationObserver(() => { updateColors(); });
   observer.observe(document.body, { attributes: true});
-  onBeforeUnmount(() => {
-    observer.disconnect();
-  });
+  onBeforeUnmount(() => { observer.disconnect(); });
 });
 </script>
 
