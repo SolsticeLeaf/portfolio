@@ -117,7 +117,7 @@ export default {
   flex-direction: row;
 
   @media screen and (max-width: $screen-md) {
-    height: 30vw;
+    height: fit-content;
     width: 100%;
   }
 
@@ -137,8 +137,12 @@ export default {
     justify-content: center;
     width: 30%;
 
+    @media screen and (max-width: $screen-md) {
+      height: 18vh;
+    }
+
     @media screen and (max-width: $screen-sm) {
-      display: grid;
+      display: flex;
       justify-items: center;
       align-items: center;
       width: 100%;
@@ -189,11 +193,6 @@ export default {
         line-height: 2vw;
 
         @media screen and (max-width: $screen-md) {
-          font-size: 1.2rem;
-          line-height: 1.2rem;
-        }
-
-        @media screen and (max-width: $screen-sm) {
           font-size: 1.5rem;
           line-height: 1.5rem;
         }
@@ -208,10 +207,11 @@ export default {
 
       @media screen and (max-width: $screen-sm) {
         height: fit-content;
+        padding: 0 0.8rem;
       }
 
       &__text {
-        font-size: 0.8vw;
+        font-size: 1.5vh;
         max-height: 100%;
         display: -webkit-box;
         -webkit-box-orient: vertical;
@@ -220,15 +220,17 @@ export default {
         -webkit-line-clamp: 3;
 
         @media screen and (max-width: $screen-md) {
-          font-size: 1rem;
+          font-size: 1.2rem;
+          line-clamp: 4;
+          -webkit-line-clamp: 4;
         }
 
         @media screen and (max-width: $screen-sm) {
-          font-size: 0.7rem;
+          font-size: 0.8rem;
           -webkit-box-orient: vertical;
           overflow-y: hidden;
-          line-clamp: 4;
-          -webkit-line-clamp: 4;
+          line-clamp: 3;
+          -webkit-line-clamp: 3;
         }
       }
     }

@@ -66,6 +66,16 @@ const getSortedProjects = computed(() => {
 //  border: 1px solid white !important;
 //}
 
+.blur__glass {
+  @media screen and (max-width: $screen-sm) {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-radius: 0;
+    border: transparent;
+    background: transparent;
+  }
+}
+
 .wrapper {
   clip-path: inset(0 round 3rem);
   overflow-y: scroll;

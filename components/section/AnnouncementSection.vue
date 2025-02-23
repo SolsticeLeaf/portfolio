@@ -59,7 +59,7 @@ function getLocaled(value: any): string {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 2vw;
+  height: 2.2rem;
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -69,11 +69,12 @@ function getLocaled(value: any): string {
   .announcements__text {
     padding-left: 20rem;
     font-weight: bold;
-    font-size: 1vw;
+    font-size: 1.2rem;
+    color: var(--text-announcements);
 
     @media screen and (max-width: $screen-md) {
       padding-left: 10rem;
-      font-size: 1.5rem;
+      font-size: 1.2rem;
     }
 
     @media screen and (max-width: $screen-sm) {
@@ -82,7 +83,7 @@ function getLocaled(value: any): string {
   }
 
   @media screen and (max-width: $screen-md) {
-    height: 7vw;
+    height: 2rem;
   }
 
   @media screen and (max-width: $screen-sm) {

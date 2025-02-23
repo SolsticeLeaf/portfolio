@@ -1,43 +1,32 @@
 <script setup lang="ts">
 import initialConfig from "@/config/initial.config";
 
-const colorMode = useColorMode()
+const colorMode = useColorMode();
 const { locale } = useI18n()
 const route = useRoute()
 const siteName = initialConfig.siteName;
 
+function setTheme(theme: 'light' | 'dark') {
+  colorMode.value = theme;
+  colorMode.preference = theme;
+  document.body.setAttribute("data-theme", theme);
+}
+
 function changeTheme() {
   const preferences = colorMode.preference;
+  const mode = colorMode.value;
+  const preferTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   if (preferences === 'system') {
-    colorMode.value = 'light';
-    colorMode.preference = 'light';
-    document.body.setAttribute("data-theme", "light");
-  } else if (preferences === 'light') {
-    colorMode.value = 'dark';
-    colorMode.preference = 'dark';
-    document.body.setAttribute("data-theme", "dark");
-  } else if (preferences === 'dark') {
+    setTheme(preferTheme === 'dark' ? 'light' : 'dark');
+  } else if (preferTheme !== mode) {
+    setTheme(preferTheme);
+  } else {
     colorMode.preference = 'system';
-    if (window.matchMedia('(prefers-color-scheme: light)').matches) {
-      document.body.setAttribute("data-theme", "light");
-      colorMode.value = 'light';
-    } else {
-      document.body.setAttribute("data-theme", "dark");
-      colorMode.value = 'dark';
-    }
+    colorMode.value = preferTheme;
+    document.body.setAttribute("data-theme", preferTheme);
   }
 }
 
-const getThemeIcon = computed(() => {
-  const mode = colorMode.value;
-  if (colorMode.preference === 'system') {
-    return 'i-heroicons-computer-desktop';
-  } else if (mode === 'dark') {
-    return 'i-heroicons-moon';
-  } else if (mode === 'light') {
-    return 'i-heroicons-sun';
-  }
-});
 const links = computed((): any => {
   const currentLocale = locale.value;
   const alternateLocale = currentLocale === 'en' ? 'ru' : 'en';
@@ -59,11 +48,14 @@ const links = computed((): any => {
       to: `/${currentLocale}/donate/`
     },
     {
-      icon: getThemeIcon.value,
-      click: changeTheme,
+      icon: computed(() => {
+        if (colorMode.preference === 'system') { return 'i-heroicons-computer-desktop'; }
+        return colorMode.value === 'dark' ? 'i-heroicons-moon' : 'i-heroicons-sun';
+      }).value,
+      click: changeTheme
     },
     {
-      label: alternateLocale.toUpperCase(),
+      label: locale.value.toUpperCase(),
       icon: 'i-heroicons-globe-alt',
       to: alternatePath
     }
@@ -130,12 +122,12 @@ nav {
 
     &__name {
       position: relative !important;
-      font-size: 2vw;
+      font-size: 2.2vw;
       background: var(--logo-gradient);
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
-      line-height: 2vw;
+      line-height: 2.2vw;
 
       @media screen and (max-width: $screen-md) {
         font-size: 2em;

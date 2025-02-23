@@ -76,9 +76,7 @@ onBeforeUnmount(() => {
         <NavigationSection/>
       </div>
       <slot/>
-      <div class="footer__bottom">
-        <AnnouncementSection />
-      </div>
+      <div class="footer__bottom"/>
     </div>
   </div>
 </template>
@@ -114,8 +112,6 @@ onBeforeUnmount(() => {
 
   &__bottom {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
     width: 100vw;
     height: 8vh;
   }

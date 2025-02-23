@@ -4,6 +4,7 @@ import initialConfig from "~/config/initial.config";
 import toolsConfig from "~/config/tools.config";
 import {Vue3Marquee} from "vue3-marquee";
 import TechIcon from "~/components/utilities/TechIcon.vue";
+import AnnouncementSection from "~/components/section/AnnouncementSection.vue";
 
 const nickname = initialConfig.nickname;
 const avatar = initialConfig.hero.avatar_url;
@@ -31,6 +32,7 @@ onMounted(() => {
 
 <template>
   <ClientOnly>
+    <div class="displayed">
     <div id="hero" class="wrapper blur__glass">
       <div class="main">
         <div class="main__content">
@@ -90,6 +92,10 @@ onMounted(() => {
         </div>
       </div>
     </div>
+    <div class="announcements">
+      <AnnouncementSection />
+    </div>
+    </div>
   </ClientOnly>
 </template>
 
@@ -99,6 +105,26 @@ onMounted(() => {
 //* {
 //  border: 1px solid white !important;
 //}
+
+.blur__glass {
+  @media screen and (max-width: $screen-sm) {
+    margin-right: 1rem !important;
+    margin-left: 1rem !important;
+  }
+}
+
+.displayed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-content: space-between;
+}
+
+.announcements {
+  display: flex;
+  width: 100vw;
+}
 
 .main {
   display: flex;
@@ -127,30 +153,26 @@ onMounted(() => {
     }
 
     &__spell {
-      font-size: 0.8vw;
+      font-size: 1rem;
       color: var(--text-color-gray) !important;
 
-      @media screen and (max-width: $screen-md) {
-        font-size: 0.8em;
+      @media screen and (max-width: $screen-sm) {
+        font-size: 0.9rem;
       }
     }
 
     &__hey {
-      font-size: 1vw;
-
-      @media screen and (max-width: $screen-md) {
-        font-size: 1em;
-      }
+      font-size: 1rem;
     }
 
     &__title {
-      font-size: 2vw;
+      font-size: 2.5rem;
       max-height: 100%;
-      line-height: 2.5vw;
+      line-height: 2.5rem;
 
       @media screen and (max-width: $screen-md) {
-        font-size: 2em;
-        line-height: 1.3em;
+        font-size: 2rem;
+        line-height: 2rem;
       }
 
       &__second {
@@ -160,11 +182,7 @@ onMounted(() => {
     }
 
     &__social {
-      font-size: 0.8vw;
-
-      @media screen and (max-width: $screen-md) {
-        font-size: 1em;
-      }
+      font-size: 1rem;
     }
 
     &__social-icons {
@@ -173,12 +191,8 @@ onMounted(() => {
 
       .social-icon {
         vertical-align: center;
-        font-size: 1.3vw;
+        font-size: 1.7rem;
         margin: auto 1%;
-
-        @media screen and (max-width: $screen-md) {
-          font-size: 1.4em;
-        }
       }
 
       .github:hover, .medium:hover {
@@ -221,15 +235,15 @@ onMounted(() => {
 
         &__text {
           color: var(--solid-button-text) !important;
-          font-size: 0.8vw !important;
+          font-size: 1rem !important;
 
           @media screen and (max-width: $screen-md) {
-            font-size: 0.8rem !important;
-            line-height: 0.8rem !important;
+            font-size: 1rem !important;
+            line-height: 1rem !important;
           }
         }
 
-        @media screen and (max-width: $screen-sm) {
+        @media screen and (max-width: $screen-md) {
           height: 3rem;
         }
       }
@@ -240,15 +254,15 @@ onMounted(() => {
 
         &__text {
           color: var(--outline-button-text) !important;
-          font-size: 0.8vw !important;
+          font-size: 1rem !important;
 
           @media screen and (max-width: $screen-md) {
-            font-size: 0.8rem !important;
-            line-height: 0.8rem !important;
+            font-size: 1rem !important;
+            line-height: 1rem !important;
           }
         }
 
-        @media screen and (max-width: $screen-sm) {
+        @media screen and (max-width: $screen-md) {
           height: 3rem;
         }
       }
@@ -295,7 +309,7 @@ onMounted(() => {
     }
 
     @media screen and (max-width: $screen-sm) {
-      width: 10em;
+      width: 8em;
     }
   }
 
@@ -336,9 +350,9 @@ onMounted(() => {
   }
 
   &__background {
-    max-width: 21vw;
+    max-width: 25rem;
     max-height: 100%;
-    border-radius: 2vw;
+    border-radius: 2rem;
     background: var(--stack-gradient);
     overflow: hidden;
     margin-top: 3%;
@@ -349,11 +363,7 @@ onMounted(() => {
     user-select: none;
 
     &__text {
-      border-radius: 2vw;
-
-      @media screen and (max-width: $screen-md) {
-        border-radius: 2em;
-      }
+      border-radius: 2rem;
     }
 
     @media screen and (max-width: $screen-md) {
@@ -363,10 +373,6 @@ onMounted(() => {
       margin-bottom: 1.5rem;
       border-radius: 2em;
     }
-
-    @media screen and (max-width: $screen-sm) {
-      max-width: 20rem;
-    }
   }
 
   &__text {
@@ -374,23 +380,23 @@ onMounted(() => {
     flex-direction: row;
     height: 100%;
     max-height: 100%;
-    padding: 0 1vw;
+    padding: 0 1rem;
     font-weight: bold;
-    font-size: 0.8vw;
+    font-size: 1rem;
     color: var(--text-stack);
     align-items: center;
 
     @media screen and (max-width: $screen-md) {
-      font-size: 1em;
-      padding: 0 2vw;
+      font-size: 1rem;
+      padding: 0 2rem;
     }
 
     &__icon {
       padding-right: 0.2rem;
-      height: 1.3vw;
+      height: 1.3rem;
 
       @media screen and (max-width: $screen-md) {
-        height: 1em;
+        height: 1rem;
       }
     }
   }
