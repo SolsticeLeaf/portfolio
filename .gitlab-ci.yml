@@ -13,20 +13,39 @@ before_script:
 
 dependencies:
   stage: dependencies
+  tags:
+    - "helios"
   script:
     - npm ci
 
 build:
   stage: build
+  tags:
+    - "helios"
+  dependencies:
+    - dependencies
   script:
     - npm run build
 
 generate:
   stage: generate
+  tags:
+    - "helios"
+  dependencies:
+    - build
   script:
     - npm run generate
+  artifacts:
+    paths:
+      - .nuxt/
+      - node_modules/
+    expire_in: 1 hour
 
 deploy:
   stage: deploy
+  tags:
+    - "mais"
+  dependencies:
+    - generate
   script:
     - docker compose up -d --build
