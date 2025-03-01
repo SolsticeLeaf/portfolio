@@ -1,14 +1,14 @@
 stages:
   - dependencies
+  - prepare
   - build
-  - generate
   - deploy
 
 default:
   image: node:18
 
 cache:
-  key: ${CI_COMMIT_REF_SLUG}
+  key: node_modules
   paths:
     - node_modules/
 
@@ -19,34 +19,31 @@ dependencies:
   script:
     - npm ci
 
-build:
-  stage: build
+prepare:
+  stage: prepare
   tags:
     - "helios"
   dependencies:
     - dependencies
   script:
+    - npm run postinstall
+  artifacts:
+    paths:
+      - .nuxt/
+    expire_in: 1 hour
+
+build:
+  stage: build
+  tags:
+    - "helios"
+  dependencies:
+    - prepare
+  script:
     - npm run build
   artifacts:
     paths:
       - .nuxt/
-      - node_modules/
-    expire_in: 1 hour
-
-generate:
-  stage: generate
-  tags:
-    - "helios"
-  dependencies:
-    - build
-  script:
-    - npm run generate
-  artifacts:
-    paths:
-      - .nuxt/
-      - node_modules/
       - config/
-      - dist/
     expire_in: 1 hour
 
 deploy:
@@ -55,7 +52,7 @@ deploy:
   tags:
     - "mais"
   dependencies:
-    - generate
+    - build
   before_script:
     - echo "Deploying..."
     - export CRYPTOCLOUD_API_KEY="$CRYPTOCLOUD_API_KEY"
