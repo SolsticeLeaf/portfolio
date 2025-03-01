@@ -3,10 +3,6 @@ services:
     build: .
     container_name: portfolio
     image: portfolio:latest
-    volumes:
-        - './config:/nuxt/config'
-        - './locale:/nuxt/locale'
-        - './content:/nuxt/content'
     environment:
       - CRYPTOCLOUD_API_KEY=${CRYPTOCLOUD_API_KEY}
       - CRYPTOCLOUD_SHOP_ID=${CRYPTOCLOUD_SHOP_ID}
