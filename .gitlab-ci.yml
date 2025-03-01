@@ -4,31 +4,36 @@ stages:
   - generate
   - deploy
 
-variables:
-  CRYPTOCLOUD_API_KEY: ${CRYPTOCLOUD_API_KEY}
-  CRYPTOCLOUD_SHOP_ID: ${CRYPTOCLOUD_SHOP_ID}
+default:
+  image: node:18
 
 dependencies:
   stage: dependencies
-  image: node:23
   tags:
     - "helios"
   script:
     - npm ci
+  artifacts:
+    paths:
+      - node_modules/
+    expire_in: 1 hour
 
 build:
   stage: build
-  image: node:23
   tags:
     - "helios"
   dependencies:
     - dependencies
   script:
     - npm run build
+  artifacts:
+    paths:
+      - .nuxt/
+      - node_modules/
+    expire_in: 1 hour
 
 generate:
   stage: generate
-  image: node:23
   tags:
     - "helios"
   dependencies:
@@ -39,6 +44,8 @@ generate:
     paths:
       - .nuxt/
       - node_modules/
+      - config/
+      - dist/
     expire_in: 1 hour
 
 deploy:
@@ -48,5 +55,9 @@ deploy:
     - "mais"
   dependencies:
     - generate
+  before_script:
+    - echo "Deploying..."
+    - export CRYPTOCLOUD_API_KEY="$CRYPTOCLOUD_API_KEY"
+    - export CRYPTOCLOUD_SHOP_ID="$CRYPTOCLOUD_SHOP_ID"
   script:
     - docker compose up -d --build
