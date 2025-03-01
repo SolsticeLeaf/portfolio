@@ -1,0 +1,32 @@
+stages:
+  - dependencies
+  - build
+  - generate
+  - deploy
+
+variables:
+  CRYPTOCLOUD_API_KEY: ${CRYPTOCLOUD_API_KEY}
+  CRYPTOCLOUD_SHOP_ID: ${CRYPTOCLOUD_SHOP_ID}
+
+before_script:
+  - echo "Start the pipeline"
+
+dependencies:
+  stage: dependencies
+  script:
+    - npm ci
+
+build:
+  stage: build
+  script:
+    - npm run build
+
+generate:
+  stage: generate
+  script:
+    - npm run generate
+
+deploy:
+  stage: deploy
+  script:
+    - docker compose up -d --build
