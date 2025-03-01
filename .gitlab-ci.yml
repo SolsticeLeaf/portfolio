@@ -7,16 +7,17 @@ stages:
 default:
   image: node:18
 
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+
 dependencies:
   stage: dependencies
   tags:
     - "helios"
   script:
     - npm ci
-  artifacts:
-    paths:
-      - node_modules/
-    expire_in: 1 hour
 
 build:
   stage: build
