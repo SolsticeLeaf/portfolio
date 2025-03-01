@@ -6,7 +6,6 @@ COPY ./config /nuxt/config
 RUN mkdir -p /nuxt/.output/server/content/projects
 RUN mkdir -p /nuxt/.output/server/content/donate
 
-
 ENV NUXT_HOST=0.0.0.0
 ENV NUXT_PORT=3000
 
