@@ -8,11 +8,9 @@ variables:
   CRYPTOCLOUD_API_KEY: ${CRYPTOCLOUD_API_KEY}
   CRYPTOCLOUD_SHOP_ID: ${CRYPTOCLOUD_SHOP_ID}
 
-before_script:
-  - echo "Start the pipeline"
-
 dependencies:
   stage: dependencies
+  image: node:23
   tags:
     - "helios"
   script:
@@ -29,6 +27,7 @@ build:
 
 generate:
   stage: generate
+  image: node:23
   tags:
     - "helios"
   dependencies:
@@ -43,6 +42,7 @@ generate:
 
 deploy:
   stage: deploy
+  image: docker:stable
   tags:
     - "mais"
   dependencies:
