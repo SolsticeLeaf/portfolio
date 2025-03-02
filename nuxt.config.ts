@@ -42,7 +42,9 @@ export default defineNuxtConfig({
   css: ['@/assets/scss/global.scss'],
   runtimeConfig: {
     public: {
-      CRYPTOCLOUD_SHOP_ID: process.env.CRYPTOCLOUD_SHOP_ID
+      CRYPTOCLOUD_SHOP_ID: process.env.CRYPTOCLOUD_SHOP_ID,
+      DATABASE_NAME: process.env.DATABASE_NAME,
+      DATABASE_URL: process.env.DATABASE_URL
     },
     private: {
       CRYPTOCLOUD_API_KEY: process.env.CRYPTOCLOUD_API_KEY

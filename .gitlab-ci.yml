@@ -20,6 +20,8 @@ cache:
 
 dependencies:
   stage: dependencies
+  before_script:
+    - echo "Install dependencies..."
   script:
     - npm ci
 
@@ -27,6 +29,8 @@ prepare:
   stage: prepare
   dependencies:
     - dependencies
+  before_script:
+    - echo "Prepare for build..."
   script:
     - npm run postinstall
   artifacts:
@@ -38,6 +42,8 @@ build:
   stage: build
   dependencies:
     - prepare
+  before_script:
+    - echo "Building..."
   script:
     - npm run build
   artifacts:
@@ -58,5 +64,7 @@ deploy:
     - echo "Deploying..."
     - export CRYPTOCLOUD_API_KEY="$CRYPTOCLOUD_API_KEY"
     - export CRYPTOCLOUD_SHOP_ID="$CRYPTOCLOUD_SHOP_ID"
+    - export DATABASE_NAME="$DATABASE_NAME"
+    - export DATABASE_URL="$DATABASE_URL"
   script:
     - docker compose up --detach --build
