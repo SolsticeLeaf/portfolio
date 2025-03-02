@@ -55,7 +55,7 @@ Please **don't** open an issue just for the sake of questions.
 ## Installation
 To install portfolio you need to copy this repository:
 ```bash
-  git clone https://github.com/SolsticeLeaf/portfolio.git && cd portfolio
+git clone https://github.com/SolsticeLeaf/portfolio.git && cd portfolio
 ```
 Edit files in **config** folder and create .env file in project root with next variables and add this file to docker-compose.yml:
 ```dotenv
@@ -64,10 +64,10 @@ CRYPTOCLOUD_SHOP_ID="Cryptocloud shop id"
 ```
 Then run this command:
 ```bash
-  npm ci \
-  && npm run postinstall \
-  && npm run build \
-  && docker-compose up -d --build
+npm ci \
+&& npm run postinstall \
+&& npm run build \
+&& docker-compose up -d --build
 ```
 After executing the command, the site will be available at the following address:
 ```
