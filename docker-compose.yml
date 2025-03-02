@@ -3,6 +3,7 @@ services:
     build: .
     container_name: portfolio
     image: portfolio:latest
+    restart: always
     environment:
       - CRYPTOCLOUD_API_KEY=${CRYPTOCLOUD_API_KEY}
       - CRYPTOCLOUD_SHOP_ID=${CRYPTOCLOUD_SHOP_ID}
