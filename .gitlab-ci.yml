@@ -5,6 +5,8 @@ stages:
   - deploy
 
 default:
+  tags:
+    - "mais"
   image: node:18
 
 cache:
@@ -14,15 +16,11 @@ cache:
 
 dependencies:
   stage: dependencies
-  tags:
-    - "helios"
   script:
     - npm ci
 
 prepare:
   stage: prepare
-  tags:
-    - "helios"
   dependencies:
     - dependencies
   script:
@@ -34,8 +32,6 @@ prepare:
 
 build:
   stage: build
-  tags:
-    - "helios"
   dependencies:
     - prepare
   script:
@@ -50,7 +46,7 @@ deploy:
   stage: deploy
   image: docker:stable
   tags:
-    - "mais"
+    - "helios"
   dependencies:
     - build
   before_script:
