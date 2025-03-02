@@ -26,6 +26,7 @@
 
 ![Nuxtjs](https://img.shields.io/badge/Nuxt.js-3-00DC82?style=for-the-badge&logo=nuxtdotjs&logoColor=white)
 ![Vue.js](https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D)
+![MongoDB](https://img.shields.io/badge/-MongoDB-13aa52?style=for-the-badge&logo=mongodb&logoColor=white)
 ![Axios](https://img.shields.io/badge/axios.js-854195?style=for-the-badge&logo=axios&logoColor=5A29E4)
 ![Sass](https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=Sass&logoColor=white)
 ![FontAwesome](https://img.shields.io/badge/fontawesome-339AF0?style=for-the-badge&logo=fontawesome&logoColor=white)
@@ -57,10 +58,16 @@ To install portfolio you need to copy this repository:
 ```bash
 git clone https://github.com/SolsticeLeaf/portfolio.git && cd portfolio
 ```
-Edit files in **config** folder and create .env file in project root with next variables and add this file to docker-compose.yml:
+Edit files in **config** folder and edit next variables in docker-compose.yml:
 ```dotenv
-CRYPTOCLOUD_API_KEY="Cryptocloud api key"
-CRYPTOCLOUD_SHOP_ID="Cryptocloud shop id"
+# Cryprocloud api key
+CRYPTOCLOUD_API_KEY=${CRYPTOCLOUD_API_KEY}
+#Cryprocloud shop id
+CRYPTOCLOUD_SHOP_ID=${CRYPTOCLOUD_SHOP_ID}
+#Mongodb db name
+DATABASE_NAME=${DATABASE_NAME}
+#Mongodb connection url
+DATABASE_URL=${DATABASE_URL}
 ```
 Then run this command:
 ```bash

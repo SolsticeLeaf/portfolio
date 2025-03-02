@@ -6,5 +6,7 @@ services:
     environment:
       - CRYPTOCLOUD_API_KEY=${CRYPTOCLOUD_API_KEY}
       - CRYPTOCLOUD_SHOP_ID=${CRYPTOCLOUD_SHOP_ID}
+      - DATABASE_NAME=${DATABASE_NAME}
+      - DATABASE_URL=${DATABASE_URL}
     ports:
       - "3000:3000"

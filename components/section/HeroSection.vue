@@ -51,7 +51,7 @@ onMounted(() => {
             <div class="stack__background">
               <Vue3Marquee pause-on-hover :duration="60" class="stack__background__text">
                 <div class="stack__text" v-for="tool in tools">
-                  <TechIcon class="stack__text__icon" :icon="tool"/>
+                  <TechIcon class="stack__background__text__icon" :icon="tool"/>
                   {{ tool }}
                 </div>
               </Vue3Marquee>
@@ -361,14 +361,19 @@ onMounted(() => {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    padding: 0.1rem 0;
 
     &__text {
       border-radius: 2rem;
+
+      &__icon {
+        padding-right: 0.5rem;
+        height: 1.5rem;
+      }
     }
 
     @media screen and (max-width: $screen-md) {
       max-width: 20rem;
-      height: 2.2rem;
       margin-top: 1.5rem;
       margin-bottom: 1.5rem;
       border-radius: 2em;

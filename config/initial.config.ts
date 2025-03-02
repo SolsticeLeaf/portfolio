@@ -17,10 +17,5 @@ export default {
     announcements: {
         otherSpeed: 6 as number,
         desktopSpeed: 8 as number
-    },
-    api: {
-        projects: 'https://sleaf.dev:7272/api/getProjects',
-        project: 'https://sleaf.dev:7272/api/getProject/{id}',
-        announcements: 'https://sleaf.dev:7272/api/getAnnouncements'
     }
 }

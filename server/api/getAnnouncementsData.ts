@@ -1,11 +1,13 @@
-import initialConfig from "../../config/initial.config";
-import axios from "axios";
+import {getAllAnnouncements} from './interfaces/announcements/Announcement';
+import { connectDB } from './database/MongoDB';
 
 export default defineEventHandler(async (event) => {
-    const destination = initialConfig.api.announcements;
-    const response = await axios.get(destination).catch((err) => {
-        return err.response;
-    });
-    console.debug(`${destination} -> ${response?.statusText}`);
-    return response?.data || "";
+    try {
+        await connectDB();
+        const announcements = await getAllAnnouncements();
+        return announcements || [];
+    } catch (error) {
+        console.error('Error on getting announcements: ', error);
+        return [];
+    }
 })

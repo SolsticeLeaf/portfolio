@@ -378,7 +378,7 @@ function getButtonName(name: any): string {
       }
 
       @media screen and (max-width: $screen-sm) {
-        font-size: 0.8rem;
+        font-size: 0.9rem;
       }
 
       &__text {
