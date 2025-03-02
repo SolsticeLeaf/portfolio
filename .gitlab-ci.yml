@@ -44,7 +44,7 @@ build:
 
 deploy:
   stage: deploy
-  image: docker:stable
+  image: docker:latest
   tags:
     - "helios"
   dependencies:
@@ -54,4 +54,4 @@ deploy:
     - export CRYPTOCLOUD_API_KEY="$CRYPTOCLOUD_API_KEY"
     - export CRYPTOCLOUD_SHOP_ID="$CRYPTOCLOUD_SHOP_ID"
   script:
-    - docker compose up -d --build
+    - docker compose up --detach --build
