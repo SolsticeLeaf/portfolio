@@ -39,6 +39,7 @@ build:
   artifacts:
     paths:
       - .nuxt/
+      - output/
       - config/
     expire_in: 1 hour
 
