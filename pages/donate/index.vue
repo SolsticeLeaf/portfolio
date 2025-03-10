@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import currencies from "~/config/currencies.config";
-import config from "~/config/initial.config";
+import currencies from '~/config/currencies.config';
+import config from '~/config/initial.config';
 const { locale, getLocaleMessage } = useI18n()
 
 useHead({title: getLocaleMessage(locale.value)["donate_title"] + " | " + config.siteName});
