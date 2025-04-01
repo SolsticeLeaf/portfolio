@@ -27,6 +27,16 @@ function changeTheme() {
   }
 }
 
+function isActive(path: string): boolean {
+  const currentLocale = locale.value;
+  const currentPath = route.path.replace(/\/\s*$/, "");
+  if (path === `/${currentLocale}`) {
+    return currentPath === path;
+  } else {
+    return currentPath.includes(path)
+  }
+}
+
 const links = computed((): any => {
   const currentLocale = locale.value;
   const alternateLocale = currentLocale === 'en' ? 'ru' : 'en';
@@ -36,28 +46,33 @@ const links = computed((): any => {
     {
       label: 'nav_home',
       icon: 'i-heroicons-home',
-      to: `/${currentLocale}/`
+      type: 'path',
+      action: `/${currentLocale}`
     },
     {
       label: 'nav_projects',
       icon: 'i-heroicons-queue-list',
-      to: `/${currentLocale}/projects/`
+      type: 'path',
+      action: `/${currentLocale}/projects`
     },
     {
       icon: 'i-heroicons-heart',
-      to: `/${currentLocale}/donate/`
+      type: 'path',
+      action: `/${currentLocale}/donate`
     },
     {
       icon: computed(() => {
         if (colorMode.preference === 'system') { return 'i-heroicons-computer-desktop'; }
         return colorMode.value === 'dark' ? 'i-heroicons-moon' : 'i-heroicons-sun';
       }).value,
-      click: changeTheme
+      type: 'action',
+      action: changeTheme
     },
     {
       label: locale.value.toUpperCase(),
       icon: 'i-heroicons-globe-alt',
-      to: alternatePath
+      type: 'path',
+      action: alternatePath
     }
   ];
 })
@@ -66,19 +81,23 @@ const links = computed((): any => {
 <template>
   <ClientOnly>
     <nav id="navbar" class="glass">
-      <ULink to="/" class="nav__logo">
+      <a href="/" class="nav__logo">
         <h1 class="nav__logo__name">
           {{ $t(siteName) }}
         </h1>
-      </ULink>
-      <UHorizontalNavigation :links="links" class="nav__links" >
-        <template #icon="{ link }">
-          <UIcon :name="link.icon" class="nav__links__icon" />
-        </template>
-        <template #default="{ link }">
-          <p v-if="link.label" class="group-hover:sky relative nav__links__label">{{ $t(link.label) }}</p>
-        </template>
-      </UHorizontalNavigation>
+      </a>
+      <div class="nav">
+        <div v-for="link in links" :key="link.icon" class="nav__links">
+          <nuxt-link v-if="link.type === 'path'" :to="link.action" :class="isActive(link.action) ? 'nav__links__active' : 'nav__links__default'">
+            <UIcon :name="link.icon" :class="isActive(link.action) ? 'nav__links__active__icon' : 'nav__links__default__icon'" />
+            <p v-if="link.label" :class="isActive(link.action) ? 'nav__links__active__label' : 'nav__links__default__label'">{{ $t(link.label) }}</p>
+          </nuxt-link>
+          <div v-else class="nav__links__default" @click="link.action">
+            <UIcon :name="link.icon" class="nav__links__default__icon" />
+            <p v-if="link.label" class="relative nav__links__default__label">{{ $t(link.label) }}</p>
+          </div>
+        </div>
+      </div>
     </nav>
   </ClientOnly>
 </template>
@@ -95,7 +114,6 @@ const links = computed((): any => {
 }
 
 .glass {
-  border-radius: 2rem;
   filter: none !important;
   -webkit-filter: none !important;
   backdrop-filter: blur(20px);
@@ -119,6 +137,92 @@ nav {
     justify-content: center;
   }
 
+  .nav {
+    width: fit-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    gap: 1rem;
+
+    &__links {
+      height: 60%;
+
+      &__default {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 0.2rem;
+        height: 100%;
+        color: var(--text-navigation);
+
+        &__label {
+          @media screen and (max-width: $screen-sm) {
+            display: none;
+          }
+        }
+
+        &__icon {
+          width: 1.2rem;
+          height: 1.2rem;
+
+          @media screen and (max-width: $screen-md) {
+            width: 1.6rem;
+            height: 1.6rem;
+          }
+
+          @media screen and (max-width: $screen-sm) {
+            padding: 0 1.6rem;
+          }
+        }
+      }
+
+      &__active {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        height: 100%;
+        border-bottom: 2px var(--nav-active) solid;
+        color: var(--text-navigation);
+        gap: 0.2rem;
+
+        &__label {
+          @media screen and (max-width: $screen-sm) {
+            display: none;
+          }
+        }
+
+        &__icon {
+          width: 1.2rem;
+          height: 1.2rem;
+
+          @media screen and (max-width: $screen-md) {
+            width: 1.6rem;
+            height: 1.6rem;
+          }
+
+          @media screen and (max-width: $screen-sm) {
+            padding: 0 1.6rem;
+          }
+        }
+      }
+
+      &__default:hover {
+        cursor: pointer;
+        color: var(--nav-hover);
+      }
+
+      &__active:hover {
+        cursor: pointer;
+        color: var(--nav-hover);
+      }
+    }
+  }
+
   .nav__logo {
     width: fit-content;
     height: 100%;
@@ -140,37 +244,6 @@ nav {
 
     @media screen and (max-width: $screen-xss) {
       display: none;
-    }
-  }
-
-  .nav__links {
-    width: fit-content;
-    height: inherit;
-    padding: 0 !important;
-    margin: 0 !important;
-
-    &__label {
-      color: var(--text-navigation);
-
-      @media screen and (max-width: $screen-sm) {
-        display: none;
-      }
-    }
-
-    &__icon {
-      width: 1.2rem;
-      height: 1.2rem;
-      color: var(--text-navigation);
-
-      @media screen and (max-width: $screen-md) {
-        width: 1.6rem;
-        height: 1.6rem;
-      }
-
-      @media screen and (max-width: $screen-sm) {
-        padding: 0 1.6rem;
-        color: var(--text-navigation);
-      }
     }
   }
 }

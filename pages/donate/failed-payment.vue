@@ -3,7 +3,11 @@ import config from "~/config/initial.config";
 
 const { locale, getLocaleMessage } = useI18n()
 
-useHead({title: getLocaleMessage(locale.value)["donate_error"] + " | " + config.siteName});
+onMounted(() => {
+  useHead({
+    title: getLocaleMessage(locale.value)["donate_error"] + " | " + config.siteName
+  });
+})
 
 const getProjectsPath = computed(() => {
   const currentLocale = locale.value;

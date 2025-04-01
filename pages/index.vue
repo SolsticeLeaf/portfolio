@@ -2,15 +2,15 @@
 import HeroSection from "~/components/section/HeroSection.vue";
 import config from "~/config/initial.config";
 
-useHead({
-          title: config.nickname
-        });
+onMounted(() => {
+  useHead({
+    title: config.nickname
+  });
+})
 </script>
 
 <template>
-  <section>
-    <HeroSection />
-  </section>
+  <HeroSection />
 </template>
 
 <style scoped lang="scss">

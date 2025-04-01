@@ -3,7 +3,11 @@ import currencies from '~/config/currencies.config';
 import config from '~/config/initial.config';
 const { locale, getLocaleMessage } = useI18n()
 
-useHead({title: getLocaleMessage(locale.value)["donate_title"] + " | " + config.siteName});
+onMounted(() => {
+  useHead({
+    title: getLocaleMessage(locale.value)["donate_title"] + " | " + config.siteName
+  });
+})
 
 function getDefaultCurrency(list: any) {
   let defaultCurrency = list[0];
@@ -84,7 +88,7 @@ onMounted(() => {
     <div class="wrapper">
       <div class="card">
         <div class="card__top">
-          <nuxt-img preload class="card__top__image" src="https://ik.imagekit.io/kiinse/coffee_cup?updatedAt=1738662246231"/>
+          <nuxt-img preload class="card__top__image" :src="config.donateIcon"/>
         </div>
         <div class="blur__glass">
           <h6 class="card__title">

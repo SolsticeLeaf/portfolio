@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import config from "@/config/initial.config"
+import config from "@/config/initial.config";
 import TechIcon from "~/components/utilities/TechIcon.vue";
-import {Vue3Marquee} from "vue3-marquee";
-const { locale } = useI18n()
-const route = useRoute()
+import { Vue3Marquee } from "vue3-marquee";
+const { locale } = useI18n();
+const route = useRoute();
 
 const { data: project, status: status } = useFetch('/api/getProjectData', {
   key: 'projects',
@@ -14,124 +14,152 @@ const { data: project, status: status } = useFetch('/api/getProjectData', {
   cache: "no-cache",
   server: false,
   onResponse: (response) => {
-    const item = response.response._data
+    const item = response.response._data;
     if (item != null) {
       useHead({
-                title: item.title + " | " + config.siteName,
-                meta: [{
-                  name: 'description',
-                  content: getDescription(item.description),
-                }]
+        title: item.title + " | " + config.siteName,
+        meta: [{
+          name: 'description',
+          content: getDescription(item.description),
+        }]
       });
     } else {
-      useHead({title: "ERROR | " + config.siteName});
+      useHead({ title: "ERROR | " + config.siteName });
     }
   }
 });
 
 const isPending = computed(() => {
   return status.value === "pending";
-})
+});
 
 const isSuccess = computed(() => {
   return status.value === "success" && project.value.title != null;
-})
+});
 
 const getProjectsPath = computed(() => {
   const currentLocale = locale.value;
-  return `/${currentLocale}/projects`
-})
+  return `/${currentLocale}/projects`;
+});
 
 function getDescription(description: any): string {
   const currentLocale = locale.value;
-  const localed = description[currentLocale]
+  const localed = description[currentLocale];
   if (localed) {
-    return localed
+    return localed;
   }
-  return description["en"]
+  return description["en"];
 }
 
 function getButtonName(name: any): string {
   const currentLocale = locale.value;
-  const localed = name[currentLocale]
+  const localed = name[currentLocale];
   if (localed) {
-    return localed
+    return localed;
   }
-  return name["en"]
+  return name["en"];
 }
 </script>
 
 <template>
   <ClientOnly>
-    <Suspense>
-      <div v-if="!isSuccess" class="blur__glass">
-        <div v-if="isPending" class="projects__message">
+    <div v-if="!isSuccess" class="blur__glass">
+      <div v-if="isPending" class="projects__message">
+        <Suspense>
           <UProgress size="xl" animation="carousel" class="projects__message__indicator" />
-        </div>
-        <div v-else class="projects__message">
-          <h1>
-            {{ $t('notFound') }}
-          </h1>
+          <template #fallback>
+            <div class="skeleton-progress" />
+          </template>
+        </Suspense>
+      </div>
+      <div v-else class="projects__message">
+        <h1>
+          {{ $t('notFound') }}
+        </h1>
+      </div>
+    </div>
+    <div v-else class="wrapper">
+      <div class="screen-md">
+        <div class="blur__glass info__buttons">
+          <nuxt-link :to="source.link" target="_blank" rel="noopener noreferrer" v-for="source in project.mainSources" :key="source.name">
+            <el-button :color="source.color" round size="large" class="info__buttons__btn">
+              <icons class="icon_padding_right" :icon="source.icon" />
+              <p>{{ getButtonName(source.name) }}</p>
+            </el-button>
+          </nuxt-link>
+          <nuxt-link :to="getProjectsPath">
+            <el-button color="red" round size="large" class="info__buttons__btn">
+              <icons class="icon_padding_right" icon="fa-solid fa-chevron-left" />
+              <p>{{ $t('back_button') }}</p>
+            </el-button>
+          </nuxt-link>
         </div>
       </div>
-      <div v-else class="wrapper">
-        <div class="screen-md">
-          <div class="blur__glass info__buttons">
-            <a :href="source.link" target="_blank" rel="noopener noreferrer" v-for="source in project.mainSources" :key="source.name">
-              <el-button :color="source.color" round size="large" class="info__buttons__btn">
-                <icons class="icon_padding_right" :icon="source.icon"/>
-                <p>{{ getButtonName(source.name) }}</p>
-              </el-button>
-            </a>
-            <a :href="getProjectsPath" rel="noopener noreferrer">
-              <el-button color="red" round size="large" class="info__buttons__btn">
-                <icons class="icon_padding_right" icon="fa-solid fa-chevron-left"/>
-                <p>{{ $t('back_button') }}</p>
-              </el-button>
-            </a>
-          </div>
-        </div>
-        <div class="content blur__glass">
-          <a :href="getProjectsPath" rel="noopener noreferrer" class="desktop">
-            <el-button type="danger" link size="large">
-              <icons class="icon_padding_right" icon="fa-solid fa-chevron-left"/>
-              <p>{{ $t('project_back_button') }}</p>
-            </el-button>
-          </a>
-          <h1 class="content__title">{{ project.title }}</h1>
-          <p class="content__description">{{ getDescription(project.description) }}</p>
-        </div>
-        <div class="info blur__glass">
-          <nuxt-img loading="lazy" class="info__logo" :src="project.imageLink"/>
-          <div class="info__marquee transparent__glass">
+      <div class="content blur__glass">
+        <nuxt-link :to="getProjectsPath" class="desktop">
+          <el-button type="danger" link size="large">
+            <icons class="icon_padding_right" icon="fa-solid fa-chevron-left" />
+            <p>{{ $t('project_back_button') }}</p>
+          </el-button>
+        </nuxt-link>
+        <h1 class="content__title">{{ project.title }}</h1>
+        <p class="content__description">{{ getDescription(project.description) }}</p>
+      </div>
+      <div class="info blur__glass">
+        <Suspense>
+          <nuxt-img loading="lazy" class="info__logo" :src="project.imageLink" />
+          <template #fallback>
+            <div class="skeleton-image" />
+          </template>
+        </Suspense>
+        <div class="info__marquee transparent__glass">
+          <Suspense>
             <Vue3Marquee pause-on-hover clone :duration="30" class="info__marquee__container">
-              <div class="info__marquee__container__item" v-for="lang in project.languages">
-                <TechIcon class="data-marquee-icon" :icon="lang.icon"/>
+              <div class="info__marquee__container__item" v-for="lang in project.languages" :key="lang.name">
+                <Suspense>
+                  <TechIcon class="data-marquee-icon" :icon="lang.icon" />
+                  <template #fallback>
+                    <div class="skeleton-icon" />
+                  </template>
+                </Suspense>
                 <p>{{ lang.name }}</p>
               </div>
             </Vue3Marquee>
-          </div>
-          <div class="info__marquee tech__background">
+            <template #fallback>
+              <div class="skeleton-marquee" />
+            </template>
+          </Suspense>
+        </div>
+        <div class="info__marquee tech__background">
+          <Suspense>
             <Vue3Marquee direction="reverse" pause-on-hover clone :duration="30" class="info__marquee__container">
-              <div class="info__marquee__container__item" v-for="tech in project.techs">
-                <TechIcon class="data-marquee-icon" :icon="tech.icon"/>
+              <div class="info__marquee__container__item" v-for="tech in project.techs" :key="tech.name">
+                <Suspense>
+                  <TechIcon class="data-marquee-icon" :icon="tech.icon" />
+                  <template #fallback>
+                    <div class="skeleton-icon" />
+                  </template>
+                </Suspense>
                 <p>{{ tech.name }}</p>
               </div>
             </Vue3Marquee>
-          </div>
-          <div class="desktop">
-            <div class="info__buttons">
-              <a :href="source.link" target="_blank" rel="noopener noreferrer" v-for="source in project.mainSources" :key="source.name">
-                <el-button :color="source.color" round size="large" class="info__buttons__btn">
-                  <icons class="icon_padding_right" :icon="source.icon"/>
-                  <p>{{ getButtonName(source.name) }}</p>
-                </el-button>
-              </a>
-            </div>
+            <template #fallback>
+              <div class="skeleton-marquee" />
+            </template>
+          </Suspense>
+        </div>
+        <div class="desktop">
+          <div class="info__buttons">
+            <nuxt-link :to="source.link" target="_blank" rel="noopener noreferrer" v-for="source in project.mainSources" :key="source.name">
+              <el-button :color="source.color" round size="large" class="info__buttons__btn">
+                <icons class="icon_padding_right" :icon="source.icon" />
+                <p>{{ getButtonName(source.name) }}</p>
+              </el-button>
+            </nuxt-link>
           </div>
         </div>
       </div>
-    </Suspense>
+    </div>
   </ClientOnly>
 </template>
 
@@ -291,4 +319,31 @@ a:hover, el-button:hover {
   }
 }
 
+.skeleton-progress {
+  width: 14rem;
+  height: 1rem;
+  background: #e0e0e0;
+  animation: pulse 1.5s infinite;
+}
+
+.skeleton-image {
+  width: 100%;
+  height: 10rem;
+  background: #e0e0e0;
+  animation: pulse 1.5s infinite;
+}
+
+.skeleton-marquee {
+  width: 100%;
+  height: 2.8rem;
+  background: #e0e0e0;
+  animation: pulse 1.5s infinite;
+}
+
+.skeleton-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  background: #e0e0e0;
+  animation: pulse 1.5s infinite;
+}
 </style>

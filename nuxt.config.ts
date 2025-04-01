@@ -17,6 +17,9 @@ export default defineNuxtConfig({
       link: [{ rel: 'icon', type: 'image/x-icon', href: 'https://ik.imagekit.io/kiinse/icons/icon.svg?updatedAt=1740170186956' }]
     }
   },
+  experimental: {
+    componentIslands: true
+  },
   compatibilityDate: '2025-01-29',
   devtools: { enabled: true },
   modules: [
@@ -27,7 +30,7 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     '@nuxt/fonts',
     '@nuxtjs/color-mode',
-    '@element-plus/nuxt'
+    '@element-plus/nuxt',
   ],
   plugins: ['@/plugins/Vue3Marquee.client.ts'],
   i18n: {

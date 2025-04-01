@@ -66,6 +66,10 @@ label {
   }
 }
 
+html, body {
+  background-color: #120e1c;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -156,4 +160,16 @@ body {
 ::-moz-selection {
   background: var(--selection-background);
   color: var(--selection-color);
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
 }

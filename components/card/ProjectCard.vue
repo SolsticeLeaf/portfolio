@@ -61,15 +61,14 @@ export default {
       </div>
       <div class="card__links">
         <div class="card__links__button" v-for="source in sources" :key="source.name">
-          <a :href="source.link"
-             rel="noopener noreferrer">
+          <nuxt-link :to="source.link" rel="noopener noreferrer">
             <el-button class="card__links__button"
                        :color="source.color"
                        round size="large">
               <icons class="card__links__text icon_padding_right" :icon="source.icon"/>
               <p class="card__links__text">{{ getName(source.name) }}</p>
             </el-button>
-          </a>
+          </nuxt-link>
         </div>
       </div>
     </div>

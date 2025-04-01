@@ -2,7 +2,7 @@
 import TyperUtil from "~/components/utilities/TyperUtil.vue";
 import initialConfig from "~/config/initial.config";
 import toolsConfig from "~/config/tools.config";
-import {Vue3Marquee} from "vue3-marquee";
+import { Vue3Marquee } from "vue3-marquee";
 import TechIcon from "~/components/utilities/TechIcon.vue";
 import AnnouncementSection from "~/components/section/AnnouncementSection.vue";
 
@@ -11,22 +11,26 @@ const avatar = initialConfig.hero.avatar_url;
 const links = initialConfig.socialLinks;
 const tools = toolsConfig.tools;
 
-const buttonColor = ref('');
-const secondaryButtonColor = ref('');
+const buttonColor = ref("");
+const secondaryButtonColor = ref("");
 
 const updateColors = () => {
   if (document.body) {
     const style = getComputedStyle(document.body);
-    buttonColor.value = style.getPropertyValue('--button-color').trim();
-    secondaryButtonColor.value = style.getPropertyValue('--secondary-button-color').trim();
+    buttonColor.value = style.getPropertyValue("--button-color").trim();
+    secondaryButtonColor.value = style.getPropertyValue("--secondary-button-color").trim();
   }
 };
 
 onMounted(() => {
   updateColors();
-  const observer = new MutationObserver(() => { updateColors(); });
-  observer.observe(document.body, { attributes: true});
-  onBeforeUnmount(() => { observer.disconnect(); });
+  const observer = new MutationObserver(() => {
+    updateColors();
+  });
+  observer.observe(document.body, { attributes: true });
+  onBeforeUnmount(() => {
+    observer.disconnect();
+  });
 });
 </script>
 
@@ -36,42 +40,57 @@ onMounted(() => {
       <div id="hero" class="wrapper blur__glass">
         <div class="main">
           <div class="main__content">
-            <h6 class="main__content__hey">{{$t('main_hey')}}</h6>
+            <h6 class="main__content__hey">{{ $t("main_hey") }}</h6>
             <div class="main__content__title">
-              <h1 class="main__content__title__first">{{ $t('main_title') }}</h1>
+              <h1 class="main__content__title__first">{{ $t("main_title") }}</h1>
               <h1 class="main__content__title__second">{{ $t(nickname) }}</h1>
             </div>
-            <TyperUtil class="type-writer" :words="$tm('main_typer')" />
-            <label class="main__content__spell">{{ $t('main_spell') }}</label>
+            <Suspense>
+              <TyperUtil class="type-writer" :words="$tm('main_typer')" />
+              <template #fallback>
+                <div class="skeleton-typer"/>
+              </template>
+            </Suspense>
+            <label class="main__content__spell">{{ $t("main_spell") }}</label>
             <div class="stack">
               <div class="stack__background">
-                <Vue3Marquee pause-on-hover :duration="60" class="stack__background__text">
-                  <div class="stack__text" v-for="tool in tools">
-                    <TechIcon class="data-marquee-icon" :icon="tool"/>
-                    <p>{{ tool }}</p>
-                  </div>
-                </Vue3Marquee>
+                <Suspense>
+                  <Vue3Marquee pause-on-hover :duration="60" class="stack__background__text">
+                    <div class="stack__text" v-for="tool in tools" :key="tool">
+                      <Suspense>
+                        <TechIcon class="data-marquee-icon" :icon="tool" />
+                        <template #fallback>
+                          <div class="skeleton-icon" />
+                        </template>
+                      </Suspense>
+                      <p>{{ tool }}</p>
+                    </div>
+                  </Vue3Marquee>
+                  <template #fallback>
+                    <div class="skeleton-marquee"/>
+                  </template>
+                </Suspense>
               </div>
             </div>
             <p class="main__content__social">
-              {{$t('main_follow')}}
+              {{ $t("main_follow") }}
               <a class="main__content__social-icons">
                 <a v-for="link in links" :key="link.icon" :href="link.url">
-                  <icons :icon="'fa-brands fa-'+link.icon" class="social-icon github" />
+                  <icons :icon="'fa-brands fa-' + link.icon" class="social-icon github" />
                 </a>
               </a>
             </p>
             <div class="main__content__button">
               <a href="mailto:me@sleaf.dev" class="main__content__button__solid">
                 <el-button class="main__content__button__solid" :color="buttonColor" round size="large">
-                  <icons class="main__content__button__solid__text icon_padding_right" icon="fas fa-envelope"/>
-                  <p class="main__content__button__solid__text">{{ $t('main_email') }}</p>
+                  <icons class="main__content__button__solid__text icon_padding_right" icon="fas fa-envelope" />
+                  <p class="main__content__button__solid__text">{{ $t("main_email") }}</p>
                 </el-button>
               </a>
-              <a href='https://discord.com/users/SolsticeLeaf' target="_blank" rel="noopener noreferrer" class="main__content__button__outline">
+              <a href="https://discord.com/users/SolsticeLeaf" target="_blank" rel="noopener noreferrer" class="main__content__button__outline">
                 <el-button class="main__content__button__outline" :color="secondaryButtonColor" round size="large">
-                  <icons class="main__content__button__outline__text icon_padding_right" icon="fa-brands fa-discord"/>
-                  <p class="main__content__button__outline__text">{{ $t('main_discord') }}</p>
+                  <icons class="main__content__button__outline__text icon_padding_right" icon="fa-brands fa-discord" />
+                  <p class="main__content__button__outline__text">{{ $t("main_discord") }}</p>
                 </el-button>
               </a>
             </div>
@@ -79,26 +98,36 @@ onMounted(() => {
         </div>
         <div class="image">
           <div class="image__content">
-            <nuxt-img
-                id="hero-avatar"
-                :src="avatar"
-                alt="SolsticeLeaf"
-                fit="cover"
-                height="80%"
-                loading="eager"
-            />
+            <Suspense>
+              <nuxt-img
+                  id="hero-avatar"
+                  :src="avatar"
+                  alt="SolsticeLeaf"
+                  fit="cover"
+                  height="80%"
+                  loading="eager"
+              />
+              <template #fallback>
+                <div class="skeleton-avatar"/>
+              </template>
+            </Suspense>
           </div>
         </div>
       </div>
       <div class="announcements">
-        <AnnouncementSection />
+        <Suspense>
+          <AnnouncementSection />
+          <template #fallback>
+            <div class="skeleton-announcement"/>
+          </template>
+        </Suspense>
       </div>
     </div>
   </ClientOnly>
 </template>
 
 <style scoped lang="scss">
-@use '../../assets/scss/screens' as *;
+@use "../../assets/scss/screens" as *;
 
 .blur__glass {
   @media screen and (max-width: $screen-sm) {
@@ -174,7 +203,8 @@ onMounted(() => {
         margin: auto 1%;
       }
 
-      .github:hover, .medium:hover {
+      .github:hover,
+      .medium:hover {
         color: var(--color-gray);
       }
 
@@ -207,7 +237,6 @@ onMounted(() => {
           max-width: fit-content;
         }
       }
-
 
       &__solid {
         height: 2.5rem;
@@ -373,5 +402,42 @@ onMounted(() => {
       }
     }
   }
+}
+
+.skeleton-typer {
+  width: 100%;
+  height: 2rem;
+  background: #e0e0e0;
+  animation: pulse 1.5s infinite;
+}
+
+.skeleton-marquee {
+  width: 25rem;
+  height: 2rem;
+  background: #e0e0e0;
+  animation: pulse 1.5s infinite;
+}
+
+.skeleton-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  background: #e0e0e0;
+  animation: pulse 1.5s infinite;
+  margin-right: 0.5rem;
+}
+
+.skeleton-avatar {
+  width: 30rem;
+  height: 80%;
+  background: #e0e0e0;
+  border-radius: 25%;
+  animation: pulse 1.5s infinite;
+}
+
+.skeleton-announcement {
+  width: 100%;
+  height: 10rem;
+  background: #e0e0e0;
+  animation: pulse 1.5s infinite;
 }
 </style>
