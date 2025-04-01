@@ -2,6 +2,70 @@
 @use "themes/dark";
 @use "screens" as *;
 
+html {
+  overflow: scroll;
+  overflow-scrolling: touch;
+  -webkit-overflow-scrolling: touch;
+}
+
+h1 {
+  font-size: 2.2rem;
+  @media screen and (max-width: $screen-xss) {
+    font-size: 2rem;
+  }
+}
+
+h2 {
+  font-size: 2.1rem;
+  @media screen and (max-width: $screen-xss) {
+    font-size: 1.8rem;
+  }
+}
+
+h3 {
+  font-size: 2rem;
+  @media screen and (max-width: $screen-xss) {
+    font-size: 1.7rem;
+  }
+}
+
+h4 {
+  font-size: 1.9rem;
+  @media screen and (max-width: $screen-xss) {
+    font-size: 1.6rem;
+  }
+}
+
+h5 {
+  font-size: 1.8rem;
+  @media screen and (max-width: $screen-xss) {
+    font-size: 1.5rem;
+  }
+}
+
+h6 {
+  font-size: 1.5rem;
+  @media screen and (max-width: $screen-xss) {
+    font-size: 1.2rem;
+  }
+}
+
+p, q {
+  font-size: 1rem;
+
+  @media screen and (max-width: $screen-xss) {
+    font-size: 1rem;
+  }
+}
+
+label {
+  font-size: 1rem;
+  color: var(--text-color-gray) !important;
+  @media screen and (max-width: $screen-xss) {
+    font-size: 0.8rem;
+  }
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -23,6 +87,41 @@ body {
       text-align: center;
     }
   }
+}
+
+.desktop {
+  display: flex;
+  @media screen and (max-width: $screen-md) {
+    display: none;
+  }
+}
+
+.screen-md {
+  display: none;
+  @media screen and (max-width: $screen-md) {
+    display: flex;
+  }
+}
+
+.screen-sm {
+  display: none;
+  @media screen and (max-width: $screen-sm) {
+    display: flex;
+  }
+}
+
+.screen-xss {
+  display: none;
+
+  @media screen and (max-width: $screen-xss) {
+    display: flex;
+  }
+}
+
+.data-marquee-icon {
+  height: 1.5rem;
+  padding-left: 1rem;
+  padding-right: 0.5rem;
 }
 
 .icon_padding_right {

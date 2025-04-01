@@ -71,12 +71,12 @@ onBeforeUnmount(() => {
         </div>
       </div>
     </div>
-    <div class="body">
+    <div id="body" class="body">
       <div class="footer__top">
         <NavigationSection/>
       </div>
+      <div class="footer__blank"/>
       <slot/>
-      <div class="footer__bottom"/>
     </div>
   </div>
 </template>
@@ -91,13 +91,7 @@ onBeforeUnmount(() => {
   align-content: center;
   justify-content: space-between;
   width: 100vw;
-  height: 100vh;
   max-width: 100vw;
-  max-height: 100vh;
-
-  @media screen and (max-width: $screen-sm) {
-    height: fit-content;
-  }
 }
 
 .footer {
@@ -106,29 +100,47 @@ onBeforeUnmount(() => {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 100vw;
-    height: 12vh;
+    position: fixed;
+    width: 100%;
+    height: 6rem;
+    z-index: 15;
+
+    @media screen and (max-width: $screen-xss) {
+      height: 4rem;
+    }
+  }
+
+  &__blank {
+    display: flex;
+    width: 100%;
+    height: 6rem;
+
+    @media screen and (max-width: $screen-xss) {
+      height: 4rem;
+    }
   }
 
   &__bottom {
     display: flex;
-    width: 100vw;
-    height: 8vh;
+    width: 100%;
+    height: 8rem;
   }
 }
 
 .background {
+
   &__blur {
     background-color: transparent;
     width: 100%;
     height: 100%;
-    position: absolute;
+    position: fixed;
     display: flex;
     flex-direction: row;
     filter: var(--blur);
     -webkit-filter: var(--blur);
     justify-content: center;
     align-items: center;
+
     @media screen and (max-width: $screen-xss) {
       display: none;
     }
@@ -141,7 +153,7 @@ onBeforeUnmount(() => {
     align-items: center;
     width: 100%;
     height: 100%;
-    font-size: var(--text-size, 6vw);
+    font-size: var(--text-size, 6rem);
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -157,15 +169,19 @@ onBeforeUnmount(() => {
       justify-content: space-evenly;
       white-space: nowrap;
       width: 100%;
-      word-spacing: 0.2vw;
+      word-spacing: 0.2rem;
     }
 
     &__word {
-      font-size: 6vw;
-      padding: 0 1.5vw;
+      font-size: 7.5rem;
+      padding: 0 1.5rem;
       display: inline-flex;
       color: transparent !important;
       -webkit-text-stroke: var(--text-stroke) var(--background-word);
+
+      @media screen and (max-width: $screen-lg) {
+        font-size: 5rem;
+      }
     }
   }
 }

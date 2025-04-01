@@ -54,28 +54,23 @@ export default {
 
 <template>
   <div>
-    <h1>
+    <h6>
       <span class="typed-text">{{ typeValue }}</span>
       <span class="blinking-cursor">|</span>
       <span class="cursor" :class="{ typing: typeStatus }"></span>
-    </h1>
+    </h6>
   </div>
 </template>
 
 <style scoped lang="scss">
 @use "@/assets/scss/screens.scss" as *;
 
-h1 {
-  font-size: 1.3vw;
+h6 {
   font-weight: normal;
   font-family: 'Roboto Mono', monospace;
 
   span.typed-text {
     color: var(--color-typer-text);
-  }
-
-  @media screen and (max-width: $screen-md) {
-    font-size: 1em;
   }
 }
 
@@ -84,7 +79,7 @@ h1 {
 }
 
 .blinking-cursor {
-  font-size: 1.8vw;
+  font-size: 1.8rem;
   line-height: 1;
   color: var(--co);
   -webkit-animation: 1s blink step-end infinite;
@@ -93,7 +88,6 @@ h1 {
   animation: 1s blink step-end infinite;
 
   @media screen and (max-width: $screen-md) {
-    font-size: 1.4em;
     font-weight: bold;
   }
 }

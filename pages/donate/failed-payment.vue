@@ -16,9 +16,9 @@ const getProjectsPath = computed(() => {
     <div class="wrapper">
       <div class="card">
         <div class="blur__glass">
-          <div class="card__title">
+          <h6 class="card__title">
             {{ $t('donate_error') }}
-          </div>
+          </h6>
           <div class="card__bottom">
             <a :href="getProjectsPath" class="card__bottom__button">
               <el-button class="card__bottom__button" color="red" round>
@@ -34,6 +34,18 @@ const getProjectsPath = computed(() => {
 </template>
 
 <style scoped lang="scss">
+@use 'assets/scss/screens' as *;
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+  justify-content: center;
+
+  @media screen and (max-width: $screen-sm) {
+    padding: 1rem;
+  }
+}
 
 .donate-container {
   display: flex;
@@ -50,7 +62,6 @@ const getProjectsPath = computed(() => {
   &__title {
     width: 100%;
     text-align: center;
-    font-size: 1.2rem;
     padding-bottom: 1rem;
     color: var(--text-color-primary)
   }
@@ -66,7 +77,6 @@ const getProjectsPath = computed(() => {
       height: 2.5rem;
 
       &__text {
-        font-size: 1rem;
         color: var(--text-color-light);
       }
     }

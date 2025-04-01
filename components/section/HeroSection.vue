@@ -33,81 +33,76 @@ onMounted(() => {
 <template>
   <ClientOnly>
     <div class="displayed">
-    <div id="hero" class="wrapper blur__glass">
-      <div class="main">
-        <div class="main__content">
-          <h6 class="main__content__hey">{{$t('main_hey')}}</h6>
-          <h1>
-            <span class="main__content__title">
-              <span class="main__content__title__first">{{ $t('main_title') }}</span>
-              <span class="main__content__title__second">{{ $t(nickname) }}</span>
-            </span>
-          </h1>
-          <h2>
+      <div id="hero" class="wrapper blur__glass">
+        <div class="main">
+          <div class="main__content">
+            <h6 class="main__content__hey">{{$t('main_hey')}}</h6>
+            <div class="main__content__title">
+              <h1 class="main__content__title__first">{{ $t('main_title') }}</h1>
+              <h1 class="main__content__title__second">{{ $t(nickname) }}</h1>
+            </div>
             <TyperUtil class="type-writer" :words="$tm('main_typer')" />
-          </h2>
-          <p class="main__content__spell">{{ $t('main_spell') }}</p>
-          <div class="stack">
-            <div class="stack__background">
-              <Vue3Marquee pause-on-hover :duration="60" class="stack__background__text">
-                <div class="stack__text" v-for="tool in tools">
-                  <TechIcon class="stack__background__text__icon" :icon="tool"/>
-                  {{ tool }}
-                </div>
-              </Vue3Marquee>
+            <label class="main__content__spell">{{ $t('main_spell') }}</label>
+            <div class="stack">
+              <div class="stack__background">
+                <Vue3Marquee pause-on-hover :duration="60" class="stack__background__text">
+                  <div class="stack__text" v-for="tool in tools">
+                    <TechIcon class="data-marquee-icon" :icon="tool"/>
+                    <p>{{ tool }}</p>
+                  </div>
+                </Vue3Marquee>
+              </div>
+            </div>
+            <p class="main__content__social">
+              {{$t('main_follow')}}
+              <a class="main__content__social-icons">
+                <a v-for="link in links" :key="link.icon" :href="link.url">
+                  <icons :icon="'fa-brands fa-'+link.icon" class="social-icon github" />
+                </a>
+              </a>
+            </p>
+            <div class="main__content__button">
+              <a href="mailto:me@sleaf.dev" class="main__content__button__solid">
+                <el-button class="main__content__button__solid" :color="buttonColor" round size="large">
+                  <icons class="main__content__button__solid__text icon_padding_right" icon="fas fa-envelope"/>
+                  <p class="main__content__button__solid__text">{{ $t('main_email') }}</p>
+                </el-button>
+              </a>
+              <a href='https://discord.com/users/SolsticeLeaf' target="_blank" rel="noopener noreferrer" class="main__content__button__outline">
+                <el-button class="main__content__button__outline" :color="secondaryButtonColor" round size="large">
+                  <icons class="main__content__button__outline__text icon_padding_right" icon="fa-brands fa-discord"/>
+                  <p class="main__content__button__outline__text">{{ $t('main_discord') }}</p>
+                </el-button>
+              </a>
             </div>
           </div>
-          <h6 class="main__content__social">
-            {{$t('main_follow')}}
-            <a class="main__content__social-icons">
-              <icons :href="link.url" v-for="link in links" :key="link.icon" :icon="'fa-brands fa-'+link.icon" class="social-icon github" />
-            </a>
-          </h6>
-          <div class="main__content__button">
-            <a href="mailto:me@sleaf.dev" class="main__content__button__solid">
-              <el-button class="main__content__button__solid" :color="buttonColor" round size="large">
-                <icons class="main__content__button__solid__text icon_padding_right" icon="fas fa-envelope"/>
-                <p class="main__content__button__solid__text">{{ $t('main_email') }}</p>
-              </el-button>
-            </a>
-            <a href='https://discord.com/users/SolsticeLeaf' target="_blank" rel="noopener noreferrer" class="main__content__button__outline">
-              <el-button class="main__content__button__outline" :color="secondaryButtonColor" round size="large">
-                <icons class="main__content__button__outline__text icon_padding_right" icon="fa-brands fa-discord"/>
-                <p class="main__content__button__outline__text">{{ $t('main_discord') }}</p>
-              </el-button>
-            </a>
+        </div>
+        <div class="image">
+          <div class="image__content">
+            <nuxt-img
+                id="hero-avatar"
+                :src="avatar"
+                alt="SolsticeLeaf"
+                fit="cover"
+                height="80%"
+                loading="eager"
+            />
           </div>
         </div>
       </div>
-      <div class="image">
-        <div class="image__content">
-          <NuxtImg
-              id="hero-avatar"
-              :src="avatar"
-              alt="SolsticeLeaf"
-              fit="cover"
-              height="80%"
-              loading="eager"
-          />
-        </div>
+      <div class="announcements">
+        <AnnouncementSection />
       </div>
-    </div>
-    <div class="announcements">
-      <AnnouncementSection />
-    </div>
     </div>
   </ClientOnly>
 </template>
 
 <style scoped lang="scss">
-@use '@/assets/scss/screens' as *;
-
-//* {
-//  border: 1px solid white !important;
-//}
+@use '../../assets/scss/screens' as *;
 
 .blur__glass {
   @media screen and (max-width: $screen-sm) {
+    background: transparent;
     margin-right: 1rem !important;
     margin-left: 1rem !important;
   }
@@ -118,7 +113,13 @@ onMounted(() => {
   flex-direction: column;
   align-items: center;
   align-content: center;
-  justify-content: space-between;
+  height: 80vh;
+  max-height: 85vh;
+  justify-content: center;
+
+  @media screen and (max-width: $screen-sm) {
+    height: fit-content;
+  }
 }
 
 .announcements {
@@ -152,37 +153,15 @@ onMounted(() => {
       justify-content: center;
     }
 
-    &__spell {
-      font-size: 1rem;
-      color: var(--text-color-gray) !important;
-
-      @media screen and (max-width: $screen-sm) {
-        font-size: 0.9rem;
-      }
-    }
-
-    &__hey {
-      font-size: 1rem;
-    }
-
     &__title {
-      font-size: 2.5rem;
-      max-height: 100%;
-      line-height: 2.5rem;
-
-      @media screen and (max-width: $screen-md) {
-        font-size: 2rem;
-        line-height: 2rem;
-      }
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
 
       &__second {
         color: var(--username);
         font-weight: bold;
       }
-    }
-
-    &__social {
-      font-size: 1rem;
     }
 
     &__social-icons {
@@ -212,7 +191,7 @@ onMounted(() => {
       user-select: none;
 
       &__style {
-        max-height: 2vw;
+        max-height: 2rem;
 
         @media screen and (max-width: $screen-md) {
           max-height: 3rem;
@@ -235,12 +214,6 @@ onMounted(() => {
 
         &__text {
           color: var(--solid-button-text) !important;
-          font-size: 1rem !important;
-
-          @media screen and (max-width: $screen-md) {
-            font-size: 1rem !important;
-            line-height: 1rem !important;
-          }
         }
 
         @media screen and (max-width: $screen-md) {
@@ -254,12 +227,6 @@ onMounted(() => {
 
         &__text {
           color: var(--outline-button-text) !important;
-          font-size: 1rem !important;
-
-          @media screen and (max-width: $screen-md) {
-            font-size: 1rem !important;
-            line-height: 1rem !important;
-          }
         }
 
         @media screen and (max-width: $screen-md) {
@@ -270,7 +237,6 @@ onMounted(() => {
       @media screen and (max-width: $screen-md) {
         margin-top: 2rem;
         display: flex;
-        height: 100%;
         width: 100%;
         align-items: center;
         align-content: center;
@@ -297,19 +263,23 @@ onMounted(() => {
 
   &__content {
     height: 100%;
-    width: 25vw;
+    width: 30rem;
     text-align: center;
     align-items: center;
     margin-left: 0;
     margin-right: auto;
     display: flex;
 
+    @media screen and (max-width: $screen-lg) {
+      width: 25rem;
+    }
+
     @media screen and (max-width: $screen-md) {
-      width: 12em;
+      width: 12rem;
     }
 
     @media screen and (max-width: $screen-sm) {
-      width: 8em;
+      width: 8rem;
     }
   }
 
@@ -387,12 +357,10 @@ onMounted(() => {
     max-height: 100%;
     padding: 0 1rem;
     font-weight: bold;
-    font-size: 1rem;
     color: var(--text-stack);
     align-items: center;
 
     @media screen and (max-width: $screen-md) {
-      font-size: 1rem;
       padding: 0 2rem;
     }
 

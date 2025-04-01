@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import config from "@/config/initial.config"
 import TechIcon from "~/components/utilities/TechIcon.vue";
+import {Vue3Marquee} from "vue3-marquee";
 const { locale } = useI18n()
 const route = useRoute()
 
@@ -73,72 +74,61 @@ function getButtonName(name: any): string {
           </h1>
         </div>
       </div>
-      <div v-else class="wrapper blur__glass">
-        <div class="content__info">
-          <div class="content__info__main">
-            <div class="content__image__tablet">
-              <nuxt-img :src="project.imageLink" class="content__image__tablet__img" />
-            </div>
-            <div class="content__info__main__title">
-              {{ project.title }}
-            </div>
-            <div class="content__info__main__lang transparent__glass">
-              <div v-for="lang in project.languages" class="content__info__main__lang__content">
-                <div class="content__info__main__lang__content__item">
-                  <TechIcon class="content__info__main__lang__content__item__icon" :icon="lang.icon"/>
-                  <p class="content__info__main__lang__content__item__label">{{ lang.name }}</p>
-                </div>
-              </div>
-            </div>
-            <div class="content__info__main__tech">
-              <div class="content__info__main__tech__background">
-                <Vue3Marquee pause-on-hover clone :duration="30" class="content__info__tech__text">
-                  <div class="content__info__main__tech__label" v-for="tech in project.techs">
-                    <TechIcon class="content__info__main__tech__label__icon" :icon="tech.icon"/>
-                    {{ tech.name }}
-                  </div>
-                </Vue3Marquee>
-              </div>
-            </div>
-          </div>
-          <div class="content__description__tablet">
-            <h1 class="content__description__tablet__text">
-              {{ getDescription(project.description) }}
-            </h1>
-          </div>
-          <div class="content__info__buttons">
-            <div class="content__info__buttons__button" v-for="source in project.mainSources" :key="source.name">
-              <a  :href="source.link"
-                  target="_blank"
-                  rel="noopener noreferrer">
-                <el-button :color="source.color"
-                           round size="large"
-                           class="content__info__buttons__button"
-                >
-                  <icons class="content__info__buttons__button_text icon_padding_right" :icon="source.icon"/>
-                  <p class="content__info__buttons__button_text">{{ getButtonName(source.name) }}</p>
-                </el-button>
-              </a>
-            </div>
-            <a  :href="getProjectsPath"
-                rel="noopener noreferrer">
-              <el-button color="red"
-                         round size="large"
-                         class="content__info__buttons__button"
-              >
+      <div v-else class="wrapper">
+        <div class="screen-md">
+          <div class="blur__glass info__buttons">
+            <a :href="source.link" target="_blank" rel="noopener noreferrer" v-for="source in project.mainSources" :key="source.name">
+              <el-button :color="source.color" round size="large" class="info__buttons__btn">
+                <icons class="icon_padding_right" :icon="source.icon"/>
+                <p>{{ getButtonName(source.name) }}</p>
+              </el-button>
+            </a>
+            <a :href="getProjectsPath" rel="noopener noreferrer">
+              <el-button color="red" round size="large" class="info__buttons__btn">
                 <icons class="icon_padding_right" icon="fa-solid fa-chevron-left"/>
-                {{ $t('back_button') }}
+                <p>{{ $t('back_button') }}</p>
               </el-button>
             </a>
           </div>
         </div>
-        <div class="content__description__desktop">
-          <h1 class="content__description__desktop__text">
-            {{ getDescription(project.description) }}
-          </h1>
+        <div class="content blur__glass">
+          <h1 class="content__title">{{ project.title }}</h1>
+          <p class="content__description">{{ getDescription(project.description) }}</p>
         </div>
-        <div class="content__image__desktop">
-          <nuxt-img :src="project.imageLink" class="content__image__desktop__img" />
+        <div class="info blur__glass">
+          <nuxt-img loading="lazy" class="info__logo" :src="project.imageLink"/>
+          <div class="info__marquee transparent__glass">
+            <Vue3Marquee pause-on-hover clone :duration="30" class="info__marquee__container">
+              <div class="info__marquee__container__item" v-for="lang in project.languages">
+                <TechIcon class="data-marquee-icon" :icon="lang.icon"/>
+                <p>{{ lang.name }}</p>
+              </div>
+            </Vue3Marquee>
+          </div>
+          <div class="info__marquee tech__background">
+            <Vue3Marquee direction="reverse" pause-on-hover clone :duration="30" class="info__marquee__container">
+              <div class="info__marquee__container__item" v-for="tech in project.techs">
+                <TechIcon class="data-marquee-icon" :icon="tech.icon"/>
+                <p>{{ tech.name }}</p>
+              </div>
+            </Vue3Marquee>
+          </div>
+          <div class="desktop">
+            <div class="info__buttons">
+              <a :href="source.link" target="_blank" rel="noopener noreferrer" v-for="source in project.mainSources" :key="source.name">
+                <el-button :color="source.color" round size="large" class="info__buttons__btn">
+                  <icons class="icon_padding_right" :icon="source.icon"/>
+                  <p>{{ getButtonName(source.name) }}</p>
+                </el-button>
+              </a>
+              <a :href="getProjectsPath" rel="noopener noreferrer">
+                <el-button color="red" round size="large" class="info__buttons__btn">
+                  <icons class="icon_padding_right" icon="fa-solid fa-chevron-left"/>
+                  <p>{{ $t('back_button') }}</p>
+                </el-button>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </Suspense>
@@ -146,24 +136,30 @@ function getButtonName(name: any): string {
 </template>
 
 <style scoped lang="scss">
-@use '@/assets/scss/screens' as *;
-
-//* {
-//  border: 1px solid darkcyan !important;
-//}
+@use '../../assets/scss/screens' as *;
 
 .wrapper {
-  width: 95vw;
+  width: 60%;
   height: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  -webkit-align-items: center;
+  gap: 1rem;
+
+  @media screen and (max-width: $screen-lg) {
+    width: 80%;
+  }
 
   @media screen and (max-width: $screen-md) {
-    flex-direction: column;
-    height: auto;
-    max-height: fit-content;
+    width: 95%;
+  }
+}
+
+.desktop {
+  width: 100%;
+}
+
+.blur__glass {
+  @media screen and (max-width: $screen-md) {
+    background: transparent;
   }
 }
 
@@ -179,278 +175,114 @@ function getButtonName(name: any): string {
 }
 
 .content {
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  width: 70%;
 
-  &__info {
-    display: flex;
-    flex-direction: column;
-    width: 30%;
-    max-width: 30%;
-    height: 100%;
+  @media screen and (max-width: $screen-md) {
+    width: 100%;
+  }
 
-    @media screen and (max-width: $screen-md) {
-      width: 100%;
-      max-width: 100%;
-      height: fit-content;
-    }
-
-    &__main {
-      height: 50%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-
-      &__title {
-        text-align: center;
-        font-size: 2.3vw;
-        background: var(--card-gradient);
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-        line-height: 5vw;
-
-        @media screen and (max-width: $screen-md) {
-          font-size: 5vw;
-          padding-bottom: 1rem;
-        }
-
-        @media screen and (max-width: $screen-sm) {
-          font-size: 7.5vw;
-          line-height: 8vw;
-        }
-      }
-
-      &__lang {
-        display: flex;
-        border-radius: 3rem;
-        height: 2.8rem;
-        width: 100%;
-        flex-direction: row;
-        overflow-x: scroll;
-        scrollbar-width: none;
-        overflow-y: hidden;
-        justify-content: center;
-        justify-items: center;
-        align-items: center;
-        align-content: center;
-        text-align: center;
-        column-gap: 1vw;
-        padding: 1rem 0;
-
-        &__content {
-          display: flex;
-          flex-direction: row;
-
-          &__item {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            align-content: center;
-            text-align: center;
-            border-radius: 3rem;
-            font-size: 0.8rem;
-
-            &__label {
-              @media screen and (max-width: $screen-md) {
-                font-size: 0.8rem;
-              }
-
-              @media screen and (max-width: $screen-sm) {
-                font-size: 0.8rem;
-              }
-            }
-
-            &__icon {
-              height: 1.5rem;
-              padding: 0 0.5rem;
-            }
-          }
-        }
-      }
-
-      &__tech {
-        width: 100%;
-        display: flex;
-        padding: 1rem 0;
-        justify-content: center;
-
-        &__background {
-          max-width: 100%;
-          height: 2.8rem;
-          border-radius: 2rem;
-          background: var(--card-stack-gradient);
-          overflow: hidden;
-          -webkit-user-select: none;
-          -moz-user-select: none;
-          -ms-user-select: none;
-          user-select: none;
-        }
-
-        &__text {
-          border-radius: 2rem;
-        }
-
-        &__label {
-          display: flex;
-          flex-direction: row;
-          height: 2.8rem;
-          padding: 0 1.5rem;
-          font-size: 0.8rem;
-          font-weight: bold;
-          color: var(--text-card-stack);
-          align-items: center;
-
-          @media screen and (max-width: $screen-md) {
-            font-weight: bold;
-            font-size: 1.2rem;
-          }
-
-          @media screen and (max-width: $screen-sm) {
-            font-size: 1rem;
-          }
-
-          &__icon {
-            padding-right: 0.5rem;
-            height: 1.8rem;
-          }
-        }
-      }
-    }
-    &__buttons {
-      height: 50%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 0 2vw;
-      row-gap: 2vh;
-
-      @media screen and (max-width: $screen-md) {
-        padding-top: 3vh;
-      }
-
-      &__button {
-        width: 100%;
-        height: 4vh;
-
-        &__text {
-          color: var(--text-color-light);
-        }
-
-        @media screen and (max-width: $screen-md) {
-          height: 4rem;
-        }
-
-        @media screen and (max-width: $screen-sm) {
-          height: 3rem;
-        }
-      }
-    }
+  &__title {
+    background: var(--card-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   &__description {
-
-    &__desktop {
-      width: 40%;
-      overflow-y: scroll;
-      padding: 0 1.8vw;
-      font-size: 1.5vh;
-      height: fit-content;
-      max-height: 100%;
-
-      @media screen and (max-width: $screen-md) {
-        display: none;
-      }
-
-      &__text {
-        height: 100%;
-        white-space: pre-line;
-        overflow-y: scroll;
-      }
-    }
-
-    &__tablet {
-      display: none;
-      height: 100%;
-
-      @media screen and (max-width: $screen-md) {
-        display: flex;
-      }
-
-      @media screen and (max-width: $screen-sm) {
-        font-size: 0.9rem;
-      }
-
-      &__text {
-        height: 100%;
-        white-space: pre-line;
-        overflow-y: scroll;
-      }
-    }
-
-  }
-
-  &__image {
-
-    &__desktop {
-      width: 30%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      vertical-align: center;
-
-      &__img {
-        width: 100%;
-      }
-
-      @media screen and (max-width: $screen-md) {
-        display: none;
-      }
-    }
-
-    &__tablet {
-      width: 30%;
-      height: 100%;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      vertical-align: center;
-      padding-bottom: 1rem;
-
-      &__img {
-        width: 100%;
-        border-radius: 2rem;
-      }
-
-      @media screen and (max-width: $screen-md) {
-        display: flex;
-      }
-
-      @media screen and (max-width: $screen-sm) {
-        width: 50%;
-      }
-    }
+    white-space: pre-line;
   }
 }
 
+.tech__background {
+  filter: none !important;
+  -webkit-filter: none !important;
+  border-radius: 3rem;
+  border: 1px solid var(--glass-border);
+  background: var(--card-stack-gradient);
+  color: var(--text-card-stack);
+  font-weight: bold;
+}
 
-.projects {
-  &__message {
-    font-size: 2vw;
-    font-weight: bold;
-    padding: 1rem;
+.info {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  height: fit-content;
+  align-items: center;
+  gap: 0.5rem;
 
-    &__indicator {
-      width: 14rem;
-    }
+  @media screen and (max-width: $screen-md) {
+    width: 100%;
+  }
+
+  &__logo {
+    width: auto;
+    height: fit-content;
 
     @media screen and (max-width: $screen-md) {
-      font-size: 2rem;
+      width: 50%;
+    }
+  }
+
+  &__marquee {
+    display: flex;
+    flex-direction: row;
+    border-radius: 3rem;
+    height: 2.8rem;
+    width: 100%;
+    overflow-x: scroll;
+    scrollbar-width: none;
+    overflow-y: hidden;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    column-gap: 1rem;
+    padding: 1rem 0;
+
+    &__container {
+      display: flex;
+      flex-direction: row;
+
+      &__item {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        text-align: center;
+        border-radius: 3rem;
+      }
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: fit-content;
+    gap: 0.5rem;
+    filter: none !important;
+    -webkit-filter: none !important;
+    border-radius: 2rem;
+    border: 1px solid var(--glass-border);
+    background: var(--glass-background);
+    padding: 1rem;
+
+    @media screen and (max-width: $screen-md) {
+      background: transparent;
     }
 
-    @media screen and (max-width: $screen-sm) {
-      font-size: 1rem;
+    &__btn {
+      width: 100%;
+
+      @media screen and (max-width: $screen-sm) {
+        height: 4rem;
+      }
     }
   }
 }

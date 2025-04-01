@@ -65,18 +65,18 @@ const links = computed((): any => {
 
 <template>
   <ClientOnly>
-    <nav id="navbar">
+    <nav id="navbar" class="glass">
       <ULink to="/" class="nav__logo">
-        <a class="nav__logo__name">
+        <h1 class="nav__logo__name">
           {{ $t(siteName) }}
-        </a>
+        </h1>
       </ULink>
       <UHorizontalNavigation :links="links" class="nav__links" >
         <template #icon="{ link }">
           <UIcon :name="link.icon" class="nav__links__icon" />
         </template>
         <template #default="{ link }">
-          <span v-if="link.label" class="group-hover:sky relative nav__links__label">{{ $t(link.label) }}</span>
+          <p v-if="link.label" class="group-hover:sky relative nav__links__label">{{ $t(link.label) }}</p>
         </template>
       </UHorizontalNavigation>
     </nav>
@@ -84,7 +84,7 @@ const links = computed((): any => {
 </template>
 
 <style scoped lang="scss">
-@use '@/assets/scss/screens' as *;
+@use '../../assets/scss/screens' as *;
 
 //* {
 //  border: 1px solid deepskyblue !important;
@@ -94,17 +94,26 @@ const links = computed((): any => {
   color-scheme: dark;
 }
 
+.glass {
+  border-radius: 2rem;
+  filter: none !important;
+  -webkit-filter: none !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
 nav {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   vertical-align: middle;
   width: 100%;
-  padding: 1.5vw 7%;
+  padding-left: 6rem;
+  padding-right: 6rem;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  justify-content: space-between;
 
   @media screen and (max-width: $screen-xss) {
     justify-content: center;
@@ -119,20 +128,14 @@ nav {
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    font-weight: bold;
 
     &__name {
       position: relative !important;
-      font-size: 2.2vw;
       background: var(--logo-gradient);
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
-      line-height: 2.2vw;
-
-      @media screen and (max-width: $screen-md) {
-        font-size: 2em;
-        line-height: 2em;
-      }
     }
 
     @media screen and (max-width: $screen-xss) {
@@ -147,12 +150,7 @@ nav {
     margin: 0 !important;
 
     &__label {
-      font-size: 1rem;
       color: var(--text-navigation);
-
-      @media screen and (max-width: $screen-md) {
-        font-size: 1.3em;
-      }
 
       @media screen and (max-width: $screen-sm) {
         display: none;

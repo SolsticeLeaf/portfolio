@@ -48,19 +48,15 @@ export default {
   <ClientOnly>
     <div class="card transparent__glass">
       <div class="card__image">
-        <NuxtImg class="card__image__content" :src="getImageUrl(imageLink)"/>
+        <nuxt-img loading="lazy" class="card__image__content" :src="getImageUrl(imageLink)"/>
       </div>
       <UDivider orientation="vertical" />
       <div class="card__info">
         <div class="card__info__title">
-          <h1 class="card__info__title__text">
-            {{ this.title }}
-          </h1>
+          <h4 class="card__info__title__text">{{ this.title }}</h4>
         </div>
         <div class="card__info__description">
-          <h1 class="card__info__description__text">
-            {{ getDescription(description) }}
-          </h1>
+          <p class="card__info__description__text">{{ getDescription(description) }}</p>
         </div>
       </div>
       <div class="card__links">
@@ -81,7 +77,7 @@ export default {
 </template>
 
 <style scoped lang="scss">
-@use '@/assets/scss/screens' as *;
+@use '../../assets/scss/screens' as *;
 
 //* {
 //  border: 1px solid deepskyblue !important;
@@ -98,21 +94,9 @@ export default {
   box-shadow: 0 0 1px var(--scrollbar-shadow);
 }
 
-.glass {
-  padding: 2vw;
-
-  @media screen and (max-width: $screen-md) {
-    padding: 4vw;
-  }
-
-  @media screen and (max-width: $screen-sm) {
-    display: none;
-  }
-}
-
 .card {
-  height: 12vw;
-  width: 70vw;
+  height: 14rem;
+  width: 100%;
   display: flex;
   flex-direction: row;
 
@@ -135,10 +119,10 @@ export default {
     align-items: center;
     align-content: center;
     justify-content: center;
-    width: 30%;
+    width: 25%;
 
     @media screen and (max-width: $screen-md) {
-      height: 18vh;
+      height: auto;
     }
 
     @media screen and (max-width: $screen-sm) {
@@ -146,7 +130,7 @@ export default {
       justify-items: center;
       align-items: center;
       width: 100%;
-      height: 20vh;
+      height: 8rem;
     }
 
     &__content {
@@ -163,9 +147,9 @@ export default {
     display: flex;
     flex-direction: column;
     height: 100%;
-    width: 50%;
-    margin-left: 1vw;
-    margin-right: 1vw;
+    width: 55%;
+    margin-left: 1rem;
+    margin-right: 1rem;
 
     @media screen and (max-width: $screen-sm) {
       width: 100%;
@@ -185,17 +169,10 @@ export default {
 
       &__text {
         overflow: hidden;
-        font-size: 1.8vw;
         background: var(--card-gradient);
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
-        line-height: 2vw;
-
-        @media screen and (max-width: $screen-md) {
-          font-size: 1.5rem;
-          line-height: 1.5rem;
-        }
       }
     }
 
@@ -211,7 +188,6 @@ export default {
       }
 
       &__text {
-        font-size: 1.5vh;
         max-height: 100%;
         display: -webkit-box;
         -webkit-box-orient: vertical;
@@ -220,13 +196,11 @@ export default {
         -webkit-line-clamp: 3;
 
         @media screen and (max-width: $screen-md) {
-          font-size: 1.2rem;
           line-clamp: 4;
           -webkit-line-clamp: 4;
         }
 
         @media screen and (max-width: $screen-sm) {
-          font-size: 0.8rem;
           -webkit-box-orient: vertical;
           overflow-y: hidden;
           line-clamp: 3;

@@ -41,7 +41,7 @@ const getSortedProjects = computed(() => {
           </h1>
         </div>
       </div>
-      <div v-else class="wrapper blur__glass">
+      <div v-else class="wrapper">
         <div class="projects">
           <div class="projects">
             <div class="projects__card" v-for="item in getSortedProjects" :key="item.title">
@@ -62,10 +62,6 @@ const getSortedProjects = computed(() => {
 <style scoped lang="scss">
 @use 'assets/scss/screens' as *;
 
-//* {
-//  border: 1px solid white !important;
-//}
-
 .blur__glass {
   @media screen and (max-width: $screen-sm) {
     backdrop-filter: none;
@@ -78,21 +74,12 @@ const getSortedProjects = computed(() => {
 
 .wrapper {
   clip-path: inset(0 round 3rem);
-  overflow-y: scroll;
   flex-direction: column;
   box-sizing: border-box;
-  height: 80%;
-
-  @media screen and (max-width: $screen-md) {
-    width: fit-content;
-    padding: 0;
-  }
-
-  @media screen and (max-width: $screen-sm) {
-    height: fit-content;
-    max-height: fit-content;
-    overflow-y: visible;
-  }
+  height: fit-content;
+  max-height: fit-content;
+  overflow-y: visible;
+  align-items: center;
 }
 
 ::-webkit-scrollbar {
@@ -110,6 +97,7 @@ const getSortedProjects = computed(() => {
   height: fit-content;
   display: flex;
   flex-direction: column;
+  align-items: center;
 
   @media screen and (max-width: $screen-sm) {
     height: fit-content;
@@ -119,23 +107,19 @@ const getSortedProjects = computed(() => {
 
   &__card {
     margin: 1rem;
+    width: 70%;
+
+    @media screen and (max-width: $screen-md) {
+      width: 95%;
+    }
   }
 
   &__message {
-    font-size: 2vw;
     font-weight: bold;
     padding: 1rem;
 
     &__indicator {
       width: 14rem;
-    }
-
-    @media screen and (max-width: $screen-md) {
-      font-size: 2rem;
-    }
-
-    @media screen and (max-width: $screen-sm) {
-      font-size: 1rem;
     }
   }
 }

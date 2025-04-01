@@ -43,9 +43,9 @@ function getLocaled(value: any): string {
     <Suspense>
       <div class="announcements" v-if="isShow">
         <Vue3Marquee v-if="isLoaded" pause-on-hover clone :duration="duration">
-          <div class="announcements__text" v-for="announcement in announcements" v-bind:key="announcement">
+          <p class="announcements__text" v-for="announcement in announcements" v-bind:key="announcement">
             {{ getLocaled(announcement) }}
-          </div>
+          </p>
         </Vue3Marquee>
       </div>
     </Suspense>
@@ -53,13 +53,12 @@ function getLocaled(value: any): string {
 </template>
 
 <style scoped lang="scss">
-@use '@/assets/scss/screens' as *;
+@use '../../assets/scss/screens' as *;
 
 .announcements {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 2.2rem;
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -69,25 +68,11 @@ function getLocaled(value: any): string {
   .announcements__text {
     padding-left: 20rem;
     font-weight: bold;
-    font-size: 1.2rem;
     color: var(--text-announcements);
 
     @media screen and (max-width: $screen-md) {
       padding-left: 10rem;
-      font-size: 1.2rem;
     }
-
-    @media screen and (max-width: $screen-sm) {
-      font-size: 1rem;
-    }
-  }
-
-  @media screen and (max-width: $screen-md) {
-    height: 2rem;
-  }
-
-  @media screen and (max-width: $screen-sm) {
-    height: 2.2rem;
   }
 }
 </style>

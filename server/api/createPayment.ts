@@ -7,6 +7,7 @@ export default defineEventHandler(async (event) => {
     const SHOP_ID = process.env.CRYPTOCLOUD_SHOP_ID || "";
 
     const url = 'https://api.cryptocloud.plus/v2/invoice/create?locale=' + locale;
+
     const headers = {
         'Authorization': `Token ${API_KEY}`,
         'Content-Type': 'application/json'

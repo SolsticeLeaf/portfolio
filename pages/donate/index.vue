@@ -5,10 +5,6 @@ const { locale, getLocaleMessage } = useI18n()
 
 useHead({title: getLocaleMessage(locale.value)["donate_title"] + " | " + config.siteName});
 
-const isIOS = computed(() => {
-  return /iPad|iPhone|iPod/.test(navigator.userAgent);
-});
-
 function getDefaultCurrency(list: any) {
   let defaultCurrency = list[0];
   if (locale.value === "ru") {
@@ -88,12 +84,12 @@ onMounted(() => {
     <div class="wrapper">
       <div class="card">
         <div class="card__top">
-          <nuxt-img class="card__top__image" src="https://ik.imagekit.io/kiinse/coffee_cup?updatedAt=1738662246231"/>
+          <nuxt-img preload class="card__top__image" src="https://ik.imagekit.io/kiinse/coffee_cup?updatedAt=1738662246231"/>
         </div>
         <div class="blur__glass">
-          <div class="card__title">
+          <h6 class="card__title">
             {{ $t('donate_title') }}
-          </div>
+          </h6>
           <div class="card__main">
             <UInput required
                     color="primary"
@@ -133,6 +129,11 @@ onMounted(() => {
 @use 'assets/scss/screens' as *;
 
 .wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+  justify-content: center;
+
   @media screen and (max-width: $screen-sm) {
     padding: 1rem;
   }
@@ -167,7 +168,6 @@ onMounted(() => {
   &__title {
     width: 100%;
     text-align: center;
-    font-size: 1.2rem;
     color: var(--text-color-primary)
   }
 
@@ -202,7 +202,6 @@ onMounted(() => {
       width: 4rem;
       min-width: fit-content;
       background: transparent;
-      font-size: 0.8rem;
       word-spacing: -0.4rem;
       height: 2.3rem;
       border: 1px solid var(--donate-select) !important;
@@ -224,7 +223,6 @@ onMounted(() => {
       height: 2.5rem;
 
       &__text {
-        font-size: 1rem;
         color: var(--donate-button-text);
       }
 
