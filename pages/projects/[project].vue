@@ -92,6 +92,12 @@ function getButtonName(name: any): string {
           </div>
         </div>
         <div class="content blur__glass">
+          <a :href="getProjectsPath" rel="noopener noreferrer" class="desktop">
+            <el-button type="danger" link size="large">
+              <icons class="icon_padding_right" icon="fa-solid fa-chevron-left"/>
+              <p>{{ $t('project_back_button') }}</p>
+            </el-button>
+          </a>
           <h1 class="content__title">{{ project.title }}</h1>
           <p class="content__description">{{ getDescription(project.description) }}</p>
         </div>
@@ -119,12 +125,6 @@ function getButtonName(name: any): string {
                 <el-button :color="source.color" round size="large" class="info__buttons__btn">
                   <icons class="icon_padding_right" :icon="source.icon"/>
                   <p>{{ getButtonName(source.name) }}</p>
-                </el-button>
-              </a>
-              <a :href="getProjectsPath" rel="noopener noreferrer">
-                <el-button color="red" round size="large" class="info__buttons__btn">
-                  <icons class="icon_padding_right" icon="fa-solid fa-chevron-left"/>
-                  <p>{{ $t('back_button') }}</p>
                 </el-button>
               </a>
             </div>
@@ -161,6 +161,10 @@ function getButtonName(name: any): string {
   @media screen and (max-width: $screen-md) {
     background: transparent;
   }
+}
+
+a:hover, el-button:hover {
+  cursor: pointer;
 }
 
 ::-webkit-scrollbar {
