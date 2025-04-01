@@ -32,6 +32,13 @@ export default defineNuxtConfig({
     '@nuxtjs/color-mode',
     '@element-plus/nuxt',
   ],
+  routeRules: {
+    '/**': {
+      cache: {
+        maxAge: 60 * 60,
+      }
+    }
+  },
   plugins: ['@/plugins/Vue3Marquee.client.ts'],
   i18n: {
     vueI18n: '@/config/i18n.config.ts',

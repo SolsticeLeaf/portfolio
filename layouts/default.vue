@@ -82,7 +82,9 @@ onBeforeUnmount(() => {
       <div id="body" class="body">
         <div class="footer__top">
           <Suspense>
-            <NavigationSection />
+            <KeepAlive>
+              <NavigationSection />
+            </KeepAlive>
             <template #fallback>
               <div class="skeleton-nav"/>
             </template>
