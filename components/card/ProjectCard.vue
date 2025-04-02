@@ -48,11 +48,10 @@ export default {
 
 <template>
   <ClientOnly>
-    <div class="card transparent__glass">
+    <div class="card blur__glass">
       <div class="card__image">
         <nuxt-img loading="lazy" class="card__image__content" :src="getImageUrl(imageLink)"/>
       </div>
-      <UDivider orientation="vertical" />
       <div class="card__info">
         <div class="card__info__title">
           <h4 class="card__info__title__text">{{ this.title }}</h4>

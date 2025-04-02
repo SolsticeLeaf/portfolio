@@ -149,7 +149,7 @@ nav {
     justify-content: center;
     align-items: center;
     height: 100%;
-    gap: 1rem;
+    gap: 1.2rem;
 
     &__links {
       height: 60%;

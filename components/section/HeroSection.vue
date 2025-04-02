@@ -141,6 +141,9 @@ onMounted(() => {
   @media screen and (max-width: $screen-sm) {
     width: 90%;
   }
+  @media screen and (max-width: $screen-xs) {
+    width: 95%;
+  }
 }
 
 .blur__glass {
@@ -158,7 +161,7 @@ onMounted(() => {
   max-height: 85vh;
   justify-content: center;
 
-  @media screen and (max-width: $screen-xss) {
+  @media screen and (max-width: $screen-xs) {
     height: fit-content;
     max-height: fit-content;
   }
@@ -199,12 +202,15 @@ onMounted(() => {
       display: flex;
       flex-direction: row;
       align-items: center;
-      justify-content: center;
       gap: 1rem;
 
       &__second {
         color: var(--username);
         font-weight: bold;
+      }
+
+      @media screen and (max-width: $screen-md) {
+        justify-content: center;
       }
     }
 
@@ -224,6 +230,10 @@ onMounted(() => {
           color: var(--text-color-primary);
           font-size: 1.7rem;
         }:hover { color: var(--color-gray); }
+      }
+
+      @media screen and (max-width: $screen-md) {
+        justify-content: center;
       }
     }
 
@@ -262,6 +272,10 @@ onMounted(() => {
         align-items: center;
         align-content: center;
         justify-content: center;
+      }
+
+      @media screen and (max-width: $screen-sm) {
+        margin-top: 1rem;
       }
     }
 
@@ -340,6 +354,11 @@ onMounted(() => {
     width: 100%;
   }
 
+  @media screen and (max-width: $screen-sm) {
+    padding: 1.5rem 0;
+    height: 2.5rem;
+  }
+
   &__background {
     max-width: 25rem;
     max-height: 100%;
@@ -361,6 +380,10 @@ onMounted(() => {
         padding-right: 0.5rem;
         height: 1.5rem;
       }
+
+      @media screen and (max-width: $screen-sm) {
+        height: 100%;
+      }
     }
 
     @media screen and (max-width: $screen-md) {
@@ -368,6 +391,10 @@ onMounted(() => {
       margin-top: 1.5rem;
       margin-bottom: 1.5rem;
       border-radius: 2em;
+    }
+
+    @media screen and (max-width: $screen-sm) {
+      height: 100%;
     }
   }
 

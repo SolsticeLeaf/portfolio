@@ -80,6 +80,9 @@ p, q {
   @media screen and (max-width: $screen-sm) {
     font-size: 1rem;
   }
+  @media screen and (max-width: $screen-xs) {
+    font-size: 0.9rem;
+  }
   @media screen and (max-width: $screen-xss) {
     font-size: 0.8rem;
   }
@@ -134,6 +137,13 @@ body {
   }
 }
 
+.desktop-md {
+  display: flex;
+  @media screen and (max-width: $screen-sm) {
+    display: none;
+  }
+}
+
 .screen-md {
   display: none;
   @media screen and (max-width: $screen-md) {
@@ -148,9 +158,15 @@ body {
   }
 }
 
+.screen-xs {
+  display: none;
+  @media screen and (max-width: $screen-xs) {
+    display: flex;
+  }
+}
+
 .screen-xss {
   display: none;
-
   @media screen and (max-width: $screen-xss) {
     display: flex;
   }

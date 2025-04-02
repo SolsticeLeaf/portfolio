@@ -75,7 +75,7 @@ function getButtonName(name: any): string {
       </div>
     </div>
     <div v-else class="wrapper">
-      <div class="screen-md">
+      <div class="screen-sm">
         <div class="blur__glass info__buttons">
           <FlexButton v-for="source in project.mainSources"
                       :key="source.name"
@@ -103,7 +103,7 @@ function getButtonName(name: any): string {
         <div class="desktop">
           <FlexButton :text="t('project_back_button')"
                       :text-bold="true"
-                      text-color="--text-color-primary"
+                      text-color="--text-color-back"
                       icon="ic:baseline-arrow-back"
                       color="transparent"
                       :customColor="false"
@@ -121,57 +121,70 @@ function getButtonName(name: any): string {
             <div class="skeleton-image" />
           </template>
         </Suspense>
-        <div class="info__marquee transparent__glass">
-          <Suspense>
-            <Vue3Marquee pause-on-hover clone :duration="30" class="info__marquee__container">
-              <div class="info__marquee__container__item" v-for="lang in project.languages" :key="lang.name">
-                <Suspense>
-                  <TechIcon class="data-marquee-icon" :icon="lang.icon" />
-                  <template #fallback>
-                    <div class="skeleton-icon" />
-                  </template>
-                </Suspense>
-                <p>{{ lang.name }}</p>
-              </div>
-            </Vue3Marquee>
-            <template #fallback>
-              <div class="skeleton-marquee" />
-            </template>
-          </Suspense>
-        </div>
-        <div class="info__marquee tech__background">
-          <Suspense>
-            <Vue3Marquee direction="reverse" pause-on-hover clone :duration="30" class="info__marquee__container">
-              <div class="info__marquee__container__item" v-for="tech in project.techs" :key="tech.name">
-                <Suspense>
-                  <TechIcon class="data-marquee-icon" :icon="tech.icon" />
-                  <template #fallback>
-                    <div class="skeleton-icon" />
-                  </template>
-                </Suspense>
-                <p>{{ tech.name }}</p>
-              </div>
-            </Vue3Marquee>
-            <template #fallback>
-              <div class="skeleton-marquee" />
-            </template>
-          </Suspense>
-        </div>
-        <div class="desktop">
-          <div class="info__buttons">
-            <FlexButton v-for="source in project.mainSources"
-                        :key="source.name"
-                        :text="getButtonName(source.name)"
-                        :text-bold="true"
-                        text-color="--text-color-light"
-                        :icon="source.icon"
-                        :color="source.color"
-                        :customColor="false"
-                        :link="source.link"
-                        class="info__buttons__btn"
-                        :outline="false" />
+        <div class="info__container">
+          <div class="info__marquee transparent__glass">
+            <Suspense>
+              <Vue3Marquee pause-on-hover clone :duration="30" class="info__marquee__container">
+                <div class="info__marquee__container__item" v-for="lang in project.languages" :key="lang.name">
+                  <Suspense>
+                    <TechIcon class="data-marquee-icon" :icon="lang.icon" />
+                    <template #fallback>
+                      <div class="skeleton-icon" />
+                    </template>
+                  </Suspense>
+                  <p>{{ lang.name }}</p>
+                </div>
+              </Vue3Marquee>
+              <template #fallback>
+                <div class="skeleton-marquee" />
+              </template>
+            </Suspense>
+          </div>
+          <div class="info__marquee tech__background">
+            <Suspense>
+              <Vue3Marquee direction="reverse" pause-on-hover clone :duration="30" class="info__marquee__container">
+                <div class="info__marquee__container__item" v-for="tech in project.techs" :key="tech.name">
+                  <Suspense>
+                    <TechIcon class="data-marquee-icon" :icon="tech.icon" />
+                    <template #fallback>
+                      <div class="skeleton-icon" />
+                    </template>
+                  </Suspense>
+                  <p>{{ tech.name }}</p>
+                </div>
+              </Vue3Marquee>
+              <template #fallback>
+                <div class="skeleton-marquee" />
+              </template>
+            </Suspense>
+          </div>
+          <div class="desktop-md">
+            <div class="info__buttons">
+              <FlexButton v-for="source in project.mainSources"
+                          :key="source.name"
+                          :text="getButtonName(source.name)"
+                          :text-bold="true"
+                          text-color="--text-color-light"
+                          :icon="source.icon"
+                          :color="source.color"
+                          :customColor="false"
+                          :link="source.link"
+                          class="info__buttons__btn"
+                          :outline="false" />
+            </div>
           </div>
         </div>
+      </div>
+      <div class="md-back-button">
+        <FlexButton :text="t('project_back_button')"
+                    :text-bold="true"
+                    text-color="--text-color-primary"
+                    icon="ic:baseline-arrow-back"
+                    color="transparent"
+                    :customColor="false"
+                    :link="getProjectsPath"
+                    class="back-button"
+                    :outline="false" />
       </div>
     </div>
   </ClientOnly>
@@ -184,6 +197,7 @@ function getButtonName(name: any): string {
   width: 60%;
   height: 100%;
   display: flex;
+  padding-bottom: 1rem;
   gap: 1rem;
 
   @media screen and (max-width: $screen-lg) {
@@ -195,13 +209,34 @@ function getButtonName(name: any): string {
   }
 }
 
-.desktop {
+.desktop-md {
   width: 100%;
 }
 
 .blur__glass {
   @media screen and (max-width: $screen-md) {
     background: transparent;
+  }
+}
+
+.md-back-button {
+  display: none;
+  filter: none !important;
+  -webkit-filter: none !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 3rem;
+  border: 1px solid var(--glass-border);
+  background: transparent;
+  padding: 0.5rem 1rem;
+  width: fit-content;
+
+  @media screen and (max-width: $screen-md) {
+    display: flex;
+  }
+
+  @media screen and (max-width: $screen-sm) {
+    display: none;
   }
 }
 
@@ -258,11 +293,37 @@ function getButtonName(name: any): string {
   flex-direction: column;
   width: 30%;
   height: fit-content;
+  justify-content: center;
   align-items: center;
   gap: 0.5rem;
 
   @media screen and (max-width: $screen-md) {
     width: auto;
+    flex-direction: row;
+    justify-content: space-evenly;
+    gap: 0;
+  }
+
+  @media screen and (max-width: $screen-sm) {
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  &__container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+
+    @media screen and (max-width: $screen-md) {
+      width: 50%;
+    }
+
+    @media screen and (max-width: $screen-sm) {
+      width: 100%;
+    }
   }
 
   &__logo {

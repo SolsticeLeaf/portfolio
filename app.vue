@@ -133,7 +133,7 @@ onBeforeUnmount(() => {
     justify-content: center;
     align-items: center;
 
-    @media screen and (max-width: $screen-xss) {
+    @media screen and (max-width: $screen-sm) {
       display: none;
     }
   }
