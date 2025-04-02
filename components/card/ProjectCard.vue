@@ -1,7 +1,10 @@
 <script>
 
+import FlexButton from "~/components/utilities/FlexButton.vue";
+
 export default {
   name: "ProjectCard",
+  components: {FlexButton},
   props: {
     title: {
       type: String
@@ -18,7 +21,6 @@ export default {
   },
 
   methods: {
-
     getImageUrl(path) {
       return new URL(path, import.meta.url).href
     },
@@ -61,14 +63,15 @@ export default {
       </div>
       <div class="card__links">
         <div class="card__links__button" v-for="source in sources" :key="source.name">
-          <nuxt-link :to="source.link" rel="noopener noreferrer">
-            <el-button class="card__links__button"
-                       :color="source.color"
-                       round size="large">
-              <icons class="card__links__text icon_padding_right" :icon="source.icon"/>
-              <p class="card__links__text">{{ getName(source.name) }}</p>
-            </el-button>
-          </nuxt-link>
+          <FlexButton :text="getName(source.name)"
+                      :text-bold="true"
+                      text-color="--text-color-light"
+                      :icon="source.icon"
+                      :color="source.color"
+                      :customColor="false"
+                      :link="source.link"
+                      class="main__content__button__btn"
+                      :outline="false" />
         </div>
       </div>
     </div>
@@ -95,13 +98,12 @@ export default {
 
 .card {
   height: 14rem;
-  width: 100%;
   display: flex;
   flex-direction: row;
 
   @media screen and (max-width: $screen-md) {
     height: fit-content;
-    width: 100%;
+    width: auto;
   }
 
   @media screen and (max-width: $screen-sm) {
@@ -151,7 +153,8 @@ export default {
     margin-right: 1rem;
 
     @media screen and (max-width: $screen-sm) {
-      width: 100%;
+      margin: 0;
+      width: auto;
     }
 
     &__title {
@@ -183,7 +186,6 @@ export default {
 
       @media screen and (max-width: $screen-sm) {
         height: fit-content;
-        padding: 0 0.8rem;
       }
 
       &__text {
@@ -220,6 +222,7 @@ export default {
       width: 100%;
       padding-top: 0.8rem;
       overflow-x: scroll;
+      gap: 0.5rem;
     }
 
     &__button {

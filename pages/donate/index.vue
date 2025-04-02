@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import currencies from '~/config/currencies.config';
 import config from '~/config/initial.config';
+import FlexButton from "~/components/utilities/FlexButton.vue";
+import ActionButton from "~/components/utilities/ActionButton.vue";
 const { locale, getLocaleMessage } = useI18n()
 
 onMounted(() => {
@@ -15,25 +17,28 @@ function getDefaultCurrency(list: any) {
     defaultCurrency = list.filter((item: any) => { return item.name === "RUB" })[0];
   }
   return defaultCurrency;
-};
+}
 
 const defaultCurrency = getDefaultCurrency(currencies)
-const amount = ref(defaultCurrency.default)
+
+const amount = computed(() => {
+  return (document.getElementById("donateInput") as HTMLInputElement) ;
+});
+
 const currency = ref(defaultCurrency)
 
 const changeAmount = () => {
-  amount.value = currency.value.default
+  amount.value.value = currency.value.default
 }
-
 const checkAmount = () => {
-  if (amount.value < currency.value.default) {
-    amount.value = currency.value.default
+  if (amount.value.value < currency.value.default) {
+    amount.value.value = currency.value.default
   }
 }
 const pay = async () => {
   try {
-    if (amount.value <= 0) {
-      amount.value = 1;
+    if (amount.value.value <= "0") {
+      amount.value.value = "1";
     }
     const { success: response_success, payment_url: response_url } = await $fetch('/api/createPayment', {
       default: () => [],
@@ -45,7 +50,7 @@ const pay = async () => {
       },
       body: JSON.stringify({
         locale: locale.value,
-        amount: amount.value,
+        amount: amount.value.value,
         order_id: `order-${Date.now()}`,
         currency: currency.value.name
       })
@@ -80,6 +85,9 @@ onMounted(() => {
   onBeforeUnmount(() => {
     observer.disconnect();
   });
+  nextTick(() => {
+    checkAmount();
+  });
 });
 </script>
 
@@ -88,29 +96,23 @@ onMounted(() => {
     <div class="wrapper">
       <div class="card">
         <div class="card__top">
-          <nuxt-img preload class="card__top__image" :src="config.donateIcon"/>
+          <Icon class="card__top__image" name="line-md:coffee-loop"/>
         </div>
         <div class="blur__glass">
           <h6 class="card__title">
             {{ $t('donate_title') }}
           </h6>
           <div class="card__main">
-            <UInput required
-                    color="primary"
-                    name="amount"
-                    v-model="amount"
-                    variant="none"
-                    class="card__main__input"
-                    type="number"
-                    @change="checkAmount"
-                    :ui="{ rounded: 'rounded-full'}"
-                    :placeholder="$t('donate_amount')"
-            >
-              <template #leading>
-                {{ currency.symbol }}
-              </template>
-            </UInput>
-            /
+            <input
+                type="number"
+                id="donateInput"
+                name="amount"
+                class="card__main__input"
+                @change="checkAmount"
+                :placeholder="$t('donate_amount')"
+                required
+                size="10" />
+            <p>/</p>
             <select class="transparent__glass__sky card__main__select" v-model="currency" @change="changeAmount">
               <option v-for="curr in currencies" :value="curr">
                 {{curr.name + " " + curr.symbol}}
@@ -118,10 +120,15 @@ onMounted(() => {
             </select>
           </div>
           <div class="card__bottom">
-            <el-button class="card__bottom__button" :color="buttonColor" @click="pay" round>
-              <icons icon="fa-solid fa-dollar-sign" class="card__bottom__button__text icon_padding_right" />
-              <p class="card__bottom__button__text">{{ $t('donate_send') }}</p>
-            </el-button>
+            <ActionButton :text="$t('donate_send')"
+                        :text-bold="true"
+                        text-color="--donate-button-text"
+                        icon="mdi:dollar"
+                        color="#50C878"
+                        :customColor="false"
+                        :click="pay"
+                        class="card__bottom__button"
+                        :outline="false" />
           </div>
         </div>
       </div>
@@ -163,9 +170,8 @@ onMounted(() => {
     padding-bottom: 3rem;
 
     &__image {
-      border-radius: 10rem;
-      max-width: 10rem;
-      max-height: fit-content;
+      font-size: 10rem;
+      color: #ff9100;
     }
   }
 
@@ -185,14 +191,20 @@ onMounted(() => {
     -webkit-align-items: center;
 
     &__input {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      border-radius: 3rem;
+      width: 4rem;
+      min-width: fit-content;
+      background: transparent;
+      height: 2rem;
+      padding: 0.5rem;
       border: 1px solid var(--donate-select) !important;
-      border-radius: 10rem;
+      color: var(--text-color-primary) !important;
 
       @media screen and (max-width: $screen-sm) {
         height: 3rem;
-        display: flex;
-        justify-content: center;
-        justify-items: center;
       }
     }
 
@@ -201,14 +213,14 @@ onMounted(() => {
       -moz-appearance: none;
       appearance: none;
       border-radius: 3rem;
-      padding: 5px;
       text-align: center;
       width: 4rem;
       min-width: fit-content;
       background: transparent;
-      word-spacing: -0.4rem;
-      height: 2.3rem;
+      height: 3.3rem;
+      padding: 0.5rem;
       border: 1px solid var(--donate-select) !important;
+      color: var(--text-color-primary) !important;
 
       @media screen and (max-width: $screen-sm) {
         height: 3rem;
@@ -223,12 +235,8 @@ onMounted(() => {
     justify-items: center;
 
     &__button {
-      width: 60%;
+      width: fit-content;
       height: 2.5rem;
-
-      &__text {
-        color: var(--donate-button-text);
-      }
 
       @media screen and (max-width: $screen-sm) {
         height: 3rem;

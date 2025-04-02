@@ -37,12 +37,7 @@ const getSortedProjects = computed(() => {
   <ClientOnly>
     <div v-if="!hasProjects" class="blur__glass">
       <div v-if="isPending" class="projects__message">
-        <Suspense>
-          <UProgress size="xl" animation="carousel" class="projects__message__indicator" />
-          <template #fallback>
-            <div class="skeleton-progress" />
-          </template>
-        </Suspense>
+        <Icon name="codex:loader" class="loading-indicator" />
       </div>
       <div v-else class="projects__message">
         <h1>
@@ -90,7 +85,6 @@ const getSortedProjects = computed(() => {
   flex-direction: column;
   box-sizing: border-box;
   height: fit-content;
-  max-height: fit-content;
   overflow-y: visible;
   align-items: center;
 }
@@ -120,7 +114,7 @@ const getSortedProjects = computed(() => {
 
   &__card {
     margin: 1rem;
-    width: 70%;
+    width: 60%;
 
     @media screen and (max-width: $screen-md) {
       width: 95%;
@@ -130,10 +124,6 @@ const getSortedProjects = computed(() => {
   &__message {
     font-weight: bold;
     padding: 1rem;
-
-    &__indicator {
-      width: 14rem;
-    }
   }
 }
 

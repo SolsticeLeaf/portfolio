@@ -11,7 +11,7 @@ export default defineNuxtConfig({
           name: "viewport",
           content: "width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0"
         },
-        { key: 'description', name: 'description', content: '' },
+        { name: 'description', content: '' },
         { name: 'format-detection', content: 'telephone=no' },
       ],
       link: [{ rel: 'icon', type: 'image/x-icon', href: 'https://ik.imagekit.io/kiinse/icons/icon.svg?updatedAt=1740170186956' }]
@@ -22,16 +22,7 @@ export default defineNuxtConfig({
   },
   compatibilityDate: '2025-01-29',
   devtools: { enabled: true },
-  modules: [
-    '@nuxtjs/i18n',
-    '@nuxtjs/device',
-    '@nuxt/image',
-    '@vesp/nuxt-fontawesome',
-    '@nuxt/ui',
-    '@nuxt/fonts',
-    '@nuxtjs/color-mode',
-    '@element-plus/nuxt',
-  ],
+  modules: ['@nuxtjs/i18n', '@nuxt/image', '@nuxtjs/device', '@nuxt/icon'],
   plugins: ['@/plugins/Vue3Marquee.client.ts'],
   i18n: {
     vueI18n: '@/config/i18n.config.ts',
@@ -39,10 +30,13 @@ export default defineNuxtConfig({
       { code: 'en', iso: 'en-US', name: 'English' },
       { code: 'ru', iso: 'ru-RU', name: 'Русский' },
     ],
+    bundle: {
+      optimizeTranslationDirective: false
+    },
     strategy: 'prefix',
     defaultLocale: 'en',
   },
-  css: ['@/assets/scss/global.scss'],
+  css: ['@/assets/scss/global.scss', '@/assets/scss/screens.scss', '@/assets/scss/themes/dark.scss', '@/assets/scss/themes/light.scss'],
   runtimeConfig: {
     public: {
       CRYPTOCLOUD_SHOP_ID: process.env.CRYPTOCLOUD_SHOP_ID,

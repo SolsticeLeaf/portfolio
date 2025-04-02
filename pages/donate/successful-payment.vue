@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import config from "~/config/initial.config";
+import FlexButton from "~/components/utilities/FlexButton.vue";
 
 const { locale, getLocaleMessage } = useI18n()
 
@@ -20,19 +21,22 @@ const getProjectsPath = computed(() => {
     <div class="wrapper">
       <div class="card">
         <div class="card__top">
-          <icons class="card__top__image" icon="fa-solid fa-heart" color="red"/>
+          <Icon class="card__top__image" name="line-md:heart-filled"/>
         </div>
         <div class="blur__glass">
           <h6 class="card__title">
             {{ $t('donate_success') }}
           </h6>
           <div class="card__bottom">
-            <a :href="getProjectsPath" class="card__bottom__button">
-              <el-button class="card__bottom__button" color="green" round>
-                <icons icon="fa-solid fa-check" class="card__bottom__button__text icon_padding_right" />
-                <p class="card__bottom__button__text">{{ $t('donate_button_home') }}</p>
-              </el-button>
-            </a>
+            <FlexButton :text="$t('donate_button_home')"
+                        :text-bold="true"
+                        text-color="--donate-button-text"
+                        icon="ic:baseline-arrow-back"
+                        color="#50C878"
+                        :customColor="false"
+                        :link="getProjectsPath"
+                        class="card__bottom__button"
+                        :outline="false" />
           </div>
         </div>
       </div>
@@ -73,9 +77,8 @@ const getProjectsPath = computed(() => {
     padding-bottom: 3rem;
 
     &__image {
-      border-radius: 10rem;
       font-size: 10rem;
-      max-height: fit-content;
+      color: red;
     }
   }
 
@@ -95,10 +98,6 @@ const getProjectsPath = computed(() => {
     &__button {
       width: 100%;
       height: 2.5rem;
-
-      &__text {
-        color: var(--text-color-light);
-      }
     }
   }
 }

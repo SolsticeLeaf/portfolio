@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import config from "~/config/initial.config";
+import FlexButton from "~/components/utilities/FlexButton.vue";
 
 const { locale, getLocaleMessage } = useI18n()
 
@@ -24,12 +25,15 @@ const getProjectsPath = computed(() => {
             {{ $t('donate_error') }}
           </h6>
           <div class="card__bottom">
-            <a :href="getProjectsPath" class="card__bottom__button">
-              <el-button class="card__bottom__button" color="red" round>
-                <icons icon="fa-solid fa-xmark" class="card__bottom__button__text icon_padding_right" />
-                <p class="card__bottom__button__text">{{ $t('donate_button_home') }}</p>
-              </el-button>
-            </a>
+            <FlexButton :text="$t('donate_button_home')"
+                        :text-bold="true"
+                        text-color="--text-color-light"
+                        icon="ic:baseline-arrow-back"
+                        color="#D30000"
+                        :customColor="false"
+                        :link="getProjectsPath"
+                        class="card__bottom__button"
+                        :outline="false" />
           </div>
         </div>
       </div>
@@ -79,10 +83,6 @@ const getProjectsPath = computed(() => {
     &__button {
       width: 100%;
       height: 2.5rem;
-
-      &__text {
-        color: var(--text-color-light);
-      }
     }
   }
 }

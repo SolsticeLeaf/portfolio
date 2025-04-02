@@ -2,6 +2,7 @@
 import config from "@/config/initial.config";
 import TechIcon from "~/components/utilities/TechIcon.vue";
 import { Vue3Marquee } from "vue3-marquee";
+import FlexButton from "~/components/utilities/FlexButton.vue";
 const { locale } = useI18n();
 const route = useRoute();
 
@@ -65,12 +66,7 @@ function getButtonName(name: any): string {
   <ClientOnly>
     <div v-if="!isSuccess" class="blur__glass">
       <div v-if="isPending" class="projects__message">
-        <Suspense>
-          <UProgress size="xl" animation="carousel" class="projects__message__indicator" />
-          <template #fallback>
-            <div class="skeleton-progress" />
-          </template>
-        </Suspense>
+        <Icon name="codex:loader" class="loading-indicator" />
       </div>
       <div v-else class="projects__message">
         <h1>
@@ -81,27 +77,38 @@ function getButtonName(name: any): string {
     <div v-else class="wrapper">
       <div class="screen-md">
         <div class="blur__glass info__buttons">
-          <nuxt-link :to="source.link" target="_blank" rel="noopener noreferrer" v-for="source in project.mainSources" :key="source.name">
-            <el-button :color="source.color" round size="large" class="info__buttons__btn">
-              <icons class="icon_padding_right" :icon="source.icon" />
-              <p>{{ getButtonName(source.name) }}</p>
-            </el-button>
-          </nuxt-link>
-          <nuxt-link :to="getProjectsPath">
-            <el-button color="red" round size="large" class="info__buttons__btn">
-              <icons class="icon_padding_right" icon="fa-solid fa-chevron-left" />
-              <p>{{ $t('back_button') }}</p>
-            </el-button>
-          </nuxt-link>
+          <FlexButton v-for="source in project.mainSources"
+                      :key="source.name"
+                      :text="getButtonName(source.name)"
+                      :text-bold="true"
+                      text-color="--text-color-light"
+                      :icon="source.icon"
+                      :color="source.color"
+                      :customColor="false"
+                      :link="source.link"
+                      class="info__buttons__btn"
+                      :outline="false" />
+          <FlexButton :text="$t('back_button')"
+                      :text-bold="true"
+                      text-color="--text-color-light"
+                      icon="ic:baseline-arrow-back"
+                      color="#D30000"
+                      :customColor="false"
+                      :link="getProjectsPath"
+                      class="info__buttons__btn"
+                      :outline="false" />
         </div>
       </div>
       <div class="content blur__glass">
-        <nuxt-link :to="getProjectsPath" class="desktop">
-          <el-button type="danger" link size="large">
-            <icons class="icon_padding_right" icon="fa-solid fa-chevron-left" />
-            <p>{{ $t('project_back_button') }}</p>
-          </el-button>
-        </nuxt-link>
+        <FlexButton :text="$t('back_button')"
+                    :text-bold="true"
+                    text-color="--text-color-primary"
+                    icon="ic:baseline-arrow-back"
+                    color="transparent"
+                    :customColor="false"
+                    :link="getProjectsPath"
+                    class="back-button"
+                    :outline="false" />
         <h1 class="content__title">{{ project.title }}</h1>
         <p class="content__description">{{ getDescription(project.description) }}</p>
       </div>
@@ -150,12 +157,17 @@ function getButtonName(name: any): string {
         </div>
         <div class="desktop">
           <div class="info__buttons">
-            <nuxt-link :to="source.link" target="_blank" rel="noopener noreferrer" v-for="source in project.mainSources" :key="source.name">
-              <el-button :color="source.color" round size="large" class="info__buttons__btn">
-                <icons class="icon_padding_right" :icon="source.icon" />
-                <p>{{ getButtonName(source.name) }}</p>
-              </el-button>
-            </nuxt-link>
+            <FlexButton v-for="source in project.mainSources"
+                        :key="source.name"
+                        :text="getButtonName(source.name)"
+                        :text-bold="true"
+                        text-color="--text-color-light"
+                        :icon="source.icon"
+                        :color="source.color"
+                        :customColor="false"
+                        :link="source.link"
+                        class="info__buttons__btn"
+                        :outline="false" />
           </div>
         </div>
       </div>
@@ -191,10 +203,6 @@ function getButtonName(name: any): string {
   }
 }
 
-a:hover, el-button:hover {
-  cursor: pointer;
-}
-
 ::-webkit-scrollbar {
   -webkit-appearance: none;
   width: 7px;
@@ -206,6 +214,11 @@ a:hover, el-button:hover {
   box-shadow: 0 0 1px var(--scrollbar-shadow);
 }
 
+.back-button {
+  width: fit-content;
+  padding: 0;
+}
+
 .content {
   display: flex;
   flex-direction: column;
@@ -213,7 +226,7 @@ a:hover, el-button:hover {
   width: 70%;
 
   @media screen and (max-width: $screen-md) {
-    width: 100%;
+    width: auto;
   }
 
   &__title {
@@ -247,11 +260,11 @@ a:hover, el-button:hover {
   gap: 0.5rem;
 
   @media screen and (max-width: $screen-md) {
-    width: 100%;
+    width: auto;
   }
 
   &__logo {
-    width: auto;
+    width: 100%;
     height: fit-content;
 
     @media screen and (max-width: $screen-md) {
@@ -263,7 +276,7 @@ a:hover, el-button:hover {
     display: flex;
     flex-direction: row;
     border-radius: 3rem;
-    height: 2.8rem;
+    height: 1rem;
     width: 100%;
     overflow-x: scroll;
     scrollbar-width: none;
@@ -310,20 +323,11 @@ a:hover, el-button:hover {
     }
 
     &__btn {
-      width: 100%;
-
       @media screen and (max-width: $screen-sm) {
         height: 4rem;
       }
     }
   }
-}
-
-.skeleton-progress {
-  width: 14rem;
-  height: 1rem;
-  background: #e0e0e0;
-  animation: pulse 1.5s infinite;
 }
 
 .skeleton-image {

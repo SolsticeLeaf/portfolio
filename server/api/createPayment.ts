@@ -27,7 +27,6 @@ export default defineEventHandler(async (event) => {
                                     .catch(error => {
                                         return error.response;
                                     });
-
         const response_url: string = response.data.result.link;
         return { success: true, payment_url: response_url };
     } catch (error) {

@@ -5,6 +5,7 @@ import toolsConfig from "~/config/tools.config";
 import { Vue3Marquee } from "vue3-marquee";
 import TechIcon from "~/components/utilities/TechIcon.vue";
 import AnnouncementSection from "~/components/section/AnnouncementSection.vue";
+import FlexButton from "~/components/utilities/FlexButton.vue";
 
 const nickname = initialConfig.nickname;
 const avatar = initialConfig.hero.avatar_url;
@@ -74,25 +75,29 @@ onMounted(() => {
             </div>
             <p class="main__content__social">
               {{ $t("main_follow") }}
-              <a class="main__content__social-icons">
+              <a class="main__content__social__icons">
                 <a v-for="link in links" :key="link.icon" :href="link.url">
-                  <icons :icon="'fa-brands fa-' + link.icon" class="social-icon github" />
+                  <icons :icon="'fa-brands fa-' + link.icon" class="main__content__social__icons__icon github" />
                 </a>
               </a>
             </p>
-            <div class="main__content__button">
-              <a href="mailto:me@sleaf.dev" class="main__content__button__solid">
-                <el-button class="main__content__button__solid" :color="buttonColor" round size="large">
-                  <icons class="main__content__button__solid__text icon_padding_right" icon="fas fa-envelope" />
-                  <p class="main__content__button__solid__text">{{ $t("main_email") }}</p>
-                </el-button>
-              </a>
-              <a href="https://discord.com/users/SolsticeLeaf" target="_blank" rel="noopener noreferrer" class="main__content__button__outline">
-                <el-button class="main__content__button__outline" :color="secondaryButtonColor" round size="large">
-                  <icons class="main__content__button__outline__text icon_padding_right" icon="fa-brands fa-discord" />
-                  <p class="main__content__button__outline__text">{{ $t("main_discord") }}</p>
-                </el-button>
-              </a>
+            <div class="main__content__buttons">
+              <FlexButton :text="$t('main_email')"
+                          :text-bold="true"
+                          text-color="--solid-button-text"
+                          icon="ic:outline-mail"
+                          color="--button-color"
+                          link="mailto:me@sleaf.dev"
+                          class="main__content__button__btn"
+                          :outline="false" />
+              <FlexButton :text="$t('main_discord')"
+                          :text-bold="false"
+                          text-color="--outline-button-text"
+                          icon="ic:baseline-discord"
+                          color="--button-color"
+                          link="https://discord.com/users/SolsticeLeaf"
+                          class="main__content__button__btn"
+                          :outline="true" />
             </div>
           </div>
         </div>
@@ -129,6 +134,10 @@ onMounted(() => {
 <style scoped lang="scss">
 @use "../../assets/scss/screens" as *;
 
+//* {
+//  border: 1px solid deepskyblue !important;
+//}
+
 .blur__glass {
   @media screen and (max-width: $screen-sm) {
     background: transparent;
@@ -142,7 +151,7 @@ onMounted(() => {
   flex-direction: column;
   align-items: center;
   align-content: center;
-  height: 80vh;
+  height: 85vh;
   max-height: 85vh;
   justify-content: center;
 
@@ -193,34 +202,46 @@ onMounted(() => {
       }
     }
 
-    &__social-icons {
-      max-height: 100%;
-      vertical-align: middle;
+    &__social {
+      display: flex;
+      flex-direction: row;
+      gap: 0.5rem;
 
-      .social-icon {
-        vertical-align: center;
-        font-size: 1.7rem;
-        margin: auto 1%;
-      }
+      &__icons {
+        display: flex;
+        flex-direction: row;
+        gap: 0.5rem;
+        max-height: 100%;
+        vertical-align: middle;
 
-      .github:hover,
-      .medium:hover {
-        color: var(--color-gray);
-      }
+        &__icon {
+          vertical-align: center;
+          height: 1.7rem;
+          margin: auto 1%;
+        }
 
-      .NuxtLinkedin:hover {
-        color: var(--link-hover);
+        .github:hover,
+        .medium:hover {
+          color: var(--color-gray);
+        }
+
+        .NuxtLinkedin:hover {
+          color: var(--link-hover);
+        }
       }
     }
 
-    &__button {
+    &__buttons {
+      display: flex;
+      flex-direction: row;
       margin-top: 3%;
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
       user-select: none;
+      gap: 0.5rem;
 
-      &__style {
+      &__btn {
         max-height: 2rem;
 
         @media screen and (max-width: $screen-md) {
@@ -235,31 +256,6 @@ onMounted(() => {
 
         @media screen and (max-width: $screen-sm) {
           max-width: fit-content;
-        }
-      }
-
-      &__solid {
-        height: 2.5rem;
-
-        &__text {
-          color: var(--solid-button-text) !important;
-        }
-
-        @media screen and (max-width: $screen-md) {
-          height: 3rem;
-        }
-      }
-
-      &__outline {
-        margin-left: 2%;
-        height: 2.5rem;
-
-        &__text {
-          color: var(--outline-button-text) !important;
-        }
-
-        @media screen and (max-width: $screen-md) {
-          height: 3rem;
         }
       }
 

@@ -10,6 +10,7 @@ html {
 
 h1 {
   font-size: 2.2rem;
+  margin: 0;
   @media screen and (max-width: $screen-xss) {
     font-size: 2rem;
   }
@@ -17,6 +18,7 @@ h1 {
 
 h2 {
   font-size: 2.1rem;
+  margin: 0;
   @media screen and (max-width: $screen-xss) {
     font-size: 1.8rem;
   }
@@ -24,6 +26,7 @@ h2 {
 
 h3 {
   font-size: 2rem;
+  margin: 0;
   @media screen and (max-width: $screen-xss) {
     font-size: 1.7rem;
   }
@@ -31,6 +34,7 @@ h3 {
 
 h4 {
   font-size: 1.9rem;
+  margin: 0;
   @media screen and (max-width: $screen-xss) {
     font-size: 1.6rem;
   }
@@ -38,6 +42,7 @@ h4 {
 
 h5 {
   font-size: 1.8rem;
+  margin: 0;
   @media screen and (max-width: $screen-xss) {
     font-size: 1.5rem;
   }
@@ -45,6 +50,7 @@ h5 {
 
 h6 {
   font-size: 1.5rem;
+  margin: 0;
   @media screen and (max-width: $screen-xss) {
     font-size: 1.2rem;
   }
@@ -52,7 +58,7 @@ h6 {
 
 p, q {
   font-size: 1rem;
-
+  margin: 0;
   @media screen and (max-width: $screen-xss) {
     font-size: 1rem;
   }
@@ -61,13 +67,20 @@ p, q {
 label {
   font-size: 1rem;
   color: var(--text-color-gray) !important;
+  margin: 0;
   @media screen and (max-width: $screen-xss) {
     font-size: 0.8rem;
   }
 }
 
 html, body {
-  background-color: #120e1c;
+  @media (prefers-color-scheme: light) {
+    background-color: var(--background, #FFFFFF);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background-color: var(--background, #120e1c);
+  }
 }
 
 body {
@@ -160,6 +173,10 @@ body {
 ::-moz-selection {
   background: var(--selection-background);
   color: var(--selection-color);
+}
+
+.loading-indicator {
+  font-size: 10rem;
 }
 
 @keyframes pulse {

@@ -1,39 +1,13 @@
 <script setup lang="ts">
 import { Vue3Marquee } from "vue3-marquee";
-import NavigationSection from "~/components/section/NavigationSection.vue";
 import initialConfig from "@/config/initial.config";
+import NavigationSection from "~/components/section/NavigationSection.vue";
 
-const colorMode = useColorMode();
 const nickname = initialConfig.nickname;
 const repeatRows = ref(4);
 
-const matchMedia = computed(() => {
-  return window.matchMedia("(prefers-color-scheme: dark)");
-});
-const getTheme = computed(() => {
-  const mode = colorMode.value;
-  if (!mode || mode === "system") {
-    if (matchMedia.value.matches) {
-      return "light";
-    } else {
-      return "dark";
-    }
-  }
-  return mode;
-});
-
-const changeColorMode = (event: MediaQueryListEvent) => {
-  if (colorMode.preference === "system") {
-    colorMode.value = event.matches ? "dark" : "light";
-    document.body.setAttribute("data-theme", colorMode.value);
-  }
-};
-
 function calculateDirection(index: any): "normal" | "reverse" {
-  if (index % 2 === 0) {
-    return "reverse";
-  }
-  return "normal";
+  return (index % 2 === 0) ? "reverse" : "normal";
 }
 
 const resizeEvent = function () {
@@ -45,9 +19,10 @@ const resizeEvent = function () {
   }
 };
 
-onMounted(() => {
-  document.body.setAttribute("data-theme", getTheme.value);
-  matchMedia.value.addEventListener("change", changeColorMode);
+onBeforeMount(() => {
+  const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  const theme = localStorage.getItem("theme");
+  document.documentElement.setAttribute("data-theme", (!theme || theme === "system") ? systemTheme : theme);
   window.addEventListener("resize", resizeEvent);
   nextTick(() => {
     resizeEvent();
@@ -56,45 +31,47 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   window.removeEventListener("resize", resizeEvent);
-  matchMedia.value.removeEventListener("change", changeColorMode);
 });
 </script>
 
 <template>
-  <ClientOnly>
-    <div>
-      <div class="background__blur">
-        <div class="background__text">
-          <div v-for="(rowIndex) in repeatRows" :key="'row-' + rowIndex" class="background__text__row">
-            <Suspense>
-              <Vue3Marquee :duration="60" clone :direction="calculateDirection(rowIndex)">
-                <div class="background__text__word">
-                  {{ $t(nickname) }}
-                </div>
-              </Vue3Marquee>
-              <template #fallback>
-                <div class="skeleton-marquee"/>
-              </template>
-            </Suspense>
-          </div>
+  <div>
+    <div class="background__blur">
+      <div class="background__text">
+        <div v-for="(rowIndex) in repeatRows" :key="'row-' + rowIndex" class="background__text__row">
+          <ClientOnly>
+            <KeepAlive>
+              <Suspense>
+                <Vue3Marquee :duration="60" clone :direction="calculateDirection(rowIndex)">
+                  <div class="background__text__word">
+                    {{ $t(nickname) }}
+                  </div>
+                </Vue3Marquee>
+                <template #fallback>
+                  <div class="skeleton-marquee"/>
+                </template>
+              </Suspense>
+            </KeepAlive>
+          </ClientOnly>
         </div>
-      </div>
-      <div id="body" class="body">
-        <div class="footer__top">
-          <Suspense>
-            <NavigationSection />
-            <template #fallback>
-              <div class="skeleton-nav"/>
-            </template>
-          </Suspense>
-        </div>
-        <div class="footer__blank" />
-        <Suspense>
-          <slot />
-        </Suspense>
       </div>
     </div>
-  </ClientOnly>
+    <div id="body" class="body">
+      <div class="footer__top">
+        <ClientOnly>
+          <KeepAlive>
+            <Suspense>
+              <NavigationSection />
+            </Suspense>
+          </KeepAlive>
+        </ClientOnly>
+      </div>
+      <div class="footer__blank" />
+      <Suspense>
+        <NuxtPage />
+      </Suspense>
+    </div>
+  </div>
 </template>
 
 <style scoped lang="scss">

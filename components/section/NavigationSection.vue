@@ -1,31 +1,34 @@
 <script setup lang="ts">
 import initialConfig from "@/config/initial.config";
 
-const colorMode = useColorMode();
 const { locale } = useI18n()
 const route = useRoute()
 const siteName = initialConfig.siteName;
+const getSystemTheme = (): string => {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+};
 
-function setTheme(theme: 'light' | 'dark') {
-  colorMode.value = theme;
-  colorMode.preference = theme;
-  document.body.setAttribute("data-theme", theme);
-}
+const theme = ref<string>(localStorage.getItem("theme") || getSystemTheme());
 
-function changeTheme() {
-  const preferences = colorMode.preference;
-  const mode = colorMode.value;
-  const preferTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  if (preferences === 'system') {
-    setTheme(preferTheme === 'dark' ? 'light' : 'dark');
-  } else if (preferTheme !== mode) {
-    setTheme(preferTheme);
+const setTheme = (newTheme: string) => {
+  localStorage.setItem("theme", newTheme);
+  theme.value = newTheme;
+  if (newTheme === "system") {
+    document.documentElement.setAttribute("data-theme", getSystemTheme());
   } else {
-    colorMode.preference = 'system';
-    colorMode.value = preferTheme;
-    document.body.setAttribute("data-theme", preferTheme);
+    document.documentElement.setAttribute("data-theme", newTheme);
   }
-}
+};
+const toggleTheme = (): void => {
+  const currentTheme = theme.value;
+  if (currentTheme === "system") {
+    setTheme(getSystemTheme() === "light" ? "dark" : "light");
+  } else if (currentTheme !== getSystemTheme()) {
+    setTheme(currentTheme === "light" ? "dark" : "light");
+  } else {
+    setTheme("system");
+  }
+};
 
 function isActive(path: string): boolean {
   const currentLocale = locale.value;
@@ -37,6 +40,9 @@ function isActive(path: string): boolean {
   }
 }
 
+const homePath = computed(() => {
+  return `/${locale.value}`;
+})
 const links = computed((): any => {
   const currentLocale = locale.value;
   const alternateLocale = currentLocale === 'en' ? 'ru' : 'en';
@@ -62,11 +68,11 @@ const links = computed((): any => {
     },
     {
       icon: computed(() => {
-        if (colorMode.preference === 'system') { return 'i-heroicons-computer-desktop'; }
-        return colorMode.value === 'dark' ? 'i-heroicons-moon' : 'i-heroicons-sun';
+        if (theme.value === 'system') { return 'i-heroicons-computer-desktop'; }
+        return theme.value === 'dark' ? 'i-heroicons-moon' : 'i-heroicons-sun';
       }).value,
       type: 'action',
-      action: changeTheme
+      action: toggleTheme
     },
     {
       label: locale.value.toUpperCase(),
@@ -79,27 +85,25 @@ const links = computed((): any => {
 </script>
 
 <template>
-  <ClientOnly>
-    <nav id="navbar" class="glass">
-      <a href="/" class="nav__logo">
-        <h1 class="nav__logo__name">
-          {{ $t(siteName) }}
-        </h1>
-      </a>
-      <div class="nav">
-        <div v-for="link in links" :key="link.icon" class="nav__links">
-          <nuxt-link v-if="link.type === 'path'" :to="link.action" :class="isActive(link.action) ? 'nav__links__active' : 'nav__links__default'">
-            <UIcon :name="link.icon" :class="isActive(link.action) ? 'nav__links__active__icon' : 'nav__links__default__icon'" />
-            <p v-if="link.label" :class="isActive(link.action) ? 'nav__links__active__label' : 'nav__links__default__label'">{{ $t(link.label) }}</p>
-          </nuxt-link>
-          <div v-else class="nav__links__default" @click="link.action">
-            <UIcon :name="link.icon" class="nav__links__default__icon" />
-            <p v-if="link.label" class="relative nav__links__default__label">{{ $t(link.label) }}</p>
-          </div>
+  <nav id="navbar" class="glass">
+    <NuxtLink :to="homePath" class="nav__logo">
+      <h1 class="nav__logo__name">
+        {{ $t(siteName) }}
+      </h1>
+    </NuxtLink>
+    <div class="nav">
+      <div v-for="link in links" :key="link.icon" class="nav__links">
+        <NuxtLink v-if="link.type === 'path'" :to="link.action" :class="isActive(link.action) ? 'nav__links__active' : 'nav__links__default'">
+          <Icon :name="link.icon" :class="isActive(link.action) ? 'nav__links__active__icon' : 'nav__links__default__icon'" />
+          <p v-if="link.label" :class="isActive(link.action) ? 'nav__links__active__label' : 'nav__links__default__label'">{{ $t(link.label) }}</p>
+        </NuxtLink>
+        <div v-else class="nav__links__default" @click="link.action">
+          <Icon :name="link.icon" class="nav__links__default__icon" />
+          <p v-if="link.label" class="relative nav__links__default__label">{{ $t(link.label) }}</p>
         </div>
       </div>
-    </nav>
-  </ClientOnly>
+    </div>
+  </nav>
 </template>
 
 <style scoped lang="scss">
@@ -133,7 +137,8 @@ nav {
   user-select: none;
   justify-content: space-between;
 
-  @media screen and (max-width: $screen-xss) {
+  @media screen and (max-width: $screen-sm) {
+    padding: 0;
     justify-content: center;
   }
 
@@ -156,6 +161,7 @@ nav {
         align-items: center;
         gap: 0.2rem;
         height: 100%;
+        text-decoration: none;
         color: var(--text-navigation);
 
         &__label {
@@ -174,7 +180,7 @@ nav {
           }
 
           @media screen and (max-width: $screen-sm) {
-            padding: 0 1.6rem;
+            padding: 0 1rem;
           }
         }
       }
@@ -187,6 +193,7 @@ nav {
         font-weight: bold;
         height: 100%;
         border-bottom: 2px var(--nav-active) solid;
+        text-decoration: none;
         color: var(--text-navigation);
         gap: 0.2rem;
 
@@ -206,7 +213,7 @@ nav {
           }
 
           @media screen and (max-width: $screen-sm) {
-            padding: 0 1.6rem;
+            padding: 0 1rem;
           }
         }
       }
@@ -233,6 +240,7 @@ nav {
     align-items: center;
     cursor: pointer;
     font-weight: bold;
+    text-decoration: none;
 
     &__name {
       position: relative !important;
@@ -242,9 +250,10 @@ nav {
       -webkit-text-fill-color: transparent;
     }
 
-    @media screen and (max-width: $screen-xss) {
+    @media screen and (max-width: $screen-sm) {
       display: none;
     }
   }
 }
 </style>
+
