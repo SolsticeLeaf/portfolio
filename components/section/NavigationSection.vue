@@ -51,32 +51,32 @@ const links = computed((): any => {
   return [
     {
       label: 'nav_home',
-      icon: 'i-heroicons-home',
+      icon: 'pixelarticons:home',
       type: 'path',
       action: `/${currentLocale}`
     },
     {
       label: 'nav_projects',
-      icon: 'i-heroicons-queue-list',
+      icon: 'pixelarticons:list',
       type: 'path',
       action: `/${currentLocale}/projects`
     },
     {
-      icon: 'i-heroicons-heart',
+      icon: 'pixelarticons:heart',
       type: 'path',
       action: `/${currentLocale}/donate`
     },
     {
       icon: computed(() => {
-        if (theme.value === 'system') { return 'i-heroicons-computer-desktop'; }
-        return theme.value === 'dark' ? 'i-heroicons-moon' : 'i-heroicons-sun';
+        if (theme.value === 'system') { return 'pixelarticons:monitor'; }
+        return theme.value === 'dark' ? 'pixelarticons:moon-star' : 'pixelarticons:sun';
       }).value,
       type: 'action',
       action: toggleTheme
     },
     {
       label: locale.value.toUpperCase(),
-      icon: 'i-heroicons-globe-alt',
+      icon: 'pixelarticons:sort-alphabetic',
       type: 'path',
       action: alternatePath
     }

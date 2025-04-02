@@ -23,6 +23,11 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-01-29',
   devtools: { enabled: true },
   modules: ['@nuxtjs/i18n', '@nuxt/image', '@nuxtjs/device', '@nuxt/icon'],
+  icon: {
+    serverBundle: {
+      collections: ['arcticons', 'mdi', 'ic', 'pixelarticons', 'line-md', 'f7']
+    }
+  },
   plugins: ['@/plugins/Vue3Marquee.client.ts'],
   i18n: {
     vueI18n: '@/config/i18n.config.ts',
