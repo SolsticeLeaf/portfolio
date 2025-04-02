@@ -3,7 +3,7 @@ import currencies from '~/config/currencies.config';
 import config from '~/config/initial.config';
 import FlexButton from "~/components/utilities/FlexButton.vue";
 import ActionButton from "~/components/utilities/ActionButton.vue";
-const { locale, getLocaleMessage } = useI18n()
+const { t, locale, getLocaleMessage } = useI18n()
 
 onMounted(() => {
   useHead({
@@ -100,7 +100,7 @@ onMounted(() => {
         </div>
         <div class="blur__glass">
           <h6 class="card__title">
-            {{ $t('donate_title') }}
+            {{ t('donate_title') }}
           </h6>
           <div class="card__main">
             <input
@@ -109,7 +109,7 @@ onMounted(() => {
                 name="amount"
                 class="card__main__input"
                 @change="checkAmount"
-                :placeholder="$t('donate_amount')"
+                :placeholder="t('donate_amount')"
                 required
                 size="10" />
             <p>/</p>
@@ -120,7 +120,7 @@ onMounted(() => {
             </select>
           </div>
           <div class="card__bottom">
-            <ActionButton :text="$t('donate_send')"
+            <ActionButton :text="t('donate_send')"
                         :text-bold="true"
                         text-color="--donate-button-text"
                         icon="mdi:dollar"
@@ -154,7 +154,7 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  max-width: 300px;
+  width: fit-content;
   margin: auto;
 }
 
@@ -184,8 +184,7 @@ onMounted(() => {
   &__main {
     display: flex;
     column-gap: 1rem;
-    padding-top: 0.8rem;
-    padding-bottom: 1.4rem;
+    padding: 0.8rem 2rem 1.4rem;
     justify-content: center;
     align-items: center;
     -webkit-align-items: center;
@@ -194,12 +193,13 @@ onMounted(() => {
       -webkit-appearance: none;
       -moz-appearance: none;
       appearance: none;
-      border-radius: 3rem;
+      border-radius: 2rem;
       width: 4rem;
       min-width: fit-content;
       background: transparent;
       height: 2rem;
       padding: 0.5rem;
+      font-weight: bold;
       border: 1px solid var(--donate-select) !important;
       color: var(--text-color-primary) !important;
 
@@ -212,13 +212,14 @@ onMounted(() => {
       -webkit-appearance: none;
       -moz-appearance: none;
       appearance: none;
-      border-radius: 3rem;
+      border-radius: 2rem;
       text-align: center;
       width: 4rem;
       min-width: fit-content;
       background: transparent;
       height: 3.3rem;
       padding: 0.5rem;
+      font-weight: bold;
       border: 1px solid var(--donate-select) !important;
       color: var(--text-color-primary) !important;
 

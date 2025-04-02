@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import initialConfig from "@/config/initial.config";
 
-const { locale } = useI18n()
+const { t, locale } = useI18n()
 const route = useRoute()
 const siteName = initialConfig.siteName;
 const getSystemTheme = (): string => {
@@ -88,18 +88,18 @@ const links = computed((): any => {
   <nav id="navbar" class="glass">
     <NuxtLink :to="homePath" class="nav__logo">
       <h1 class="nav__logo__name">
-        {{ $t(siteName) }}
+        {{ t(siteName) }}
       </h1>
     </NuxtLink>
     <div class="nav">
       <div v-for="link in links" :key="link.icon" class="nav__links">
         <NuxtLink v-if="link.type === 'path'" :to="link.action" :class="isActive(link.action) ? 'nav__links__active' : 'nav__links__default'">
           <Icon :name="link.icon" :class="isActive(link.action) ? 'nav__links__active__icon' : 'nav__links__default__icon'" />
-          <p v-if="link.label" :class="isActive(link.action) ? 'nav__links__active__label' : 'nav__links__default__label'">{{ $t(link.label) }}</p>
+          <p v-if="link.label" :class="isActive(link.action) ? 'nav__links__active__label' : 'nav__links__default__label'">{{ t(link.label) }}</p>
         </NuxtLink>
         <div v-else class="nav__links__default" @click="link.action">
           <Icon :name="link.icon" class="nav__links__default__icon" />
-          <p v-if="link.label" class="relative nav__links__default__label">{{ $t(link.label) }}</p>
+          <p v-if="link.label" class="relative nav__links__default__label">{{ t(link.label) }}</p>
         </div>
       </div>
     </div>

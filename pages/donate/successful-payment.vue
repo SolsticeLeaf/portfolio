@@ -2,7 +2,7 @@
 import config from "~/config/initial.config";
 import FlexButton from "~/components/utilities/FlexButton.vue";
 
-const { locale, getLocaleMessage } = useI18n()
+const { t, locale, getLocaleMessage } = useI18n()
 
 onMounted(() => {
   useHead({
@@ -25,10 +25,10 @@ const getProjectsPath = computed(() => {
         </div>
         <div class="blur__glass">
           <h6 class="card__title">
-            {{ $t('donate_success') }}
+            {{ t('donate_success') }}
           </h6>
           <div class="card__bottom">
-            <FlexButton :text="$t('donate_button_home')"
+            <FlexButton :text="t('donate_button_home')"
                         :text-bold="true"
                         text-color="--donate-button-text"
                         icon="ic:baseline-arrow-back"

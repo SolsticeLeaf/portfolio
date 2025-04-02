@@ -7,6 +7,7 @@ import TechIcon from "~/components/utilities/TechIcon.vue";
 import AnnouncementSection from "~/components/section/AnnouncementSection.vue";
 import FlexButton from "~/components/utilities/FlexButton.vue";
 
+const { t, tm } = useI18n()
 const nickname = initialConfig.nickname;
 const avatar = initialConfig.hero.avatar_url;
 const links = initialConfig.socialLinks;
@@ -41,18 +42,18 @@ onMounted(() => {
       <div id="hero" class="wrapper blur__glass">
         <div class="main">
           <div class="main__content">
-            <h6 class="main__content__hey">{{ $t("main_hey") }}</h6>
+            <h6 class="main__content__hey">{{ t("main_hey") }}</h6>
             <div class="main__content__title">
-              <h1 class="main__content__title__first">{{ $t("main_title") }}</h1>
-              <h1 class="main__content__title__second">{{ $t(nickname) }}</h1>
+              <h1 class="main__content__title__first">{{ t("main_title") }}</h1>
+              <h1 class="main__content__title__second">{{ t(nickname) }}</h1>
             </div>
             <Suspense>
-              <TyperUtil class="type-writer" :words="$tm('main_typer')" />
+              <TyperUtil class="type-writer" :words="tm('main_typer')" />
               <template #fallback>
                 <div class="skeleton-typer"/>
               </template>
             </Suspense>
-            <label class="main__content__spell">{{ $t("main_spell") }}</label>
+            <label class="main__content__spell">{{ t("main_spell") }}</label>
             <div class="stack">
               <div class="stack__background">
                 <Suspense>
@@ -74,7 +75,7 @@ onMounted(() => {
               </div>
             </div>
             <p class="main__content__social">
-              {{ $t("main_follow") }}
+              {{ t("main_follow") }}
               <a class="main__content__social__icons">
                 <a v-for="link in links" :key="link.icon" :href="link.url">
                   <icons :icon="'fa-brands fa-' + link.icon" class="main__content__social__icons__icon github" />
@@ -82,7 +83,7 @@ onMounted(() => {
               </a>
             </p>
             <div class="main__content__buttons">
-              <FlexButton :text="$t('main_email')"
+              <FlexButton :text="t('main_email')"
                           :text-bold="true"
                           text-color="--solid-button-text"
                           icon="ic:outline-mail"
@@ -90,7 +91,7 @@ onMounted(() => {
                           link="mailto:me@sleaf.dev"
                           class="main__content__button__btn"
                           :outline="false" />
-              <FlexButton :text="$t('main_discord')"
+              <FlexButton :text="t('main_discord')"
                           :text-bold="false"
                           text-color="--outline-button-text"
                           icon="ic:baseline-discord"
@@ -151,7 +152,7 @@ onMounted(() => {
   flex-direction: column;
   align-items: center;
   align-content: center;
-  height: 85vh;
+  height: 80vh;
   max-height: 85vh;
   justify-content: center;
 

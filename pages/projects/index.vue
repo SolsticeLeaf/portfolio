@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import ProjectCard from "~/components/card/ProjectCard.vue";
 import config from "~/config/initial.config";
-const { locale, getLocaleMessage } = useI18n();
+const { t, locale, getLocaleMessage } = useI18n();
 
 const { data: projects, status: status } = useFetch('/api/getProjectsData', {
   key: 'projects',
@@ -41,7 +41,7 @@ const getSortedProjects = computed(() => {
       </div>
       <div v-else class="projects__message">
         <h1>
-          {{ $t('empty') }}
+          {{ t('empty') }}
         </h1>
       </div>
     </div>

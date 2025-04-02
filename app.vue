@@ -3,6 +3,7 @@ import { Vue3Marquee } from "vue3-marquee";
 import initialConfig from "@/config/initial.config";
 import NavigationSection from "~/components/section/NavigationSection.vue";
 
+const { t } = useI18n()
 const nickname = initialConfig.nickname;
 const repeatRows = ref(4);
 
@@ -44,7 +45,7 @@ onBeforeUnmount(() => {
               <Suspense>
                 <Vue3Marquee :duration="60" clone :direction="calculateDirection(rowIndex)">
                   <div class="background__text__word">
-                    {{ $t(nickname) }}
+                    {{ t(nickname) }}
                   </div>
                 </Vue3Marquee>
                 <template #fallback>

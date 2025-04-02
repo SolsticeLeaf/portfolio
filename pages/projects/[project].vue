@@ -3,7 +3,7 @@ import config from "@/config/initial.config";
 import TechIcon from "~/components/utilities/TechIcon.vue";
 import { Vue3Marquee } from "vue3-marquee";
 import FlexButton from "~/components/utilities/FlexButton.vue";
-const { locale } = useI18n();
+const { t, locale } = useI18n();
 const route = useRoute();
 
 const { data: project, status: status } = useFetch('/api/getProjectData', {
@@ -70,7 +70,7 @@ function getButtonName(name: any): string {
       </div>
       <div v-else class="projects__message">
         <h1>
-          {{ $t('notFound') }}
+          {{ t('notFound') }}
         </h1>
       </div>
     </div>
@@ -88,7 +88,7 @@ function getButtonName(name: any): string {
                       :link="source.link"
                       class="info__buttons__btn"
                       :outline="false" />
-          <FlexButton :text="$t('back_button')"
+          <FlexButton :text="t('back_button')"
                       :text-bold="true"
                       text-color="--text-color-light"
                       icon="ic:baseline-arrow-back"
@@ -100,7 +100,7 @@ function getButtonName(name: any): string {
         </div>
       </div>
       <div class="content blur__glass">
-        <FlexButton :text="$t('back_button')"
+        <FlexButton :text="t('back_button')"
                     :text-bold="true"
                     text-color="--text-color-primary"
                     icon="ic:baseline-arrow-back"
