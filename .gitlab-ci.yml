@@ -23,7 +23,7 @@ dependencies:
   before_script:
     - echo "Install dependencies..."
   script:
-    - npm ci
+    - pnpm i
 
 prepare:
   stage: prepare
@@ -32,7 +32,7 @@ prepare:
   before_script:
     - echo "Prepare for build..."
   script:
-    - npm run postinstall
+    - pnpm run postinstall
   artifacts:
     paths:
       - .nuxt/
@@ -45,7 +45,7 @@ build:
   before_script:
     - echo "Building..."
   script:
-    - npm run build
+    - pnpm run build
   artifacts:
     paths:
       - .nuxt/
