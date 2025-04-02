@@ -23,6 +23,7 @@ dependencies:
   before_script:
     - echo "Install dependencies..."
   script:
+    - npm install -g pnpm
     - pnpm i
 
 prepare:
@@ -32,6 +33,7 @@ prepare:
   before_script:
     - echo "Prepare for build..."
   script:
+    - npm install -g pnpm
     - pnpm run postinstall
   artifacts:
     paths:
@@ -45,6 +47,7 @@ build:
   before_script:
     - echo "Building..."
   script:
+    - npm install -g pnpm
     - pnpm run build
   artifacts:
     paths:
