@@ -100,15 +100,17 @@ function getButtonName(name: any): string {
         </div>
       </div>
       <div class="content blur__glass">
-        <FlexButton :text="t('back_button')"
-                    :text-bold="true"
-                    text-color="--text-color-primary"
-                    icon="ic:baseline-arrow-back"
-                    color="transparent"
-                    :customColor="false"
-                    :link="getProjectsPath"
-                    class="back-button"
-                    :outline="false" />
+        <div class="desktop">
+          <FlexButton :text="t('project_back_button')"
+                      :text-bold="true"
+                      text-color="--text-color-primary"
+                      icon="ic:baseline-arrow-back"
+                      color="transparent"
+                      :customColor="false"
+                      :link="getProjectsPath"
+                      class="back-button"
+                      :outline="false" />
+        </div>
         <h1 class="content__title">{{ project.title }}</h1>
         <p class="content__description">{{ getDescription(project.description) }}</p>
       </div>

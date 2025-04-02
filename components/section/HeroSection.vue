@@ -137,11 +137,15 @@ onMounted(() => {
 //  border: 1px solid deepskyblue !important;
 //}
 
+.wrapper {
+  @media screen and (max-width: $screen-sm) {
+    width: 90%;
+  }
+}
+
 .blur__glass {
   @media screen and (max-width: $screen-sm) {
     background: transparent;
-    margin-right: 1rem !important;
-    margin-left: 1rem !important;
   }
 }
 
@@ -153,6 +157,11 @@ onMounted(() => {
   height: 80vh;
   max-height: 85vh;
   justify-content: center;
+
+  @media screen and (max-width: $screen-xss) {
+    height: fit-content;
+    max-height: fit-content;
+  }
 }
 
 .announcements {
@@ -189,6 +198,8 @@ onMounted(() => {
     &__title {
       display: flex;
       flex-direction: row;
+      align-items: center;
+      justify-content: center;
       gap: 1rem;
 
       &__second {

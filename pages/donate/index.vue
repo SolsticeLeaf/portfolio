@@ -205,7 +205,7 @@ onMounted(() => {
       appearance: none;
       border-radius: 2rem;
       background: transparent;
-      width: fit-content;
+      min-width: 8rem;
       padding: 1rem;
       font-weight: bold;
       font-size: 1rem;
@@ -219,7 +219,6 @@ onMounted(() => {
       appearance: none;
       border-radius: 2rem;
       text-align: center;
-      width: fit-content;
       background: transparent;
       padding: 1rem;
       font-weight: bold;

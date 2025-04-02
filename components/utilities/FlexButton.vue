@@ -61,6 +61,7 @@ const textStyle = computed(() => ({
 </template>
 
 <style scoped lang="scss">
+@use "../../assets/scss/screens" as *;
 
 * {
   cursor: pointer;
