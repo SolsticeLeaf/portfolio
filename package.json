@@ -15,7 +15,7 @@
     "@nuxt/image": "^1.10.0",
     "@nuxt/kit": "^3.16.2",
     "@nuxtjs/device": "^3.2.4",
-    "@nuxtjs/i18n": "^9.4.0",
+    "@nuxtjs/i18n": "9.4.0",
     "axios": "^1.8.4",
     "mongoose": "^8.13.1",
     "nuxt": "^3.16.2",

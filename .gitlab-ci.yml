@@ -11,7 +11,7 @@ workflow:
 default:
   tags:
     - "mais"
-  image: node:18
+  image: node:23
 
 cache:
   key: node_modules
