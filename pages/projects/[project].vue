@@ -114,7 +114,7 @@ function getButtonName(name: any): string {
       </div>
       <div class="info blur__glass">
         <Suspense>
-          <nuxt-img loading="lazy" class="info__logo" :src="project.imageLink" />
+          <nuxt-img fit="cover" class="info__logo" :src="project.imageLink" />
           <template #fallback>
             <div class="skeleton-image" />
           </template>
@@ -264,8 +264,10 @@ function getButtonName(name: any): string {
   }
 
   &__logo {
-    width: 100%;
-    height: fit-content;
+    width: auto;
+    max-width: 100%;
+    height: 15rem;
+    padding-bottom: 1rem;
 
     @media screen and (max-width: $screen-md) {
       width: 50%;

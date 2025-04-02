@@ -97,7 +97,7 @@ export default {
 }
 
 .card {
-  height: 14rem;
+  height: 12rem;
   display: flex;
   flex-direction: row;
 
