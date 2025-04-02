@@ -97,19 +97,16 @@ export default {
 }
 
 .card {
-  height: 12rem;
+  height: fit-content;
   display: flex;
   flex-direction: row;
 
   @media screen and (max-width: $screen-md) {
-    height: fit-content;
     width: auto;
   }
 
   @media screen and (max-width: $screen-sm) {
-    height: fit-content;
     flex-direction: column;
-    padding: 1rem 0.5rem;
     justify-content: center;
     align-items: center;
   }
@@ -227,11 +224,7 @@ export default {
 
     &__button {
       width: 100%;
-      height: 3rem;
-
-      @media screen and (max-width: $screen-md) {
-        height: 3rem;
-      }
+      height: fit-content;
 
       @media screen and (max-width: $screen-sm) {
         width: 90%;

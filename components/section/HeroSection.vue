@@ -37,99 +37,97 @@ onMounted(() => {
 </script>
 
 <template>
-  <ClientOnly>
-    <div class="displayed">
-      <div id="hero" class="wrapper blur__glass">
-        <div class="main">
-          <div class="main__content">
-            <h6 class="main__content__hey">{{ t("main_hey") }}</h6>
-            <div class="main__content__title">
-              <h1 class="main__content__title__first">{{ t("main_title") }}</h1>
-              <h1 class="main__content__title__second">{{ t(nickname) }}</h1>
-            </div>
-            <Suspense>
-              <TyperUtil class="type-writer" :words="tm('main_typer')" />
-              <template #fallback>
-                <div class="skeleton-typer"/>
-              </template>
-            </Suspense>
-            <label class="main__content__spell">{{ t("main_spell") }}</label>
-            <div class="stack">
-              <div class="stack__background">
-                <Suspense>
-                  <Vue3Marquee pause-on-hover :duration="60" class="stack__background__text">
-                    <div class="stack__text" v-for="tool in tools" :key="tool">
-                      <Suspense>
-                        <TechIcon class="data-marquee-icon" :icon="tool" />
-                        <template #fallback>
-                          <div class="skeleton-icon" />
-                        </template>
-                      </Suspense>
-                      <p>{{ tool }}</p>
-                    </div>
-                  </Vue3Marquee>
-                  <template #fallback>
-                    <div class="skeleton-marquee"/>
-                  </template>
-                </Suspense>
-              </div>
-            </div>
-            <p class="main__content__social">
-              {{ t("main_follow") }}
-              <a class="main__content__social__icons">
-                <a v-for="link in links" :key="link.icon" :href="link.url">
-                  <icons :icon="'fa-brands fa-' + link.icon" class="main__content__social__icons__icon github" />
-                </a>
-              </a>
-            </p>
-            <div class="main__content__buttons">
-              <FlexButton :text="t('main_email')"
-                          :text-bold="true"
-                          text-color="--solid-button-text"
-                          icon="ic:outline-mail"
-                          color="--button-color"
-                          link="mailto:me@sleaf.dev"
-                          class="main__content__button__btn"
-                          :outline="false" />
-              <FlexButton :text="t('main_discord')"
-                          :text-bold="false"
-                          text-color="--outline-button-text"
-                          icon="ic:baseline-discord"
-                          color="--button-color"
-                          link="https://discord.com/users/SolsticeLeaf"
-                          class="main__content__button__btn"
-                          :outline="true" />
+  <div class="displayed">
+    <div id="hero" class="wrapper blur__glass">
+      <div class="main">
+        <div class="main__content">
+          <h6 class="main__content__hey">{{ t("main_hey") }}</h6>
+          <div class="main__content__title">
+            <h1 class="main__content__title__first">{{ t("main_title") }}</h1>
+            <h1 class="main__content__title__second">{{ t(nickname) }}</h1>
+          </div>
+          <Suspense>
+            <TyperUtil class="type-writer" :words="tm('main_typer')" />
+            <template #fallback>
+              <div class="skeleton-typer"/>
+            </template>
+          </Suspense>
+          <label class="main__content__spell">{{ t("main_spell") }}</label>
+          <div class="stack">
+            <div class="stack__background">
+              <Suspense>
+                <Vue3Marquee pause-on-hover :duration="60" class="stack__background__text">
+                  <div class="stack__text" v-for="tool in tools" :key="tool">
+                    <Suspense>
+                      <TechIcon class="data-marquee-icon" :icon="tool" />
+                      <template #fallback>
+                        <div class="skeleton-icon" />
+                      </template>
+                    </Suspense>
+                    <p>{{ tool }}</p>
+                  </div>
+                </Vue3Marquee>
+                <template #fallback>
+                  <div class="skeleton-marquee"/>
+                </template>
+              </Suspense>
             </div>
           </div>
-        </div>
-        <div class="image">
-          <div class="image__content">
-            <Suspense>
-              <nuxt-img
-                  id="hero-avatar"
-                  :src="avatar"
-                  alt="SolsticeLeaf"
-                  fit="cover"
-                  height="80%"
-                  loading="eager"
-              />
-              <template #fallback>
-                <div class="skeleton-avatar"/>
-              </template>
-            </Suspense>
+          <p class="main__content__social">
+            {{ t("main_follow") }}
+            <a class="main__content__social__icons">
+              <a v-for="link in links" :key="link.icon" :href="link.url">
+                <Icon :name="link.icon" class="main__content__social__icons__icon"/>
+              </a>
+            </a>
+          </p>
+          <div class="main__content__buttons">
+            <FlexButton :text="t('main_email')"
+                        :text-bold="true"
+                        text-color="--solid-button-text"
+                        icon="ic:baseline-mail"
+                        color="--button-color"
+                        link="mailto:me@sleaf.dev"
+                        class="main__content__button__btn"
+                        :outline="false" />
+            <FlexButton :text="t('main_discord')"
+                        :text-bold="false"
+                        text-color="--outline-button-text"
+                        icon="ic:baseline-discord"
+                        color="--button-color"
+                        link="https://discord.com/users/SolsticeLeaf"
+                        class="main__content__button__btn"
+                        :outline="true" />
           </div>
         </div>
       </div>
-      <div class="announcements">
-        <Suspense>
-          <AnnouncementSection />
-          <template #fallback>
-            <div class="skeleton-announcement"/>
-          </template>
-        </Suspense>
+      <div class="image">
+        <div class="image__content">
+          <Suspense>
+            <nuxt-img
+                id="hero-avatar"
+                :src="avatar"
+                alt="SolsticeLeaf"
+                fit="cover"
+                height="80%"
+                loading="eager"
+            />
+            <template #fallback>
+              <div class="skeleton-avatar"/>
+            </template>
+          </Suspense>
+        </div>
       </div>
     </div>
-  </ClientOnly>
+    <div class="announcements">
+      <Suspense>
+        <AnnouncementSection />
+        <template #fallback>
+          <div class="skeleton-announcement"/>
+        </template>
+      </Suspense>
+    </div>
+  </div>
 </template>
 
 <style scoped lang="scss">
@@ -155,10 +153,6 @@ onMounted(() => {
   height: 80vh;
   max-height: 85vh;
   justify-content: center;
-
-  @media screen and (max-width: $screen-sm) {
-    height: fit-content;
-  }
 }
 
 .announcements {
@@ -216,19 +210,9 @@ onMounted(() => {
         vertical-align: middle;
 
         &__icon {
-          vertical-align: center;
-          height: 1.7rem;
-          margin: auto 1%;
-        }
-
-        .github:hover,
-        .medium:hover {
-          color: var(--color-gray);
-        }
-
-        .NuxtLinkedin:hover {
-          color: var(--link-hover);
-        }
+          color: var(--text-color-primary);
+          font-size: 1.7rem;
+        }:hover { color: var(--color-gray); }
       }
     }
 

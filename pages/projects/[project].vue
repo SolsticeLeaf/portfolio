@@ -268,10 +268,6 @@ function getButtonName(name: any): string {
     max-width: 100%;
     height: 15rem;
     padding-bottom: 1rem;
-
-    @media screen and (max-width: $screen-md) {
-      width: 50%;
-    }
   }
 
   &__marquee {
@@ -326,7 +322,7 @@ function getButtonName(name: any): string {
 
     &__btn {
       @media screen and (max-width: $screen-sm) {
-        height: 4rem;
+        height: 2.5rem;
       }
     }
   }

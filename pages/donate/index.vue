@@ -112,8 +112,8 @@ onMounted(() => {
                 :placeholder="t('donate_amount')"
                 required
                 size="10" />
-            <p>/</p>
-            <select class="transparent__glass__sky card__main__select" v-model="currency" @change="changeAmount">
+            <h6>/</h6>
+            <select class="card__main__select" v-model="currency" @change="changeAmount">
               <option v-for="curr in currencies" :value="curr">
                 {{curr.name + " " + curr.symbol}}
               </option>
@@ -139,6 +139,10 @@ onMounted(() => {
 <style scoped lang="scss">
 @use 'assets/scss/screens' as *;
 
+//* {
+//  border: 1px solid deepskyblue !important;
+//}
+
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -146,6 +150,7 @@ onMounted(() => {
   justify-content: center;
 
   @media screen and (max-width: $screen-sm) {
+    width: 100%;
     padding: 1rem;
   }
 }
@@ -172,6 +177,10 @@ onMounted(() => {
     &__image {
       font-size: 10rem;
       color: #ff9100;
+
+      @media screen and (max-width: $screen-sm) {
+        color: var(--text-color-primary);
+      }
     }
   }
 
@@ -183,8 +192,9 @@ onMounted(() => {
 
   &__main {
     display: flex;
+    height: 2rem;
     column-gap: 1rem;
-    padding: 0.8rem 2rem 1.4rem;
+    padding: 2rem 2rem;
     justify-content: center;
     align-items: center;
     -webkit-align-items: center;
@@ -194,18 +204,13 @@ onMounted(() => {
       -moz-appearance: none;
       appearance: none;
       border-radius: 2rem;
-      width: 4rem;
-      min-width: fit-content;
       background: transparent;
-      height: 2rem;
-      padding: 0.5rem;
+      width: fit-content;
+      padding: 1rem;
       font-weight: bold;
+      font-size: 1rem;
       border: 1px solid var(--donate-select) !important;
       color: var(--text-color-primary) !important;
-
-      @media screen and (max-width: $screen-sm) {
-        height: 3rem;
-      }
     }
 
     &__select {
@@ -214,18 +219,13 @@ onMounted(() => {
       appearance: none;
       border-radius: 2rem;
       text-align: center;
-      width: 4rem;
-      min-width: fit-content;
+      width: fit-content;
       background: transparent;
-      height: 3.3rem;
-      padding: 0.5rem;
+      padding: 1rem;
       font-weight: bold;
+      font-size: 1rem;
       border: 1px solid var(--donate-select) !important;
       color: var(--text-color-primary) !important;
-
-      @media screen and (max-width: $screen-sm) {
-        height: 3rem;
-      }
     }
   }
 

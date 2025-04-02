@@ -55,7 +55,7 @@ const textStyle = computed(() => ({
 
 <template>
   <NuxtLink :to="props.link" class="button" :style="buttonStyle">
-    <Icon :name="props.icon" class="button__img" :style="textStyle"></Icon>
+    <Icon :name="props.icon" class="button__img" :style="textStyle"/>
     <p :style="textStyle">{{ props.text }}</p>
   </NuxtLink>
 </template>

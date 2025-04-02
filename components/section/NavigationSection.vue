@@ -57,7 +57,7 @@ const links = computed((): any => {
     },
     {
       label: 'nav_projects',
-      icon: 'pixelarticons:list',
+      icon: 'pixelarticons:shopping-bag',
       type: 'path',
       action: `/${currentLocale}/projects`
     },
@@ -69,14 +69,14 @@ const links = computed((): any => {
     {
       icon: computed(() => {
         if (theme.value === 'system') { return 'pixelarticons:monitor'; }
-        return theme.value === 'dark' ? 'pixelarticons:moon-star' : 'pixelarticons:sun';
+        return theme.value === 'dark' ? 'pixelarticons:moon-star' : 'pixelarticons:sun-alt';
       }).value,
       type: 'action',
       action: toggleTheme
     },
     {
       label: locale.value.toUpperCase(),
-      icon: 'pixelarticons:sort-alphabetic',
+      icon: 'pixelarticons:sliders',
       type: 'path',
       action: alternatePath
     }
