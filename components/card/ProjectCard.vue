@@ -1,48 +1,38 @@
-<script>
-
+<script setup lang="ts">
 import FlexButton from "~/components/utilities/FlexButton.vue";
 
-export default {
-  name: "ProjectCard",
-  components: {FlexButton},
-  props: {
-    title: {
-      type: String
-    },
-    description: {
-      type: Object
-    },
-    imageLink: {
-      type: String
-    },
-    sources: {
-      type: Array
-    }
+const { t, locale } = useI18n()
+
+const props = defineProps({
+  id: {
+    type: String,
+    required: true
   },
-
-  methods: {
-    getImageUrl(path) {
-      return new URL(path, import.meta.url).href
-    },
-
-    getDescription(description) {
-      const currentLocale = this.$i18n.locale;
-      const localed = description[currentLocale]
-      if (localed) {
-        return localed
-      }
-      return description["en"]
-    },
-
-    getName(name) {
-      const currentLocale = this.$i18n.locale;
-      const localed = name[currentLocale]
-      if (localed) {
-        return localed
-      }
-      return name["en"]
-    }
+  title: {
+    type: String,
+    required: true
+  },
+  description: {
+    type: Object,
+    required: true
+  },
+  imageLink: {
+    type: String,
+    required: true
   }
+});
+
+function getImageUrl(path): URL {
+  return new URL(path, import.meta.url).href
+}
+
+function getDescription(description): string {
+  const currentLocale = locale.value;
+  const localed = description[currentLocale]
+  if (localed) {
+    return localed
+  }
+  return description["en"]
 }
 </script>
 
@@ -54,24 +44,22 @@ export default {
       </div>
       <div class="card__info">
         <div class="card__info__title">
-          <h4 class="card__info__title__text">{{ this.title }}</h4>
+          <h6 class="card__info__title__text">{{ title }}</h6>
         </div>
         <div class="card__info__description">
           <p class="card__info__description__text">{{ getDescription(description) }}</p>
         </div>
       </div>
-      <div class="card__links">
-        <div class="card__links__button" v-for="source in sources" :key="source.name">
-          <FlexButton :text="getName(source.name)"
-                      :text-bold="true"
-                      text-color="--text-color-light"
-                      :icon="source.icon"
-                      :color="source.color"
-                      :customColor="false"
-                      :link="source.link"
-                      class="main__content__button__btn"
-                      :outline="false" />
-        </div>
+      <div class="card__button">
+        <FlexButton :text="t('read_more')"
+                    :text-bold="true"
+                    text-color="--text-color-light"
+                    icon="mdi:eye"
+                    color="#008080"
+                    :customColor="false"
+                    :link="`/projects/${props.id}`"
+                    class="main__content__button__btn"
+                    :outline="true" />
       </div>
     </div>
   </ClientOnly>
@@ -95,40 +83,28 @@ export default {
   box-shadow: 0 0 1px var(--scrollbar-shadow);
 }
 
+.blur__glass {
+  padding: 0;
+  background: transparent;
+  border-radius: 1rem;
+}
+
 .card {
   height: fit-content;
   display: flex;
-  flex-direction: row;
-
-  @media screen and (max-width: $screen-md) {
-    width: auto;
-  }
-
-  @media screen and (max-width: $screen-sm) {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0;
 
   &__image {
     display: flex;
-    height: 100%;
     align-items: center;
     align-content: center;
     justify-content: center;
-    width: 25%;
-
-    @media screen and (max-width: $screen-md) {
-      height: auto;
-    }
-
-    @media screen and (max-width: $screen-sm) {
-      display: flex;
-      justify-items: center;
-      align-items: center;
-      width: 100%;
-      height: 8rem;
-    }
+    justify-items: center;
+    width: 100%;
+    height: 8rem;
 
     &__content {
       max-width: 100%;
@@ -143,27 +119,16 @@ export default {
   &__info {
     display: flex;
     flex-direction: column;
-    height: 100%;
-    width: 55%;
-    margin-left: 1rem;
-    margin-right: 1rem;
-
-    @media screen and (max-width: $screen-sm) {
-      margin: 0;
-      width: auto;
-    }
+    height: fit-content;
+    width: 90%;
 
     &__title {
       display: block;
       height: fit-content;
-      padding-bottom: 1.2rem;
+      word-wrap: break-word;
       max-height: 35%;
       width: 100%;
       text-align: center;
-
-      @media screen and (max-width: $screen-sm) {
-        padding: 1rem 0;
-      }
 
       &__text {
         overflow: hidden;
@@ -177,6 +142,7 @@ export default {
     &__description {
       display: block;
       height: 65%;
+      text-align: center;
       max-height: 65%;
       width: 100%;
 
@@ -207,31 +173,14 @@ export default {
     }
   }
 
-  &__links {
+  &__button {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
-    width: 20%;
+    padding-top: 0.5rem;
+    width: 90%;
 
-    @media screen and (max-width: $screen-sm) {
-      flex-direction: row;
-      width: 100%;
-      padding-top: 0.8rem;
-      overflow-x: scroll;
-      gap: 0.5rem;
-    }
-
-    &__button {
-      width: 100%;
-      height: fit-content;
-
-      @media screen and (max-width: $screen-sm) {
-        width: 90%;
-      }
-    }
-
-    &__text {
-      color: var(--text-color-light);
+    .button {
+      padding: 0.2rem;
     }
   }
 }

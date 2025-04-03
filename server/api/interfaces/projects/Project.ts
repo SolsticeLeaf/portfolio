@@ -4,8 +4,8 @@ export interface Project extends Document {
     title: string;
     imageLink: string;
     sources: Array<any>;
-    mainSources: Array<any>;
     techs: Array<any>;
+    downloadLink: string;
     languages: Array<any>;
     description: Object;
 }
@@ -15,8 +15,8 @@ const schema: Schema = new Schema({
     title: { type: String, required: true },
     imageLink: { type: String, required: true },
     sources: { type: Array<any>, required: true },
-    mainSources: { type: Array<any>, required: true },
     techs: { type: Array<any>, required: true },
+    downloadLink: { type: String, required: true },
     languages: { type: Array<any>, required: true },
     description: { type: Object, required: true },
 }, { collection: 'projects' })

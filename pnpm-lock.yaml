@@ -45,6 +45,9 @@ importers:
       '@iconify-json/arcticons':
         specifier: ^1.2.21
         version: 1.2.21
+      '@iconify-json/codex':
+        specifier: ^1.2.0
+        version: 1.2.0
       '@iconify-json/f7':
         specifier: ^1.2.2
         version: 1.2.2
@@ -426,6 +429,9 @@ packages:
 
   '@iconify-json/arcticons@1.2.21':
     resolution: {integrity: sha512-ZYbSJ0dwjsvdgl/zXZB8Edw5/rFh8fYIX1HTuVU1IP/xFrsP59DG9pRhubhPrCRw/hqOnbQibQL8jBkEc5AU1Q==}
+
+  '@iconify-json/codex@1.2.0':
+    resolution: {integrity: sha512-SyaMOhwa4sZtT5wKNHgY7vWxyiLmBEnrJfllFfkqmjYBO/lhPbDkTZXrZXVCrKvUZiM8WQmeUo2/8qLr9k9zug==}
 
   '@iconify-json/f7@1.2.2':
     resolution: {integrity: sha512-7+RhvnncD+LRu0smuHOun4emOUu48XUGG6G0tYYbrXS7n4Io2xntx6nxa09/iI41t9hnH2oHHU3Dg7Ee60Ovow==}
@@ -4230,6 +4236,10 @@ snapshots:
   '@humanwhocodes/retry@0.4.2': {}
 
   '@iconify-json/arcticons@1.2.21':
+    dependencies:
+      '@iconify/types': 2.0.0
+
+  '@iconify-json/codex@1.2.0':
     dependencies:
       '@iconify/types': 2.0.0
 

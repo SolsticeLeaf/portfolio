@@ -51,10 +51,10 @@ const getSortedProjects = computed(() => {
           <div class="projects__card" v-for="item in getSortedProjects" :key="item.title">
             <Suspense>
               <ProjectCard
-                  v-bind:title="item.title"
+                  v-bind:id="item._id"
+                  :title="item.title"
                   :description="item.description"
                   :image-link="item.imageLink"
-                  :sources="item.sources"
               />
               <template #fallback>
                 <div class="skeleton-card" />
@@ -70,6 +70,10 @@ const getSortedProjects = computed(() => {
 <style scoped lang="scss">
 @use 'assets/scss/screens' as *;
 
+//* {
+//  border: 1px solid deepskyblue !important;
+//}
+
 .blur__glass {
   @media screen and (max-width: $screen-sm) {
     backdrop-filter: none;
@@ -81,44 +85,36 @@ const getSortedProjects = computed(() => {
 }
 
 .wrapper {
-  clip-path: inset(0 round 3rem);
   flex-direction: column;
   box-sizing: border-box;
   height: fit-content;
   overflow-y: visible;
   align-items: center;
-}
-
-::-webkit-scrollbar {
-  -webkit-appearance: none;
-  width: 7px;
-}
-
-::-webkit-scrollbar-thumb {
-  border-radius: 3rem;
-  background-color: var(--scrollbar-background);
-  box-shadow: 0 0 1px var(--scrollbar-shadow);
+  padding: 0;
 }
 
 .projects {
   height: fit-content;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
+  display: grid;
+  display: -moz-grid;
+  display: -ms-grid;
+  grid-gap: 1rem;
+  grid-auto-rows: auto;
+  grid-template-columns: 22rem 22rem 22rem 22rem;
+  padding-bottom: 0.5rem;
+  width: fit-content;
 
-  @media screen and (max-width: $screen-sm) {
-    height: fit-content;
-    max-height: fit-content;
-    overflow-y: visible;
+  @media screen and (max-width: $screen-lg) {
+    grid-template-columns: 20rem 20rem 20rem;
   }
 
-  &__card {
-    margin: 1rem;
-    width: 60%;
+  @media screen and (max-width: $screen-md) {
+    grid-template-columns: 20rem 20rem;
+  }
 
-    @media screen and (max-width: $screen-md) {
-      width: 95%;
-    }
+  @media screen and (max-width: $screen-sm) {
+    grid-template-columns: 95%;
   }
 
   &__message {

@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import config from "@/config/initial.config";
 import TechIcon from "~/components/utilities/TechIcon.vue";
-import { Vue3Marquee } from "vue3-marquee";
+import {Vue3Marquee} from "vue3-marquee";
 import FlexButton from "~/components/utilities/FlexButton.vue";
+
 const { t, locale } = useI18n();
 const route = useRoute();
 
@@ -30,13 +31,32 @@ const { data: project, status: status } = useFetch('/api/getProjectData', {
   }
 });
 
+const downloadData = ref();
+const isDownloadReady = computed(() => !!downloadData.value);
+
 const isPending = computed(() => {
   return status.value === "pending";
 });
-
 const isSuccess = computed(() => {
   return status.value === "success" && project.value.title != null;
 });
+
+watchEffect(async () => {
+  if (isSuccess.value) {
+    try {
+      downloadData.value = await $fetch('/api/getDownloadData', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({link: project.value.downloadLink}),
+        cache: "no-cache",
+        server: false
+      });
+    } catch (error) {
+      console.error("Ошибка загрузки данных:", error);
+    }
+  }
+});
+
 
 const getProjectsPath = computed(() => {
   const currentLocale = locale.value;
@@ -77,7 +97,7 @@ function getButtonName(name: any): string {
     <div v-else class="wrapper">
       <div class="screen-sm">
         <div class="blur__glass info__buttons">
-          <FlexButton v-for="source in project.mainSources"
+          <FlexButton v-for="source in project.sources"
                       :key="source.name"
                       :text="getButtonName(source.name)"
                       :text-bold="true"
@@ -86,6 +106,16 @@ function getButtonName(name: any): string {
                       :color="source.color"
                       :customColor="false"
                       :link="source.link"
+                      class="info__buttons__btn"
+                      :outline="false" />
+          <FlexButton v-if="isDownloadReady"
+                      :text="t('download_button') + (downloadData?.data?.version || '')"
+                      :text-bold="true"
+                      text-color="--text-color-light"
+                      icon="ic:baseline-download"
+                      color="#50C878"
+                      :customColor="false"
+                      :link="downloadData?.data?.downloadLink || project.downloadLink"
                       class="info__buttons__btn"
                       :outline="false" />
           <FlexButton :text="t('back_button')"
@@ -97,6 +127,7 @@ function getButtonName(name: any): string {
                       :link="getProjectsPath"
                       class="info__buttons__btn"
                       :outline="false" />
+
         </div>
       </div>
       <div class="content blur__glass">
@@ -160,7 +191,7 @@ function getButtonName(name: any): string {
           </div>
           <div class="desktop-md">
             <div class="info__buttons">
-              <FlexButton v-for="source in project.mainSources"
+              <FlexButton v-for="source in project.sources"
                           :key="source.name"
                           :text="getButtonName(source.name)"
                           :text-bold="true"
@@ -169,6 +200,16 @@ function getButtonName(name: any): string {
                           :color="source.color"
                           :customColor="false"
                           :link="source.link"
+                          class="info__buttons__btn"
+                          :outline="false" />
+              <FlexButton v-if="isDownloadReady"
+                          :text="t('download_button') + (downloadData?.data?.version || '')"
+                          :text-bold="true"
+                          text-color="--text-color-light"
+                          icon="ic:baseline-download"
+                          color="#50C878"
+                          :customColor="false"
+                          :link="downloadData?.data?.downloadLink || project.downloadLink"
                           class="info__buttons__btn"
                           :outline="false" />
             </div>
