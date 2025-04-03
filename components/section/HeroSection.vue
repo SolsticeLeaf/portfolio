@@ -354,7 +354,7 @@ onMounted(() => {
   width: 100%;
 
   @media screen and (max-width: $screen-md) {
-    display: grid;
+    display: flex;
     align-items: center;
     align-content: center;
     justify-content: center;
@@ -402,7 +402,7 @@ onMounted(() => {
     }
 
     @media screen and (max-width: $screen-sm) {
-      height: 100%;
+      padding: 0.3rem 0;
     }
   }
 
