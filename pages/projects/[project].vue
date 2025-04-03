@@ -108,16 +108,18 @@ function getButtonName(name: any): string {
                       :link="source.link"
                       class="info__buttons__btn"
                       :outline="false" />
-          <FlexButton v-if="isDownloadReady"
-                      :text="t('download_button') + (downloadData?.data?.version || '')"
-                      :text-bold="true"
-                      text-color="--text-color-light"
-                      icon="ic:baseline-download"
-                      color="#50C878"
-                      :customColor="false"
-                      :link="downloadData?.data?.downloadLink || project.downloadLink"
-                      class="info__buttons__btn"
-                      :outline="false" />
+          <Keep-alive>
+            <FlexButton v-if="isDownloadReady"
+                        :text="t('download_button') + (downloadData?.data?.version || '')"
+                        :text-bold="true"
+                        text-color="--text-color-light"
+                        icon="ic:baseline-download"
+                        color="#50C878"
+                        :customColor="false"
+                        :link="downloadData?.data?.downloadLink || project.downloadLink"
+                        class="info__buttons__btn"
+                        :outline="false" />
+          </Keep-alive>
           <FlexButton :text="t('back_button')"
                       :text-bold="true"
                       text-color="--text-color-light"
@@ -127,20 +129,21 @@ function getButtonName(name: any): string {
                       :link="getProjectsPath"
                       class="info__buttons__btn"
                       :outline="false" />
-
         </div>
       </div>
       <div class="content blur__glass">
         <div class="desktop">
-          <FlexButton :text="t('project_back_button')"
-                      :text-bold="true"
-                      text-color="--text-color-back"
-                      icon="ic:baseline-arrow-back"
-                      color="transparent"
-                      :customColor="false"
-                      :link="getProjectsPath"
-                      class="back-button"
-                      :outline="false" />
+          <KeepAlive>
+            <FlexButton :text="t('project_back_button')"
+                        :text-bold="true"
+                        text-color="--text-color-back"
+                        icon="ic:baseline-arrow-back"
+                        color="transparent"
+                        :customColor="false"
+                        :link="getProjectsPath"
+                        class="back-button"
+                        :outline="false" />
+          </KeepAlive>
         </div>
         <h1 class="content__title">{{ project.title }}</h1>
         <p class="content__description">{{ getDescription(project.description) }}</p>
@@ -202,30 +205,34 @@ function getButtonName(name: any): string {
                           :link="source.link"
                           class="info__buttons__btn"
                           :outline="false" />
-              <FlexButton v-if="isDownloadReady"
-                          :text="t('download_button') + (downloadData?.data?.version || '')"
-                          :text-bold="true"
-                          text-color="--text-color-light"
-                          icon="ic:baseline-download"
-                          color="#50C878"
-                          :customColor="false"
-                          :link="downloadData?.data?.downloadLink || project.downloadLink"
-                          class="info__buttons__btn"
-                          :outline="false" />
+              <KeepAlive>
+                <FlexButton v-if="isDownloadReady"
+                            :text="t('download_button') + (downloadData?.data?.version || '')"
+                            :text-bold="true"
+                            text-color="--text-color-light"
+                            icon="ic:baseline-download"
+                            color="#50C878"
+                            :customColor="false"
+                            :link="downloadData?.data?.downloadLink || project.downloadLink"
+                            class="info__buttons__btn"
+                            :outline="false" />
+              </KeepAlive>
             </div>
           </div>
         </div>
       </div>
       <div class="md-back-button">
-        <FlexButton :text="t('project_back_button')"
-                    :text-bold="true"
-                    text-color="--text-color-primary"
-                    icon="ic:baseline-arrow-back"
-                    color="transparent"
-                    :customColor="false"
-                    :link="getProjectsPath"
-                    class="back-button"
-                    :outline="false" />
+        <KeepAlive>
+          <FlexButton :text="t('project_back_button')"
+                      :text-bold="true"
+                      text-color="--text-color-primary"
+                      icon="ic:baseline-arrow-back"
+                      color="transparent"
+                      :customColor="false"
+                      :link="getProjectsPath"
+                      class="back-button"
+                      :outline="false" />
+        </KeepAlive>
       </div>
     </div>
   </ClientOnly>
