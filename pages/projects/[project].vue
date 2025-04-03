@@ -3,6 +3,7 @@ import config from "@/config/initial.config";
 import TechIcon from "~/components/utilities/TechIcon.vue";
 import {Vue3Marquee} from "vue3-marquee";
 import FlexButton from "~/components/utilities/FlexButton.vue";
+import LoadingButton from "~/components/utilities/LoadingButton.vue";
 
 const { t, locale } = useI18n();
 const route = useRoute();
@@ -108,18 +109,25 @@ function getButtonName(name: any): string {
                       :link="source.link"
                       class="info__buttons__btn"
                       :outline="false" />
-          <Keep-alive>
-            <FlexButton v-if="isDownloadReady"
-                        :text="t('download_button') + (downloadData?.data?.version || '')"
-                        :text-bold="true"
-                        text-color="--text-color-light"
-                        icon="ic:baseline-download"
-                        color="#50C878"
-                        :customColor="false"
-                        :link="downloadData?.data?.downloadLink || project.downloadLink"
-                        class="info__buttons__btn"
-                        :outline="false" />
-          </Keep-alive>
+          <FlexButton v-if="isDownloadReady"
+                      :text="t('download_button') + (downloadData?.data?.version || '')"
+                      :text-bold="true"
+                      text-color="--text-color-light"
+                      icon="ic:baseline-download"
+                      color="#50C878"
+                      :customColor="false"
+                      :link="downloadData?.data?.downloadLink || project.downloadLink"
+                      class="info__buttons__btn"
+                      :outline="false" />
+          <LoadingButton v-else
+                         :text="t('download_button')"
+                         :text-bold="true"
+                         text-color="--text-color-light"
+                         icon="ic:baseline-download"
+                         color="#50C878"
+                         :customColor="false"
+                         class="info__buttons__btn"
+                         :outline="false" />
           <FlexButton :text="t('back_button')"
                       :text-bold="true"
                       text-color="--text-color-light"
@@ -205,18 +213,25 @@ function getButtonName(name: any): string {
                           :link="source.link"
                           class="info__buttons__btn"
                           :outline="false" />
-              <KeepAlive>
-                <FlexButton v-if="isDownloadReady"
-                            :text="t('download_button') + (downloadData?.data?.version || '')"
-                            :text-bold="true"
-                            text-color="--text-color-light"
-                            icon="ic:baseline-download"
-                            color="#50C878"
-                            :customColor="false"
-                            :link="downloadData?.data?.downloadLink || project.downloadLink"
-                            class="info__buttons__btn"
-                            :outline="false" />
-              </KeepAlive>
+              <FlexButton v-if="isDownloadReady"
+                          :text="t('download_button') + (downloadData?.data?.version || '')"
+                          :text-bold="true"
+                          text-color="--text-color-light"
+                          icon="ic:baseline-download"
+                          color="#50C878"
+                          :customColor="false"
+                          :link="downloadData?.data?.downloadLink || project.downloadLink"
+                          class="info__buttons__btn"
+                          :outline="false" />
+              <LoadingButton v-else
+                             :text="t('download_button')"
+                             :text-bold="true"
+                             text-color="--text-color-light"
+                             icon="ic:baseline-download"
+                             color="#50C878"
+                             :customColor="false"
+                             class="info__buttons__btn"
+                             :outline="false" />
             </div>
           </div>
         </div>
