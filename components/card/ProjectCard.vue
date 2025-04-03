@@ -22,11 +22,11 @@ const props = defineProps({
   }
 });
 
-function getImageUrl(path): URL {
+function getImageUrl(path: string): string {
   return new URL(path, import.meta.url).href
 }
 
-function getDescription(description): string {
+function getDescription(description: any): string {
   const currentLocale = locale.value;
   const localed = description[currentLocale]
   if (localed) {
