@@ -142,7 +142,7 @@ onMounted(() => {
     width: 90%;
   }
   @media screen and (max-width: $screen-xs) {
-    width: 95%;
+    width: 100%;
   }
 }
 
@@ -164,6 +164,7 @@ onMounted(() => {
   @media screen and (max-width: $screen-xs) {
     height: fit-content;
     max-height: fit-content;
+    width: 95%;
   }
 }
 
@@ -240,7 +241,7 @@ onMounted(() => {
     &__buttons {
       display: flex;
       flex-direction: row;
-      margin-top: 3%;
+      margin-top: 1rem;
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
@@ -272,7 +273,7 @@ onMounted(() => {
       }
 
       @media screen and (max-width: $screen-md) {
-        margin-top: 2rem;
+        margin-top: 1rem;
         display: flex;
         width: 100%;
         align-items: center;
@@ -368,17 +369,15 @@ onMounted(() => {
   &__background {
     display: flex;
     max-width: 25rem;
-    max-height: 100%;
+    max-height: 2.5rem;
     border-radius: 2rem;
     background: var(--stack-gradient);
-    overflow: hidden;
-    margin-top: 3%;
-    margin-bottom: 3%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    padding: 0.1rem 0;
     vertical-align: middle;
     justify-content: center;
 
@@ -397,8 +396,8 @@ onMounted(() => {
 
     @media screen and (max-width: $screen-md) {
       max-width: 20rem;
-      margin-top: 1.5rem;
-      margin-bottom: 1.5rem;
+      margin-top: 0.8rem;
+      margin-bottom: 0.8rem;
       border-radius: 2em;
     }
 
