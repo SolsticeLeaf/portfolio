@@ -181,6 +181,10 @@ function getDescription(description: any): string {
 
     .button {
       padding: 0.2rem;
+
+      @media screen and (max-width: $screen-sm) {
+        padding: 0.5rem;
+      }
     }
   }
 }
