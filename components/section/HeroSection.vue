@@ -265,6 +265,12 @@ onMounted(() => {
         }
       }
 
+      .button {
+        @media screen and (max-width: $screen-xss) {
+          height: 3rem;
+        }
+      }
+
       @media screen and (max-width: $screen-md) {
         margin-top: 2rem;
         display: flex;
@@ -360,6 +366,7 @@ onMounted(() => {
   }
 
   &__background {
+    display: flex;
     max-width: 25rem;
     max-height: 100%;
     border-radius: 2rem;
@@ -372,6 +379,8 @@ onMounted(() => {
     -ms-user-select: none;
     user-select: none;
     padding: 0.1rem 0;
+    vertical-align: middle;
+    justify-content: center;
 
     &__text {
       border-radius: 2rem;
