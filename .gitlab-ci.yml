@@ -24,6 +24,7 @@ dependencies:
     - echo "Install dependencies..."
   script:
     - npm install -g pnpm
+    - npm install -D nuxi
     - pnpm i
 
 prepare:
@@ -34,6 +35,7 @@ prepare:
     - echo "Prepare for build..."
   script:
     - npm install -g pnpm
+    - npm install -D nuxi
     - pnpm run postinstall
   artifacts:
     paths:
@@ -48,12 +50,14 @@ build:
     - echo "Building..."
   script:
     - npm install -g pnpm
+    - npm install -D nuxi
     - pnpm run build
   artifacts:
     paths:
       - .nuxt/
       - .output/
       - config/
+      - i18n/
     expire_in: 1 hour
 
 deploy:

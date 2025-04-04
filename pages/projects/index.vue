@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import ProjectCard from "~/components/card/ProjectCard.vue";
 import config from "~/config/initial.config";
-const { t, locale, getLocaleMessage } = useI18n();
+const { t } = useI18n();
 
 const { data: projects, status: status } = useFetch('/api/getProjectsData', {
   key: 'projects',
@@ -12,7 +12,7 @@ const { data: projects, status: status } = useFetch('/api/getProjectsData', {
 
 onMounted(() => {
   useHead({
-    title: getLocaleMessage(locale.value)["nav_projects"] + " | " + config.siteName
+    title: t('nav_projects') + " | " + config.siteName
   });
 });
 

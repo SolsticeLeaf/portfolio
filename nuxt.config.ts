@@ -1,5 +1,9 @@
+const isDev = process.env.NODE_ENV === 'development'
+
 export default defineNuxtConfig({
   app: {
+    pageTransition: false,
+    layoutTransition: false,
     head: {
       title: 'SolsticeLeaf',
       htmlAttrs: {
@@ -17,9 +21,27 @@ export default defineNuxtConfig({
       link: [{ rel: 'icon', type: 'image/x-icon', href: 'https://ik.imagekit.io/kiinse/icons/icon.svg?updatedAt=1740170186956' }]
     }
   },
-  experimental: {
-    componentIslands: true
+  routeRules: {
+    '/**': {
+      prerender: true,
+      cache: {
+        swr: true,
+        maxAge: 120,
+        staleMaxAge: 60,
+        headersOnly: true
+      }
+    }
   },
+  nitro: {
+    routeRules: {
+      '/**': { isr: false },
+    },
+  },
+  experimental: {
+    viewTransition: true,
+    renderJsonPayloads: true,
+  },
+  sourcemap: true,
   compatibilityDate: '2025-01-29',
   devtools: { enabled: true },
   modules: ['@nuxtjs/i18n', '@nuxt/image', '@nuxtjs/device', '@nuxt/icon'],
@@ -30,13 +52,18 @@ export default defineNuxtConfig({
   },
   plugins: ['@/plugins/Vue3Marquee.client.ts'],
   i18n: {
-    vueI18n: '@/config/i18n.config.ts',
     locales: [
-      { code: 'en', iso: 'en-US', name: 'English' },
-      { code: 'ru', iso: 'ru-RU', name: 'Русский' },
+      { code: 'en', iso: 'en-US', name: 'English', file: 'en-US.json' },
+      { code: 'ru', iso: 'ru-RU', name: 'Русский', file: 'ru-RU.json' },
     ],
+    lazy: true,
+    langDir: 'locales',
     bundle: {
       optimizeTranslationDirective: false
+    },
+    detectBrowserLanguage: {
+      useCookie: true,
+      fallbackLocale: 'en',
     },
     strategy: 'prefix',
     defaultLocale: 'en',
@@ -51,5 +78,5 @@ export default defineNuxtConfig({
     private: {
       CRYPTOCLOUD_API_KEY: process.env.CRYPTOCLOUD_API_KEY
     }
-  }
+  },
 })

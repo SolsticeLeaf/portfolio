@@ -3,11 +3,11 @@ import currencies from '~/config/currencies.config';
 import config from '~/config/initial.config';
 import FlexButton from "~/components/utilities/FlexButton.vue";
 import ActionButton from "~/components/utilities/ActionButton.vue";
-const { t, locale, getLocaleMessage } = useI18n()
+const { t, locale } = useI18n()
 
 onMounted(() => {
   useHead({
-    title: getLocaleMessage(locale.value)["donate_title"] + " | " + config.siteName
+    title: t('donate_title') + " | " + config.siteName
   });
 })
 

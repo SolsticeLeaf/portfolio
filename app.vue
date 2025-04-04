@@ -36,43 +36,45 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div>
-    <div class="background__blur">
-      <div class="background__text">
-        <div v-for="(rowIndex) in repeatRows" :key="'row-' + rowIndex" class="background__text__row">
+  <Body>
+    <NuxtLayout>
+      <div class="background__blur">
+        <div class="background__text">
+          <div v-for="(rowIndex) in repeatRows" :key="'row-' + rowIndex" class="background__text__row">
+            <ClientOnly>
+              <KeepAlive>
+                <Suspense>
+                  <Vue3Marquee :duration="60" clone :direction="calculateDirection(rowIndex)">
+                    <div class="background__text__word">
+                      {{ t(nickname) }}
+                    </div>
+                  </Vue3Marquee>
+                  <template #fallback>
+                    <div class="skeleton-marquee"/>
+                  </template>
+                </Suspense>
+              </KeepAlive>
+            </ClientOnly>
+          </div>
+        </div>
+      </div>
+      <div id="body" class="body">
+        <div class="footer__top">
           <ClientOnly>
             <KeepAlive>
               <Suspense>
-                <Vue3Marquee :duration="60" clone :direction="calculateDirection(rowIndex)">
-                  <div class="background__text__word">
-                    {{ t(nickname) }}
-                  </div>
-                </Vue3Marquee>
-                <template #fallback>
-                  <div class="skeleton-marquee"/>
-                </template>
+                <NavigationSection />
               </Suspense>
             </KeepAlive>
           </ClientOnly>
         </div>
+        <div class="footer__blank" />
+        <Suspense>
+          <NuxtPage />
+        </Suspense>
       </div>
-    </div>
-    <div id="body" class="body">
-      <div class="footer__top">
-        <ClientOnly>
-          <KeepAlive>
-            <Suspense>
-              <NavigationSection />
-            </Suspense>
-          </KeepAlive>
-        </ClientOnly>
-      </div>
-      <div class="footer__blank" />
-      <Suspense>
-        <NuxtPage />
-      </Suspense>
-    </div>
-  </div>
+    </NuxtLayout>
+  </Body>
 </template>
 
 <style scoped lang="scss">

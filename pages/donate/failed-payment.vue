@@ -2,11 +2,11 @@
 import config from "~/config/initial.config";
 import FlexButton from "~/components/utilities/FlexButton.vue";
 
-const { t, locale, getLocaleMessage } = useI18n()
+const { t, locale } = useI18n()
 
 onMounted(() => {
   useHead({
-    title: getLocaleMessage(locale.value)["donate_error"] + " | " + config.siteName
+    title: t('donate_error') + " | " + config.siteName
   });
 })
 

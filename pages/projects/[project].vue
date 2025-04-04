@@ -48,6 +48,7 @@ watchEffect(async () => {
       downloadData.value = await $fetch('/api/getDownloadData', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
+        default: () => {},
         body: JSON.stringify({link: project.value.downloadLink}),
         cache: "no-cache",
         server: false
@@ -113,7 +114,7 @@ function getButtonName(name: any): string {
                       :text="t('download_button') + (downloadData?.data?.version || '')"
                       :text-bold="true"
                       text-color="--text-color-light"
-                      icon="ic:baseline-download"
+                      icon="line-md:download"
                       color="#50C878"
                       :customColor="false"
                       :link="downloadData?.data?.downloadLink || project.downloadLink"
@@ -123,7 +124,6 @@ function getButtonName(name: any): string {
                          :text="t('download_button')"
                          :text-bold="true"
                          text-color="--text-color-light"
-                         icon="ic:baseline-download"
                          color="#50C878"
                          :customColor="false"
                          class="info__buttons__btn"
@@ -217,7 +217,7 @@ function getButtonName(name: any): string {
                           :text="t('download_button') + (downloadData?.data?.version || '')"
                           :text-bold="true"
                           text-color="--text-color-light"
-                          icon="ic:baseline-download"
+                          icon="line-md:download"
                           color="#50C878"
                           :customColor="false"
                           :link="downloadData?.data?.downloadLink || project.downloadLink"
@@ -227,7 +227,6 @@ function getButtonName(name: any): string {
                              :text="t('download_button')"
                              :text-bold="true"
                              text-color="--text-color-light"
-                             icon="ic:baseline-download"
                              color="#50C878"
                              :customColor="false"
                              class="info__buttons__btn"
