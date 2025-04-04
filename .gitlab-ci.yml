@@ -24,7 +24,7 @@ dependencies:
     - echo "Install dependencies..."
   script:
     - npm install -g pnpm
-    - npm install -D nuxi
+    - npm install -g nuxi
     - pnpm i
 
 prepare:
@@ -35,7 +35,7 @@ prepare:
     - echo "Prepare for build..."
   script:
     - npm install -g pnpm
-    - npm install -D nuxi
+    - npm install -g nuxi
     - pnpm run postinstall
   artifacts:
     paths:
@@ -50,7 +50,7 @@ build:
     - echo "Building..."
   script:
     - npm install -g pnpm
-    - npm install -D nuxi
+    - npm install -g nuxi
     - pnpm run build
   artifacts:
     paths:
