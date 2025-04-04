@@ -33,6 +33,7 @@ export default defineNuxtConfig({
     }
   },
   nitro: {
+    compressPublicAssets: true,
     routeRules: {
       '/**': { isr: false },
     },
