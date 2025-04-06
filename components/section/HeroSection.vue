@@ -18,7 +18,7 @@ const buttonColor = ref("");
 const secondaryButtonColor = ref("");
 
 function getTyperText() {
-  return (tm('main_typer') as any).map((item: any) => toRaw(item).loc.source);
+  return (tm('main_typer') as any).map((item: any) => toRaw(item).loc?.source || '');
 }
 
 const updateColors = () => {
