@@ -124,10 +124,6 @@ onMounted(() => {
 <style scoped lang="scss">
 @use 'assets/scss/screens' as *;
 
-//* {
-//  border: 1px solid deepskyblue !important;
-//}
-
 .wrapper {
   display: flex;
   flex-direction: column;

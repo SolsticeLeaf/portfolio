@@ -109,10 +109,6 @@ const links = computed((): any => {
 <style scoped lang="scss">
 @use '../../assets/scss/screens' as *;
 
-//* {
-//  border: 1px solid deepskyblue !important;
-//}
-
 :root {
   color-scheme: dark;
 }
