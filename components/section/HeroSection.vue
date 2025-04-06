@@ -17,6 +17,10 @@ const tools = toolsConfig.tools;
 const buttonColor = ref("");
 const secondaryButtonColor = ref("");
 
+function getTyperText() {
+  return (tm('main_typer') as any).map((item: any) => toRaw(item).loc.source);
+}
+
 const updateColors = () => {
   if (document.body) {
     const style = getComputedStyle(document.body);
@@ -48,7 +52,7 @@ onMounted(() => {
             <h1 class="main__content__title__second">{{ t(nickname) }}</h1>
           </div>
           <Suspense>
-            <TyperUtil class="type-writer" :words="tm('main_typer').map(item => toRaw(item).loc.source)" />
+            <TyperUtil class="type-writer" :words="getTyperText()" />
             <template #fallback>
               <div class="skeleton-typer"/>
             </template>
