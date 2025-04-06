@@ -1,55 +1,52 @@
-<script>
-export default {
-  name: "TyperUtil",
-  props: ['words'],
-  data: function() {
-    return {
-      typeValue: "",
-      typeStatus: false,
-      displayTextArray: this.words,
-      typingSpeed: 80,
-      erasingSpeed: 100,
-      newTextDelay: 1000,
-      displayTextArrayIndex: 0,
-      charIndex: 0,
-    };
-  },
-  created() {
-    setTimeout(this.typeText, this.newTextDelay + 200);
-  },
-  methods: {
-    typeText() {
-      if (this.charIndex < this.displayTextArray[this.displayTextArrayIndex].length) {
-        if (!this.typeStatus) this.typeStatus = true;
-        this.typeValue += this.displayTextArray[this.displayTextArrayIndex].charAt(
-            this.charIndex
-        );
-        this.charIndex += 1;
-        setTimeout(this.typeText, this.typingSpeed);
-      } else {
-        this.typeStatus = false;
-        setTimeout(this.eraseText, this.newTextDelay);
-      }
-    },
-    eraseText() {
-      if (this.charIndex > 0) {
-        if (!this.typeStatus) this.typeStatus = true;
-        this.typeValue = this.displayTextArray[this.displayTextArrayIndex].substring(
-            0,
-            this.charIndex - 1
-        );
-        this.charIndex -= 1;
-        setTimeout(this.eraseText, this.erasingSpeed);
-      } else {
-        this.typeStatus = false;
-        this.displayTextArrayIndex += 1;
-        if (this.displayTextArrayIndex >= this.displayTextArray.length)
-          this.displayTextArrayIndex = 0;
-        setTimeout(this.typeText, this.typingSpeed + 1000);
-      }
-    },
-  },
-}
+<script setup lang="ts">
+
+const props = defineProps({
+  words: {
+    type: Array<string>,
+    required: true
+  }
+});
+
+const typeValue = ref('');
+const typeStatus = ref(false);
+const typingSpeed = 80;
+const erasingSpeed = 100;
+const newTextDelay = 1000;
+const displayTextArrayIndex = ref(0);
+const charIndex = ref(0);
+
+const typeText = () => {
+  if (charIndex.value < props.words[displayTextArrayIndex.value].length) {
+    if (!typeStatus.value) typeStatus.value = true;
+    typeValue.value += props.words[displayTextArrayIndex.value].charAt(
+        charIndex.value
+    );
+    charIndex.value += 1;
+    setTimeout(typeText, typingSpeed);
+  } else {
+    typeStatus.value = false;
+    setTimeout(eraseText, newTextDelay);
+  }
+};
+
+const eraseText = () => {
+  if (charIndex.value > 0) {
+    if (!typeStatus.value) typeStatus.value = true;
+    typeValue.value = props.words[displayTextArrayIndex.value].substring(0, charIndex.value - 1);
+    charIndex.value -= 1;
+    setTimeout(eraseText, erasingSpeed);
+  } else {
+    typeStatus.value = false;
+    displayTextArrayIndex.value += 1;
+    if (displayTextArrayIndex.value >= props.words.length)
+      displayTextArrayIndex.value = 0;
+    setTimeout(typeText, typingSpeed + 1000);
+  }
+};
+
+onMounted(() => {
+  setTimeout(typeText, newTextDelay + 200);
+})
 </script>
 
 <template>
@@ -67,7 +64,7 @@ export default {
 
 h6 {
   font-weight: normal;
-  font-family: 'Roboto Mono', monospace;
+  //font-family: 'Roboto Mono', monospace;
 
   span.typed-text {
     color: var(--color-typer-text);

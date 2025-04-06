@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import config from "@/config/initial.config";
 import TechIcon from "~/components/utilities/TechIcon.vue";
+import iconsConfig from "~/config/icons.config";
 import {Vue3Marquee} from "vue3-marquee";
 import FlexButton from "~/components/utilities/FlexButton.vue";
 import LoadingButton from "~/components/utilities/LoadingButton.vue";
@@ -114,7 +115,7 @@ function getButtonName(name: any): string {
                       :text="t('download_button') + (downloadData?.data?.version || '')"
                       :text-bold="true"
                       text-color="--text-color-light"
-                      icon="line-md:download"
+                      :icon="iconsConfig.download"
                       color="#50C878"
                       :customColor="false"
                       :link="downloadData?.data?.downloadLink || project.downloadLink"
@@ -131,7 +132,7 @@ function getButtonName(name: any): string {
           <FlexButton :text="t('back_button')"
                       :text-bold="true"
                       text-color="--text-color-light"
-                      icon="ic:baseline-arrow-back"
+                      :icon="iconsConfig.back_home"
                       color="#D30000"
                       :customColor="false"
                       :link="getProjectsPath"
@@ -145,7 +146,7 @@ function getButtonName(name: any): string {
             <FlexButton :text="t('project_back_button')"
                         :text-bold="true"
                         text-color="--text-color-back"
-                        icon="ic:baseline-arrow-back"
+                        :icon="iconsConfig.back_home"
                         color="transparent"
                         :customColor="false"
                         :link="getProjectsPath"
@@ -217,7 +218,7 @@ function getButtonName(name: any): string {
                           :text="t('download_button') + (downloadData?.data?.version || '')"
                           :text-bold="true"
                           text-color="--text-color-light"
-                          icon="line-md:download"
+                          :icon="iconsConfig.download"
                           color="#50C878"
                           :customColor="false"
                           :link="downloadData?.data?.downloadLink || project.downloadLink"
@@ -240,7 +241,7 @@ function getButtonName(name: any): string {
           <FlexButton :text="t('project_back_button')"
                       :text-bold="true"
                       text-color="--text-color-primary"
-                      icon="ic:baseline-arrow-back"
+                      :icon="iconsConfig.back_home"
                       color="transparent"
                       :customColor="false"
                       :link="getProjectsPath"

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import TyperUtil from "~/components/utilities/TyperUtil.vue";
 import initialConfig from "~/config/initial.config";
+import iconsConfig from "~/config/icons.config";
 import toolsConfig from "~/config/tools.config";
 import { Vue3Marquee } from "vue3-marquee";
 import TechIcon from "~/components/utilities/TechIcon.vue";
@@ -47,7 +48,7 @@ onMounted(() => {
             <h1 class="main__content__title__second">{{ t(nickname) }}</h1>
           </div>
           <Suspense>
-            <TyperUtil class="type-writer" :words="tm('main_typer')" />
+            <TyperUtil class="type-writer" :words="tm('main_typer').map(item => toRaw(item).loc.source)" />
             <template #fallback>
               <div class="skeleton-typer"/>
             </template>
@@ -85,7 +86,7 @@ onMounted(() => {
             <FlexButton :text="t('main_email')"
                         :text-bold="true"
                         text-color="--solid-button-text"
-                        icon="ic:baseline-mail"
+                        :icon="iconsConfig.email"
                         color="--button-color"
                         link="mailto:me@sleaf.dev"
                         class="main__content__button__btn"
@@ -93,7 +94,7 @@ onMounted(() => {
             <FlexButton :text="t('main_discord')"
                         :text-bold="false"
                         text-color="--outline-button-text"
-                        icon="ic:baseline-discord"
+                        :icon="iconsConfig.discord"
                         color="--button-color"
                         link="https://discord.com/users/SolsticeLeaf"
                         class="main__content__button__btn"

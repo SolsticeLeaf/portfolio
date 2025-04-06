@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import currencies from '~/config/currencies.config';
 import config from '~/config/initial.config';
+import iconsConfig from "~/config/icons.config";
 import FlexButton from "~/components/utilities/FlexButton.vue";
 import ActionButton from "~/components/utilities/ActionButton.vue";
 const { t, locale } = useI18n()
@@ -96,7 +97,7 @@ onMounted(() => {
     <div class="wrapper">
       <div class="card">
         <div class="card__top">
-          <Icon class="card__top__image" name="line-md:coffee-loop"/>
+          <Icon class="card__top__image" :name="iconsConfig.donate" />
         </div>
         <div class="blur__glass">
           <h6 class="card__title">
@@ -123,7 +124,7 @@ onMounted(() => {
             <ActionButton :text="t('donate_send')"
                         :text-bold="true"
                         text-color="--donate-button-text"
-                        icon="mdi:dollar"
+                        :icon="iconsConfig.donate_pay"
                         color="#50C878"
                         :customColor="false"
                         :click="pay"

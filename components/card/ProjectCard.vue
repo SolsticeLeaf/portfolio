@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import FlexButton from "~/components/utilities/FlexButton.vue";
+import iconsConfig from "~/config/icons.config";
 
 const { t, locale } = useI18n()
 
@@ -54,12 +55,12 @@ function getDescription(description: any): string {
         <FlexButton :text="t('read_more')"
                     :text-bold="true"
                     text-color="--text-color-primary"
-                    icon="mdi:eye"
+                    :icon="iconsConfig.read_more"
                     color="#008080"
                     :customColor="false"
                     :link="`/projects/${props.id}`"
                     class="main__content__button__btn"
-                    :outline="true" />
+                    :outline="false" />
       </div>
     </div>
   </ClientOnly>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import initialConfig from "@/config/initial.config";
+import iconsConfig from "~/config/icons.config";
 
 const { t, locale } = useI18n()
 const route = useRoute()
@@ -51,32 +52,32 @@ const links = computed((): any => {
   return [
     {
       label: 'nav_home',
-      icon: 'pixelarticons:home',
+      icon: iconsConfig.nav_home,
       type: 'path',
       action: `/${currentLocale}`
     },
     {
       label: 'nav_projects',
-      icon: 'pixelarticons:shopping-bag',
+      icon: iconsConfig.nav_projects,
       type: 'path',
       action: `/${currentLocale}/projects`
     },
     {
-      icon: 'pixelarticons:heart',
+      icon: iconsConfig.nav_donate,
       type: 'path',
       action: `/${currentLocale}/donate`
     },
     {
       icon: computed(() => {
-        if (theme.value === 'system') { return 'pixelarticons:monitor'; }
-        return theme.value === 'dark' ? 'pixelarticons:moon-star' : 'pixelarticons:sun-alt';
+        if (theme.value === 'system') { return iconsConfig.nav_theme_system; }
+        return theme.value === 'dark' ? iconsConfig.nav_theme_dark : iconsConfig.nav_theme_light;
       }).value,
       type: 'action',
       action: toggleTheme
     },
     {
       label: locale.value.toUpperCase(),
-      icon: 'pixelarticons:sliders',
+      icon: iconsConfig.nav_lang,
       type: 'path',
       action: alternatePath
     }

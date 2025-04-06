@@ -45,10 +45,10 @@ export default defineNuxtConfig({
   sourcemap: true,
   compatibilityDate: '2025-01-29',
   devtools: { enabled: true },
-  modules: ['@nuxtjs/i18n', '@nuxt/image', '@nuxtjs/device', '@nuxt/icon'],
+  modules: ['@nuxtjs/i18n', '@nuxt/image', '@nuxtjs/device', '@nuxt/icon', '@nuxt/fonts'],
   icon: {
     serverBundle: {
-      collections: ['arcticons', 'mdi', 'ic', 'pixelarticons', 'line-md', 'f7', 'codex']
+      collections: ['arcticons', 'mdi', 'ic', 'pixelarticons', 'line-md', 'f7', 'codex', 'pixel']
     }
   },
   plugins: ['@/plugins/Vue3Marquee.client.ts'],

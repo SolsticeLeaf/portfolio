@@ -8,11 +8,11 @@ export default {
     donateIcon: "https://ik.imagekit.io/kiinse/coffee_cup?updatedAt=1738662246231",
     socialLinks: [
         {
-            icon: 'line-md:github-loop',
+            icon: 'pixel:github',
             url: 'https://github.com/SolsticeLeaf'
         },
         {
-            icon: 'line-md:linkedin',
+            icon: 'pixel:linkedin',
             url: 'https://www.linkedin.com/in/SolsticeLeaf'
         },
     ],
