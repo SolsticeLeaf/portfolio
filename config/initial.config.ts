@@ -16,6 +16,12 @@ export default {
             url: 'https://www.linkedin.com/in/SolsticeLeaf'
         },
     ],
+    main_typer: [
+        "Kotlin developer",
+        "Java developer",
+        "Backend developer",
+        "Software engineer"
+    ],
     announcements: {
         otherSpeed: 6 as number,
         desktopSpeed: 8 as number

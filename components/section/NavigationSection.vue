@@ -2,9 +2,8 @@
 import initialConfig from "@/config/initial.config";
 import iconsConfig from "~/config/icons.config";
 
-const { t, locale } = useI18n()
-const route = useRoute()
-const siteName = initialConfig.siteName;
+const { t, locale } = useI18n();
+const route = useRoute();
 const getSystemTheme = (): string => {
   return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 };
@@ -89,7 +88,7 @@ const links = computed((): any => {
   <nav id="navbar" class="glass">
     <NuxtLink :to="homePath" class="nav__logo">
       <h1 class="nav__logo__name">
-        {{ t(siteName) }}
+        {{ initialConfig.siteName }}
       </h1>
     </NuxtLink>
     <div class="nav">

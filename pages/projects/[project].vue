@@ -62,25 +62,18 @@ watchEffect(async () => {
 
 
 const getProjectsPath = computed(() => {
-  const currentLocale = locale.value;
-  return `/${currentLocale}/projects`;
+  return `/${locale.value}/projects`;
 });
 
 function getDescription(description: any): string {
-  const currentLocale = locale.value;
-  const localed = description[currentLocale];
-  if (localed) {
-    return localed;
-  }
+  const localed = description[locale.value];
+  if (localed) { return localed; }
   return description["en"];
 }
 
 function getButtonName(name: any): string {
-  const currentLocale = locale.value;
-  const localed = name[currentLocale];
-  if (localed) {
-    return localed;
-  }
+  const localed = name[locale.value];
+  if (localed) { return localed; }
   return name["en"];
 }
 </script>

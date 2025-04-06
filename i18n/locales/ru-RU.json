@@ -22,14 +22,6 @@
   "donate_error": "Платёж был отменён!",
   "donate_success": "Спасибо за поддержку!",
   "announcements": [],
-  "main_typer": [
-    "Kotlin разработчик",
-    "Java разработчик",
-    "Backend разработчик",
-    "Software engineer"
-  ],
-  "SolsticeLeaf": "SolsticeLeaf",
-  "SLEAF": "SLEAF",
   "RU": "RU",
   "EN": "EN"
 }

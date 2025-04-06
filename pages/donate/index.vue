@@ -2,7 +2,6 @@
 import currencies from '~/config/currencies.config';
 import config from '~/config/initial.config';
 import iconsConfig from "~/config/icons.config";
-import FlexButton from "~/components/utilities/FlexButton.vue";
 import ActionButton from "~/components/utilities/ActionButton.vue";
 const { t, locale } = useI18n()
 
@@ -70,22 +69,7 @@ const pay = async () => {
   }
 }
 
-const buttonColor = ref('');
-const updateColors = () => {
-  if (document.body) {
-    buttonColor.value = getComputedStyle(document.body).getPropertyValue('--donate-button-color').trim();
-  }
-};
-
 onMounted(() => {
-  updateColors();
-  const observer = new MutationObserver(() => {
-    updateColors();
-  });
-  observer.observe(document.body, { attributes: true});
-  onBeforeUnmount(() => {
-    observer.disconnect();
-  });
   nextTick(() => {
     checkAmount();
   });

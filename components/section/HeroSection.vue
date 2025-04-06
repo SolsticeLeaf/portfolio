@@ -7,38 +7,7 @@ import { Vue3Marquee } from "vue3-marquee";
 import TechIcon from "~/components/utilities/TechIcon.vue";
 import AnnouncementSection from "~/components/section/AnnouncementSection.vue";
 import FlexButton from "~/components/utilities/FlexButton.vue";
-
-const { t, tm } = useI18n()
-const nickname = initialConfig.nickname;
-const avatar = initialConfig.hero.avatar_url;
-const links = initialConfig.socialLinks;
-const tools = toolsConfig.tools;
-
-const buttonColor = ref("");
-const secondaryButtonColor = ref("");
-
-function getTyperText() {
-  return (tm('main_typer') as any).map((item: any) => toRaw(item).loc?.source || '');
-}
-
-const updateColors = () => {
-  if (document.body) {
-    const style = getComputedStyle(document.body);
-    buttonColor.value = style.getPropertyValue("--button-color").trim();
-    secondaryButtonColor.value = style.getPropertyValue("--secondary-button-color").trim();
-  }
-};
-
-onMounted(() => {
-  updateColors();
-  const observer = new MutationObserver(() => {
-    updateColors();
-  });
-  observer.observe(document.body, { attributes: true });
-  onBeforeUnmount(() => {
-    observer.disconnect();
-  });
-});
+const { t } = useI18n()
 </script>
 
 <template>
@@ -49,10 +18,10 @@ onMounted(() => {
           <h6 class="main__content__hey">{{ t("main_hey") }}</h6>
           <div class="main__content__title">
             <h1 class="main__content__title__first">{{ t("main_title") }}</h1>
-            <h1 class="main__content__title__second">{{ t(nickname) }}</h1>
+            <h1 class="main__content__title__second">{{ initialConfig.nickname }}</h1>
           </div>
           <Suspense>
-            <TyperUtil class="type-writer" :words="getTyperText()" />
+            <TyperUtil class="type-writer" :words="initialConfig.main_typer" />
             <template #fallback>
               <div class="skeleton-typer"/>
             </template>
@@ -62,7 +31,7 @@ onMounted(() => {
             <div class="stack__background">
               <Suspense>
                 <Vue3Marquee pause-on-hover :duration="60" class="stack__background__text">
-                  <div class="stack__text" v-for="tool in tools" :key="tool">
+                  <div class="stack__text" v-for="tool in toolsConfig.tools" :key="tool">
                     <Suspense>
                       <TechIcon class="data-marquee-icon" :icon="tool" />
                       <template #fallback>
@@ -81,7 +50,7 @@ onMounted(() => {
           <p class="main__content__social">
             {{ t("main_follow") }}
             <a class="main__content__social__icons">
-              <a v-for="link in links" :key="link.icon" :href="link.url">
+              <a v-for="link in initialConfig.socialLinks" :key="link.icon" :href="link.url">
                 <Icon :name="link.icon" class="main__content__social__icons__icon"/>
               </a>
             </a>
@@ -111,7 +80,7 @@ onMounted(() => {
           <Suspense>
             <nuxt-img
                 id="hero-avatar"
-                :src="avatar"
+                :src="initialConfig.hero.avatar_url"
                 alt="SolsticeLeaf"
                 fit="cover"
                 height="80%"

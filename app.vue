@@ -21,9 +21,8 @@ const resizeEvent = function () {
 };
 
 onBeforeMount(() => {
-  const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
   const theme = localStorage.getItem("theme");
-  document.documentElement.setAttribute("data-theme", (!theme || theme === "system") ? systemTheme : theme);
+  document.documentElement.setAttribute("data-theme", (!theme || theme === "system") ? window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light" : theme);
   window.addEventListener("resize", resizeEvent);
   nextTick(() => {
     resizeEvent();

@@ -22,14 +22,6 @@
   "donate_error": "Payment has been canceled!",
   "donate_success": "Thanks for supporting me!",
   "announcements": [],
-  "main_typer": [
-    "Kotlin developer",
-    "Java developer",
-    "Backend developer",
-    "Software engineer"
-  ],
-  "SolsticeLeaf": "SolsticeLeaf",
-  "SLEAF": "SLEAF",
   "RU": "RU",
   "EN": "EN"
 }

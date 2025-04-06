@@ -12,8 +12,7 @@ onMounted(() => {
 })
 
 const getProjectsPath = computed(() => {
-  const currentLocale = locale.value;
-  return `/${currentLocale}/`
+  return `/${locale.value}/`
 })
 </script>
 
