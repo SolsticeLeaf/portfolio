@@ -54,7 +54,7 @@ function getDescription(description: any): string {
       <div class="card__button">
         <FlexButton :text="t('read_more')"
                     :text-bold="true"
-                    text-color="--text-color-primary"
+                    text-color="--text-color-light"
                     :icon="iconsConfig.read_more"
                     color="#008080"
                     :customColor="false"
