@@ -5,7 +5,6 @@ export default {
         avatar_url: 'https://ik.imagekit.io/kiinse/image.svg?updatedAt=1740156640122'
     },
     icon: "https://ik.imagekit.io/kiinse/icons/icon.svg?updatedAt=1740170186956",
-    donateIcon: "https://ik.imagekit.io/kiinse/coffee_cup?updatedAt=1738662246231",
     socialLinks: [
         {
             icon: 'pixel:github',
