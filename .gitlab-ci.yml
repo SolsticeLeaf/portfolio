@@ -73,6 +73,8 @@ deploy-mais:
     - export CRYPTOCLOUD_SHOP_ID="$CRYPTOCLOUD_SHOP_ID"
     - export DATABASE_NAME="$DATABASE_NAME"
     - export DATABASE_URL="$DATABASE_URL"
+    - export UMAMI_ID="$UMAMI_ID"
+    - export UMAMI_HOST="$UMAMI_HOST"
   script:
     - docker compose up --detach --build
 
@@ -89,5 +91,7 @@ deploy-helios:
     - export CRYPTOCLOUD_SHOP_ID="$CRYPTOCLOUD_SHOP_ID"
     - export DATABASE_NAME="$DATABASE_NAME"
     - export DATABASE_URL="$DATABASE_URL"
+    - export UMAMI_ID="$UMAMI_ID"
+    - export UMAMI_HOST="$UMAMI_HOST"
   script:
     - docker compose up --detach --build

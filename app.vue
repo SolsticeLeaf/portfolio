@@ -20,6 +20,10 @@ const resizeEvent = function () {
   }
 };
 
+onMounted(() => {
+  umTrackView();
+});
+
 onBeforeMount(() => {
   const theme = localStorage.getItem("theme");
   document.documentElement.setAttribute("data-theme", (!theme || theme === "system") ? window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light" : theme);

@@ -45,7 +45,7 @@ export default defineNuxtConfig({
   sourcemap: true,
   compatibilityDate: '2025-01-29',
   devtools: { enabled: true },
-  modules: ['@nuxtjs/i18n', '@nuxt/image', '@nuxtjs/device', '@nuxt/icon', '@nuxt/fonts'],
+  modules: ['@nuxtjs/i18n', '@nuxt/image', '@nuxtjs/device', '@nuxt/icon', '@nuxt/fonts', 'nuxt-umami'],
   icon: {
     serverBundle: {
       collections: ['arcticons', 'mdi', 'ic', 'pixelarticons', 'line-md', 'f7', 'codex', 'pixel']
@@ -70,9 +70,16 @@ export default defineNuxtConfig({
     defaultLocale: 'en',
   },
   css: ['@/assets/scss/global.scss', '@/assets/scss/screens.scss', '@/assets/scss/themes/dark.scss', '@/assets/scss/themes/light.scss'],
+  umami: {
+    id: process.env.UMAMI_ID,
+    host: process.env.UMAMI_HOST,
+    autoTrack: true,
+  },
   runtimeConfig: {
     public: {
       CRYPTOCLOUD_SHOP_ID: process.env.CRYPTOCLOUD_SHOP_ID,
+      UMAMI_ID: process.env.UMAMI_ID,
+      UMAMI_HOST: process.env.UMAMI_HOST,
       DATABASE_NAME: process.env.DATABASE_NAME,
       DATABASE_URL: process.env.DATABASE_URL
     },
