@@ -30,10 +30,9 @@ const getProjectsPath = computed(() => {
           <div class="card__bottom">
             <FlexButton :text="t('donate_button_home')"
                         :text-bold="true"
-                        text-color="--donate-button-text"
+                        text-color="#252525"
                         :icon="iconsConfig.back_home"
                         color="#50C878"
-                        :customColor="false"
                         :link="getProjectsPath"
                         class="card__bottom__button"
                         :outline="false" />
@@ -86,7 +85,11 @@ const getProjectsPath = computed(() => {
     width: 100%;
     text-align: center;
     padding-bottom: 1rem;
-    color: var(--text-color-primary)
+    color: #2C2044;
+  }
+
+  .dark &__title {
+    color: #ffffff;
   }
 
   &__bottom {

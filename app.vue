@@ -25,8 +25,6 @@ onMounted(() => {
 });
 
 onBeforeMount(() => {
-  const theme = localStorage.getItem("theme");
-  document.documentElement.setAttribute("data-theme", (!theme || theme === "system") ? window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light" : theme);
   window.addEventListener("resize", resizeEvent);
   nextTick(() => {
     resizeEvent();
@@ -133,8 +131,8 @@ onBeforeUnmount(() => {
     position: fixed;
     display: flex;
     flex-direction: row;
-    filter: var(--blur);
-    -webkit-filter: var(--blur);
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
     justify-content: center;
     align-items: center;
 
@@ -150,7 +148,7 @@ onBeforeUnmount(() => {
     align-items: center;
     width: 100%;
     height: 100%;
-    font-size: var(--text-size, 6rem);
+    font-size: 6rem;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -174,11 +172,15 @@ onBeforeUnmount(() => {
       padding: 0 1.5rem;
       display: inline-flex;
       color: transparent !important;
-      -webkit-text-stroke: var(--text-stroke) var(--background-word);
+      -webkit-text-stroke: 3px #8c8a00;
 
       @media screen and (max-width: $screen-lg) {
         font-size: 5rem;
       }
+    }
+
+    .dark &__word {
+      -webkit-text-stroke: 2px #3D2A5A;
     }
   }
 }
@@ -186,14 +188,12 @@ onBeforeUnmount(() => {
 .skeleton-marquee {
   width: 100%;
   height: 7.5rem;
-  background: var(--background);
   animation: pulse 1.5s infinite;
 }
 
 .skeleton-nav {
   width: 100%;
   height: 6rem;
-  background: var(--background);
   animation: pulse 1.5s infinite;
 }
 </style>

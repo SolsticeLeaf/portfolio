@@ -8,6 +8,7 @@ import TechIcon from "~/components/utilities/TechIcon.vue";
 import AnnouncementSection from "~/components/section/AnnouncementSection.vue";
 import FlexButton from "~/components/utilities/FlexButton.vue";
 const { t } = useI18n()
+const theme = useColorMode();
 </script>
 
 <template>
@@ -58,17 +59,17 @@ const { t } = useI18n()
           <div class="main__content__buttons">
             <FlexButton :text="t('main_email')"
                         :text-bold="true"
-                        text-color="--solid-button-text"
+                        :text-color="theme.value === 'dark' ? '#3d3a48' : '#ffffff'"
                         :icon="iconsConfig.email"
-                        color="--button-color"
+                        :color="theme.value === 'dark' ? '#fff02b' : '#351479'"
                         link="mailto:me@sleaf.dev"
                         class="main__content__button__btn"
                         :outline="false" />
             <FlexButton :text="t('main_discord')"
                         :text-bold="false"
-                        text-color="--outline-button-text"
+                        :text-color="theme.value === 'dark' ? '#ffffff' : '#2C2044'"
                         :icon="iconsConfig.discord"
-                        color="--button-color"
+                        :color="theme.value === 'dark' ? '#fff02b' : '#351479'"
                         link="https://discord.com/users/SolsticeLeaf"
                         class="main__content__button__btn"
                         :outline="true" />
@@ -176,8 +177,12 @@ const { t } = useI18n()
       gap: 1rem;
 
       &__second {
-        color: var(--username);
+        color: #4b00d7;
         font-weight: bold;
+      }
+
+      .dark &__second {
+        color: #DFC7FF;
       }
 
       @media screen and (max-width: $screen-md) {
@@ -198,9 +203,13 @@ const { t } = useI18n()
         vertical-align: middle;
 
         &__icon {
-          color: var(--text-color-primary);
+          color: #2C2044;
           font-size: 1.7rem;
-        }:hover { color: var(--color-gray); }
+        }:hover { color: #6a6f7e; }
+
+        .dark &__icon {
+          color: #ffffff;
+        }
       }
 
       @media screen and (max-width: $screen-md) {
@@ -258,12 +267,20 @@ const { t } = useI18n()
 
     .type-writer {
       max-height: 100%;
-      color: var(--color-typer-text);
+      color: #29183F;
       font-style: italic;
 
       .Typist .Cursor {
-        color: var(--color-typer-cursor);
+        color: #4b2a75;
       }
+
+      .dark .Typist .Cursor {
+        color: #FCF58D;
+      }
+    }
+
+    .dark .type-writer {
+      color: #BFA8E0;
     }
   }
 }
@@ -341,7 +358,7 @@ const { t } = useI18n()
     max-width: 25rem;
     max-height: 2.5rem;
     border-radius: 2rem;
-    background: var(--stack-gradient);
+    background: -webkit-linear-gradient(0deg, #A782FF 15%, #9d78ce 60%, #482a7e 100%);
     margin-top: 1rem;
     margin-bottom: 1rem;
     -webkit-user-select: none;
@@ -376,6 +393,10 @@ const { t } = useI18n()
     }
   }
 
+  .dark &__background {
+    background: -webkit-linear-gradient(0deg, #f6ef9d 15%, #f6ef8b 60%, #e3c17d 100%);
+  }
+
   &__text {
     display: flex;
     flex-direction: row;
@@ -383,7 +404,7 @@ const { t } = useI18n()
     max-height: 100%;
     padding: 0 1rem;
     font-weight: bold;
-    color: var(--text-stack);
+    color: #fffde7;
     align-items: center;
 
     @media screen and (max-width: $screen-md) {
@@ -398,6 +419,10 @@ const { t } = useI18n()
         height: 1rem;
       }
     }
+  }
+
+  .dark &__text {
+    color: #3d3a48;
   }
 }
 

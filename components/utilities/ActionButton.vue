@@ -4,7 +4,7 @@ import { computed } from 'vue';
 const props = defineProps({
   text: {
     type: String,
-    required: true
+    default: ''
   },
   textInvertedColor: {
     type: Boolean,
@@ -14,25 +14,21 @@ const props = defineProps({
     type: Boolean,
     default: true
   },
-  customColor: {
-    type: Boolean,
-    default: true
-  },
   icon: {
     type: String,
     required: true
   },
   color: {
     type: String,
-    default: '--button-color'
+    default: '#50C878'
   },
   textColor: {
     type: String,
-    default: '--text-color-primary'
+    default: 'white'
   },
   click: {
     type: Promise<void>,
-    required: true
+    default: () => {}
   },
   outline: {
     type: Boolean,
@@ -41,13 +37,13 @@ const props = defineProps({
 });
 
 const buttonStyle = computed(() => ({
-  backgroundColor: props.outline ? 'transparent' : props.customColor ?  `var(${props.color})` : props.color,
-  border: `2px solid ${props.customColor ? `var(${props.color})` : props.color}`,
-  color: props.outline ? props.customColor ? `var(${props.color})` : props.color : 'white'
+  backgroundColor: props.outline ? 'transparent' : props.color,
+  border: `2px solid ${props.color}`,
+  color: props.outline ? props.color : 'white'
 }));
 
 const textStyle = computed(() => ({
-  color: props.textInvertedColor ? 'white' : `var(${props.textColor})`,
+  color: props.textInvertedColor ? 'white' : props.textColor,
   fontWeight: props.textBold ? 'bold' : 'normal',
   mixBlendMode: props.textInvertedColor ? 'difference' : 'none'
 }))
@@ -56,7 +52,7 @@ const textStyle = computed(() => ({
 <template>
   <div @click="props.click" class="button" :style="buttonStyle">
     <Icon :name="props.icon" class="button__img" :style="textStyle"></Icon>
-    <p :style="textStyle">{{ props.text }}</p>
+    <p :style="textStyle" v-if="props.text.length > 0">{{ props.text }}</p>
   </div>
 </template>
 

@@ -58,21 +58,25 @@ function getLocaled(value: any): string {
 .announcements {
   display: flex;
   justify-content: space-between;
+  background: -webkit-linear-gradient(0deg, #9e5ae4 20%, #f3ed88 80%);
   align-items: center;
   position: fixed;
   bottom: 0;
   width: 100%;
   z-index: 50;
-  background: var(--announcements-gradient);
 
   .announcements__text {
     padding-left: 20rem;
     font-weight: bold;
-    color: var(--text-announcements);
+    color: #120e1c;;
 
     @media screen and (max-width: $screen-md) {
       padding-left: 10rem;
     }
   }
+}
+
+.dark .announcements {
+  background: -webkit-linear-gradient(0deg, #FCF58D 20%, #a45dec 80%);
 }
 </style>

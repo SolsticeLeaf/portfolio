@@ -64,11 +64,14 @@ onMounted(() => {
 
 h6 {
   font-weight: normal;
-  //font-family: 'Roboto Mono', monospace;
+}
 
-  span.typed-text {
-    color: var(--color-typer-text);
-  }
+.typed-text {
+  color: #29183F;
+}
+
+.dark .typed-text {
+  color: #BFA8E0;
 }
 
 .typed-text {
@@ -78,7 +81,6 @@ h6 {
 .blinking-cursor {
   font-size: 1.8rem;
   line-height: 1;
-  color: var(--co);
   -webkit-animation: 1s blink step-end infinite;
   -moz-animation: 1s blink step-end infinite;
   -o-animation: 1s blink step-end infinite;
@@ -95,7 +97,7 @@ h6 {
     color: transparent;
   }
   50% {
-    color: var(--color-typer-cursor);
+    color: #d3c72b;
   }
 }
 
@@ -105,7 +107,7 @@ h6 {
     color: transparent;
   }
   50% {
-    color: var(--color-typer-cursor);
+    color: #d3c72b;
   }
 }
 
@@ -115,7 +117,7 @@ h6 {
     color: transparent;
   }
   50% {
-    color: var(--color-typer-cursor);
+    color: #d3c72b;
   }
 }
 
@@ -125,7 +127,7 @@ h6 {
     color: transparent;
   }
   50% {
-    color: var(--color-typer-cursor);
+    color: #d3c72b;
   }
 }
 
@@ -135,7 +137,7 @@ h6 {
     color: transparent;
   }
   50% {
-    color: var(--color-typer-cursor);
+    color: #d3c72b;
   }
 }
 </style>

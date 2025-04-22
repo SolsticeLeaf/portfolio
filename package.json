@@ -15,6 +15,7 @@
     "@nuxt/icon": "1.11.0",
     "@nuxt/image": "^1.10.0",
     "@nuxt/kit": "^3.16.2",
+    "@nuxtjs/color-mode": "3.5.2",
     "@nuxtjs/device": "^3.2.4",
     "@nuxtjs/i18n": "9.4.0",
     "axios": "^1.8.4",

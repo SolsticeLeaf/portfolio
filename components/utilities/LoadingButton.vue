@@ -18,11 +18,11 @@ const props = defineProps({
   },
   color: {
     type: String,
-    default: '--button-color'
+    default: '#50C878'
   },
   textColor: {
     type: String,
-    default: '--text-color-primary'
+    default: 'white'
   },
   outline: {
     type: Boolean,
@@ -31,13 +31,13 @@ const props = defineProps({
 });
 
 const buttonStyle = computed(() => ({
-  backgroundColor: props.outline ? 'transparent' : props.customColor ?  `var(${props.color})` : props.color,
-  border: `2px solid ${props.customColor ? `var(${props.color})` : props.color}`,
-  color: props.outline ? props.customColor ? `var(${props.color})` : props.color : 'white'
+  backgroundColor: props.outline ? 'transparent' : props.color,
+  border: `2px solid ${props.color}`,
+  color: props.outline ? props.color : 'white'
 }));
 
 const textStyle = computed(() => ({
-  color: props.textInvertedColor ? 'white' : `var(${props.textColor})`,
+  color: props.textInvertedColor ? 'white' : props.textColor,
   fontWeight: props.textBold ? 'bold' : 'normal',
   mixBlendMode: props.textInvertedColor ? 'difference' : 'none'
 }))

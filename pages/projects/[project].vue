@@ -7,6 +7,7 @@ import FlexButton from "~/components/utilities/FlexButton.vue";
 import LoadingButton from "~/components/utilities/LoadingButton.vue";
 
 const { t, locale } = useI18n();
+const theme = useColorMode();
 const route = useRoute();
 
 const { data: project, status: status } = useFetch('/api/getProjectData', {
@@ -97,37 +98,33 @@ function getButtonName(name: any): string {
                       :key="source.name"
                       :text="getButtonName(source.name)"
                       :text-bold="true"
-                      text-color="--text-color-light"
+                      text-color="#f8f8f8"
                       :icon="source.icon"
                       :color="source.color"
-                      :customColor="false"
                       :link="source.link"
                       class="info__buttons__btn"
                       :outline="false" />
           <FlexButton v-if="isDownloadReady"
                       :text="t('download_button') + (downloadData?.data?.version || '')"
                       :text-bold="true"
-                      text-color="--text-color-light"
+                      text-color="#f8f8f8"
                       :icon="iconsConfig.download"
                       color="#50C878"
-                      :customColor="false"
                       :link="downloadData?.data?.downloadLink || project.downloadLink"
                       class="info__buttons__btn"
                       :outline="false" />
           <LoadingButton v-else
                          :text="t('download_button')"
                          :text-bold="true"
-                         text-color="--text-color-light"
+                         text-color="#f8f8f8"
                          color="#50C878"
-                         :customColor="false"
                          class="info__buttons__btn"
                          :outline="false" />
           <FlexButton :text="t('back_button')"
                       :text-bold="true"
-                      text-color="--text-color-light"
+                      text-color="#f8f8f8"
                       :icon="iconsConfig.back_home"
                       color="#D30000"
-                      :customColor="false"
                       :link="getProjectsPath"
                       class="info__buttons__btn"
                       :outline="false" />
@@ -138,10 +135,9 @@ function getButtonName(name: any): string {
           <KeepAlive>
             <FlexButton :text="t('project_back_button')"
                         :text-bold="true"
-                        text-color="--text-color-back"
+                        text-color="#c74600"
                         :icon="iconsConfig.back_home"
                         color="transparent"
-                        :customColor="false"
                         :link="getProjectsPath"
                         class="back-button"
                         :outline="false" />
@@ -200,29 +196,26 @@ function getButtonName(name: any): string {
                           :key="source.name"
                           :text="getButtonName(source.name)"
                           :text-bold="true"
-                          text-color="--text-color-light"
+                          text-color="#f8f8f8"
                           :icon="source.icon"
                           :color="source.color"
-                          :customColor="false"
                           :link="source.link"
                           class="info__buttons__btn"
                           :outline="false" />
               <FlexButton v-if="isDownloadReady"
                           :text="t('download_button') + (downloadData?.data?.version || '')"
                           :text-bold="true"
-                          text-color="--text-color-light"
+                          text-color="#f8f8f8"
                           :icon="iconsConfig.download"
                           color="#50C878"
-                          :customColor="false"
                           :link="downloadData?.data?.downloadLink || project.downloadLink"
                           class="info__buttons__btn"
                           :outline="false" />
               <LoadingButton v-else
                              :text="t('download_button')"
                              :text-bold="true"
-                             text-color="--text-color-light"
+                             text-color="#f8f8f8"
                              color="#50C878"
-                             :customColor="false"
                              class="info__buttons__btn"
                              :outline="false" />
             </div>
@@ -233,10 +226,9 @@ function getButtonName(name: any): string {
         <KeepAlive>
           <FlexButton :text="t('project_back_button')"
                       :text-bold="true"
-                      text-color="--text-color-primary"
+                      :text-color="theme.value === 'dark' ? '#ffffff' : '#2C2044'"
                       :icon="iconsConfig.back_home"
                       color="transparent"
-                      :customColor="false"
                       :link="getProjectsPath"
                       class="back-button"
                       :outline="false" />
@@ -282,7 +274,7 @@ function getButtonName(name: any): string {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-radius: 3rem;
-  border: 1px solid var(--glass-border);
+  border: 1px solid rgba(44, 32, 68, 0.2);
   background: transparent;
   padding: 0.5rem 1rem;
   width: fit-content;
@@ -296,6 +288,10 @@ function getButtonName(name: any): string {
   }
 }
 
+.dark .md-back-button {
+  border: 1px solid rgba(210, 210, 210, 0.2);
+}
+
 ::-webkit-scrollbar {
   -webkit-appearance: none;
   width: 7px;
@@ -303,8 +299,8 @@ function getButtonName(name: any): string {
 
 ::-webkit-scrollbar-thumb {
   border-radius: 3rem;
-  background-color: var(--scrollbar-background);
-  box-shadow: 0 0 1px var(--scrollbar-shadow);
+  background-color: rgba(100, 100, 100, 0.5);
+  box-shadow: 0 0 1px rgba(255, 255, 255, .2);
 }
 
 .back-button {
@@ -323,7 +319,14 @@ function getButtonName(name: any): string {
   }
 
   &__title {
-    background: var(--card-gradient);
+    background: -webkit-linear-gradient(0deg, #A782FF 15%, #9872cb 60%, #4a2e7c 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .dark &__title {
+    background: -webkit-linear-gradient(0deg, #f6ef9d 15%, #f6ef8b 60%, #e3c17d 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -338,9 +341,19 @@ function getButtonName(name: any): string {
   filter: none !important;
   -webkit-filter: none !important;
   border-radius: 3rem;
-  border: 1px solid var(--glass-border);
-  background: var(--card-stack-gradient);
-  color: var(--text-card-stack);
+  border: 1px solid rgba(44, 32, 68, 0.2);
+  background: -webkit-linear-gradient(0deg, #A782FF 15%, #8c67be 60%, #4f3383 100%);
+  color: #fffde7;
+  font-weight: bold;
+}
+
+.dark .tech__background {
+  filter: none !important;
+  -webkit-filter: none !important;
+  border-radius: 3rem;
+  border: 1px solid rgba(210, 210, 210, 0.2);
+  background: -webkit-linear-gradient(0deg, #f6ef9d 15%, #f6ef8b 60%, #e3c17d 100%);
+  color: #3d3a48;
   font-weight: bold;
 }
 
@@ -431,8 +444,8 @@ function getButtonName(name: any): string {
     filter: none !important;
     -webkit-filter: none !important;
     border-radius: 2rem;
-    border: 1px solid var(--glass-border);
-    background: var(--glass-background);
+    border: 1px solid rgba(44, 32, 68, 0.2);
+    background: rgba(44, 32, 68, 0.05);
     padding: 1rem;
 
     @media screen and (max-width: $screen-md) {
@@ -444,6 +457,11 @@ function getButtonName(name: any): string {
         height: 2.5rem;
       }
     }
+  }
+
+  .dark &__buttons {
+    border: 1px solid rgba(210, 210, 210, 0.2);
+    background: rgba(143, 143, 143, 0.1);
   }
 }
 

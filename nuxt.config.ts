@@ -45,7 +45,7 @@ export default defineNuxtConfig({
   sourcemap: true,
   compatibilityDate: '2025-01-29',
   devtools: { enabled: true },
-  modules: ['@nuxtjs/i18n', '@nuxt/image', '@nuxtjs/device', '@nuxt/icon', '@nuxt/fonts', 'nuxt-umami'],
+  modules: ['@nuxtjs/i18n', '@nuxt/image', '@nuxtjs/device', '@nuxt/icon', '@nuxt/fonts', 'nuxt-umami', '@nuxtjs/color-mode'],
   icon: {
     serverBundle: {
       collections: ['arcticons', 'mdi', 'ic', 'pixelarticons', 'line-md', 'f7', 'codex', 'pixel']
@@ -69,7 +69,18 @@ export default defineNuxtConfig({
     strategy: 'prefix',
     defaultLocale: 'en',
   },
-  css: ['@/assets/scss/global.scss', '@/assets/scss/screens.scss', '@/assets/scss/themes/dark.scss', '@/assets/scss/themes/light.scss'],
+  colorMode: {
+    preference: 'system',
+    fallback: 'light',
+    hid: 'nuxt-color-mode-script',
+    globalName: '__NUXT_COLOR_MODE__',
+    componentName: 'ColorScheme',
+    classPrefix: '',
+    classSuffix: '',
+    storage: 'localStorage',
+    storageKey: 'site-color-mode'
+  },
+  css: ['@/assets/scss/global.scss', '@/assets/scss/screens.scss'],
   umami: {
     id: process.env.UMAMI_ID,
     host: process.env.UMAMI_HOST,

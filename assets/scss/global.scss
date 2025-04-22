@@ -1,10 +1,7 @@
-@use "themes/light";
-@use "themes/dark";
 @use "screens" as *;
 
 html {
   overflow: scroll;
-  overflow-scrolling: touch;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -90,21 +87,33 @@ p, q {
 
 label {
   font-size: 1rem;
-  color: var(--text-color-gray) !important;
+  color: #6a6f7e !important;
   margin: 0;
   @media screen and (max-width: $screen-sm) {
     font-size: 0.8rem;
   }
 }
 
-html, body {
-  @media (prefers-color-scheme: light) {
-    background-color: var(--background, #FFFFFF);
-  }
+.light html {
+  background-color: #eaeaea3b;
+  color: #2C2044;
+}
 
-  @media (prefers-color-scheme: dark) {
-    background-color: var(--background, #120e1c);
-  }
+.dark html {
+  background-color: #120e1c;
+  color: #ffffff;
+}
+
+.dark body {
+  background-color: #120e1c;
+  color: #ffffff;
+}
+
+select, input {
+  font-family: "Fusion Pixel 10px Proportional KR", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
 }
 
 body {
@@ -117,9 +126,9 @@ body {
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--background);
-  color: var(--text-color-primary);
   line-height: 2;
+  background-color: #eaeaea3b;
+  color: #2C2044;
 
   .wrapper {
     display: flex;
@@ -132,6 +141,12 @@ body {
     }
   }
 }
+
+.dark body {
+  background-color: #120e1c;
+  color: #ffffff;
+}
+
 
 .desktop {
   display: flex;
@@ -191,28 +206,49 @@ body {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-radius: 3rem;
-  border: 1px solid var(--glass-border);
-  background: var(--glass-background);
   padding: 2rem;
+  border: 1px solid rgba(44, 32, 68, 0.2);
+  background: rgba(44, 32, 68, 0.05);
+}
+
+.dark .blur__glass {
+  border: 1px solid rgba(210, 210, 210, 0.2);
+  background: rgba(143, 143, 143, 0.1);
 }
 
 .transparent__glass {
   filter: none !important;
   -webkit-filter: none !important;
   border-radius: 3rem;
-  border: 1px solid var(--glass-border);
-  background: var(--glass-background);
   padding: 2rem;
+  border: 1px solid rgba(44, 32, 68, 0.2);
+  background: rgba(44, 32, 68, 0.05);
 }
 
-::selection {
-  background: var(--selection-background);
-  color: var(--selection-color);
+.dark .transparent__glass {
+  border: 1px solid rgba(210, 210, 210, 0.2);
+  background: rgba(143, 143, 143, 0.1);
 }
 
-::-moz-selection {
-  background: var(--selection-background);
-  color: var(--selection-color);
+
+.light ::selection {
+  background: #FCF58D;
+  color: #FFFFFF;
+}
+
+.dark ::selection {
+  background: #FCF58D;
+  color: #2C2044;
+}
+
+.light ::-moz-selection {
+  background: #FCF58D;
+  color: #FFFFFF;
+}
+
+.dark ::-moz-selection {
+  background: #FCF58D;
+  color: #2C2044;
 }
 
 .loading-indicator {

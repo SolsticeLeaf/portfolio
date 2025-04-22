@@ -107,10 +107,9 @@ onMounted(() => {
           <div class="card__bottom">
             <ActionButton :text="t('donate_send')"
                         :text-bold="true"
-                        text-color="--donate-button-text"
+                        text-color="#252525"
                         :icon="iconsConfig.donate_pay"
                         color="#50C878"
-                        :customColor="false"
                         :click="pay"
                         class="card__bottom__button"
                         :outline="false" />
@@ -160,7 +159,13 @@ onMounted(() => {
       color: #ff9100;
 
       @media screen and (max-width: $screen-sm) {
-        color: var(--text-color-primary);
+        color: #2C2044;
+      }
+    }
+
+    .dark &__image {
+      @media screen and (max-width: $screen-sm) {
+        color: #ffffff;
       }
     }
   }
@@ -168,7 +173,11 @@ onMounted(() => {
   &__title {
     width: 100%;
     text-align: center;
-    color: var(--text-color-primary)
+    color: #2C2044;
+  }
+
+  .dark &__title {
+    color: #ffffff;
   }
 
   &__main {
@@ -190,8 +199,12 @@ onMounted(() => {
       padding: 1rem;
       font-weight: bold;
       font-size: 1rem;
-      border: 1px solid var(--donate-select) !important;
-      color: var(--text-color-primary) !important;
+      border: 1px solid #A782FF !important;
+      color: #2C2044 !important;
+    }
+
+    .dark &__input {
+      color: #ffffff !important;
     }
 
     &__select {
@@ -204,8 +217,12 @@ onMounted(() => {
       padding: 1rem;
       font-weight: bold;
       font-size: 1rem;
-      border: 1px solid var(--donate-select) !important;
-      color: var(--text-color-primary) !important;
+      border: 1px solid #A782FF !important;
+      color: #2C2044 !important;
+    }
+
+    .dark &__select {
+      color: #ffffff !important;
     }
   }
 

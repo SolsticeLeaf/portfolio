@@ -3,30 +3,20 @@ import initialConfig from "@/config/initial.config";
 import iconsConfig from "~/config/icons.config";
 
 const { t, locale } = useI18n();
+const colorMode = useColorMode();
 const route = useRoute();
 const getSystemTheme = (): string => {
   return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 };
 
-const theme = ref<string>(localStorage.getItem("theme") || getSystemTheme());
-
-const setTheme = (newTheme: string) => {
-  localStorage.setItem("theme", newTheme);
-  theme.value = newTheme;
-  if (newTheme === "system") {
-    document.documentElement.setAttribute("data-theme", getSystemTheme());
-  } else {
-    document.documentElement.setAttribute("data-theme", newTheme);
-  }
-};
 const toggleTheme = (): void => {
-  const currentTheme = theme.value;
-  if (currentTheme === "system") {
-    setTheme(getSystemTheme() === "light" ? "dark" : "light");
-  } else if (currentTheme !== getSystemTheme()) {
-    setTheme(currentTheme === "light" ? "dark" : "light");
+  if (colorMode.preference === "system") {
+    colorMode.preference = colorMode.value === "light" ? "dark" : "light";
+  } else if (colorMode.preference !== getSystemTheme()) {
+    const value = colorMode.preference === "light" ? "dark" : "light";
+    colorMode.preference = value;
   } else {
-    setTheme("system");
+    colorMode.preference = "system";
   }
 };
 
@@ -68,8 +58,8 @@ const links = computed((): any => {
     },
     {
       icon: computed(() => {
-        if (theme.value === 'system') { return iconsConfig.nav_theme_system; }
-        return theme.value === 'dark' ? iconsConfig.nav_theme_dark : iconsConfig.nav_theme_light;
+        if (colorMode.preference === 'system') { return iconsConfig.nav_theme_system; }
+        return colorMode.preference === 'dark' ? iconsConfig.nav_theme_dark : iconsConfig.nav_theme_light;
       }).value,
       type: 'action',
       action: toggleTheme
@@ -93,9 +83,9 @@ const links = computed((): any => {
     </NuxtLink>
     <div class="nav">
       <div v-for="link in links" :key="link.icon" class="nav__links">
-        <NuxtLink v-if="link.type === 'path'" :to="link.action" :class="isActive(link.action) ? 'nav__links__active' : 'nav__links__default'">
-          <Icon :name="link.icon" :class="isActive(link.action) ? 'nav__links__active__icon' : 'nav__links__default__icon'" />
-          <p v-if="link.label" :class="isActive(link.action) ? 'nav__links__active__label' : 'nav__links__default__label'">{{ t(link.label) }}</p>
+        <NuxtLink v-if="link.type === 'path'" :to="link.action" :class="`nav__links__default ${isActive(link.action) ? 'active' : ''}`">
+          <Icon :name="link.icon" class="nav__links__default__icon" />
+          <p v-if="link.label" class="nav__links__default__label">{{ t(link.label) }}</p>
         </NuxtLink>
         <div v-else class="nav__links__default" @click="link.action">
           <Icon :name="link.icon" class="nav__links__default__icon" />
@@ -107,17 +97,23 @@ const links = computed((): any => {
 </template>
 
 <style scoped lang="scss">
-@use '../../assets/scss/screens' as *;
-
-:root {
-  color-scheme: dark;
-}
+@use '/assets/scss/screens.scss' as *;
 
 .glass {
   filter: none !important;
   -webkit-filter: none !important;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
+}
+
+.active {
+  color: #502da1 !important;
+  font-weight: bold;
+  border-bottom: 1px solid;
+}
+
+.dark .active {
+  color: #FCF58D !important;
 }
 
 nav {
@@ -158,7 +154,7 @@ nav {
         gap: 0.2rem;
         height: 100%;
         text-decoration: none;
-        color: var(--text-navigation);
+        color: #2C2044;
 
         &__label {
           @media screen and (max-width: $screen-sm) {
@@ -181,47 +177,17 @@ nav {
         }
       }
 
-      &__active {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        font-weight: bold;
-        height: 100%;
-        border-bottom: 2px var(--nav-active) solid;
-        text-decoration: none;
-        color: var(--text-navigation);
-        gap: 0.2rem;
-
-        &__label {
-          @media screen and (max-width: $screen-sm) {
-            display: none;
-          }
-        }
-
-        &__icon {
-          width: 1.2rem;
-          height: 1.2rem;
-
-          @media screen and (max-width: $screen-md) {
-            width: 1.6rem;
-            height: 1.6rem;
-          }
-
-          @media screen and (max-width: $screen-sm) {
-            padding: 0 1rem;
-          }
-        }
+      .dark &__default {
+        color: #ffffff;
       }
 
       &__default:hover {
+        color: #40267d;
         cursor: pointer;
-        color: var(--nav-hover);
       }
 
-      &__active:hover {
-        cursor: pointer;
-        color: var(--nav-hover);
+      .dark &__default:hover {
+        color: #c6c071;
       }
     }
   }
@@ -239,11 +205,17 @@ nav {
     text-decoration: none;
 
     &__name {
-      position: relative !important;
-      background: var(--logo-gradient);
+      background: -webkit-linear-gradient(0deg, #A782FF 10%, #9870cc 50%, #4d2e8c 90%);
       -webkit-background-clip: text;
-      background-clip: text;
       -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .dark &__name {
+      background: -webkit-linear-gradient(0deg, #dcc944 10%, #FCF58D 50%, #a960f5 90%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     @media screen and (max-width: $screen-sm) {

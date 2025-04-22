@@ -54,10 +54,9 @@ function getDescription(description: any): string {
       <div class="card__button">
         <FlexButton :text="t('read_more')"
                     :text-bold="true"
-                    text-color="--text-color-light"
+                    text-color="#f8f8f8"
                     :icon="iconsConfig.read_more"
                     color="#008080"
-                    :customColor="false"
                     :link="`/projects/${props.id}`"
                     class="main__content__button__btn"
                     :outline="false" />
@@ -76,8 +75,8 @@ function getDescription(description: any): string {
 
 ::-webkit-scrollbar-thumb {
   border-radius: 3rem;
-  background-color: var(--scrollbar-background);
-  box-shadow: 0 0 1px var(--scrollbar-shadow);
+  background-color: rgba(100, 100, 100, 0.5);
+  box-shadow: 0 0 1px rgba(255, 255, 255, .2);
 }
 
 .blur__glass {
@@ -129,7 +128,15 @@ function getDescription(description: any): string {
 
       &__text {
         overflow: hidden;
-        background: var(--card-gradient);
+        background: -webkit-linear-gradient(0deg, #A782FF 15%, #9872cb 60%, #4a2e7c 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .dark &__text {
+        overflow: hidden;
+        background: -webkit-linear-gradient(0deg, #f6ef9d 15%, #f6ef8b 60%, #e3c17d 100%);
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
