@@ -77,6 +77,10 @@ function getButtonName(name: any): string {
   if (localed) { return localed; }
   return name["en"];
 }
+
+function hasDownloadLink() {
+  return project.value.downloadLink.length > 0;
+}
 </script>
 
 <template>
@@ -104,22 +108,24 @@ function getButtonName(name: any): string {
                       :link="source.link"
                       class="info__buttons__btn"
                       :outline="false" />
-          <FlexButton v-if="isDownloadReady"
-                      :text="t('download_button') + (downloadData?.data?.version || '')"
-                      :text-bold="true"
-                      text-color="#f8f8f8"
-                      :icon="iconsConfig.download"
-                      color="#50C878"
-                      :link="downloadData?.data?.downloadLink || project.downloadLink"
-                      class="info__buttons__btn"
-                      :outline="false" />
-          <LoadingButton v-else
-                         :text="t('download_button')"
-                         :text-bold="true"
-                         text-color="#f8f8f8"
-                         color="#50C878"
-                         class="info__buttons__btn"
-                         :outline="false" />
+          <div v-if="hasDownloadLink()">
+            <FlexButton v-if="isDownloadReady"
+                        :text="t('download_button') + (downloadData?.data?.version || '')"
+                        :text-bold="true"
+                        text-color="#f8f8f8"
+                        :icon="iconsConfig.download"
+                        color="#50C878"
+                        :link="downloadData?.data?.downloadLink || project.downloadLink"
+                        class="info__buttons__btn"
+                        :outline="false" />
+            <LoadingButton v-else
+                          :text="t('download_button')"
+                          :text-bold="true"
+                          text-color="#f8f8f8"
+                          color="#50C878"
+                          class="info__buttons__btn"
+                          :outline="false" />
+          </div>
           <FlexButton :text="t('back_button')"
                       :text-bold="true"
                       text-color="#f8f8f8"
@@ -202,22 +208,24 @@ function getButtonName(name: any): string {
                           :link="source.link"
                           class="info__buttons__btn"
                           :outline="false" />
-              <FlexButton v-if="isDownloadReady"
-                          :text="t('download_button') + (downloadData?.data?.version || '')"
-                          :text-bold="true"
-                          text-color="#f8f8f8"
-                          :icon="iconsConfig.download"
-                          color="#50C878"
-                          :link="downloadData?.data?.downloadLink || project.downloadLink"
-                          class="info__buttons__btn"
-                          :outline="false" />
-              <LoadingButton v-else
-                             :text="t('download_button')"
-                             :text-bold="true"
-                             text-color="#f8f8f8"
-                             color="#50C878"
-                             class="info__buttons__btn"
-                             :outline="false" />
+              <div v-if="hasDownloadLink()">
+                <FlexButton v-if="isDownloadReady"
+                            :text="t('download_button') + (downloadData?.data?.version || '')"
+                            :text-bold="true"
+                            text-color="#f8f8f8"
+                            :icon="iconsConfig.download"
+                            color="#50C878"
+                            :link="downloadData?.data?.downloadLink || project.downloadLink"
+                            class="info__buttons__btn"
+                            :outline="false" />
+                <LoadingButton v-else
+                              :text="t('download_button')"
+                              :text-bold="true"
+                              text-color="#f8f8f8"
+                              color="#50C878"
+                              class="info__buttons__btn"
+                              :outline="false" />
+              </div>
             </div>
           </div>
         </div>
