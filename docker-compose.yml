@@ -6,7 +6,7 @@ services:
     restart: always
     network_mode: 'host'
     healthcheck:
-      test: ['CMD', 'curl', '-f', 'http://localhost:3000/api/status']
+      test: ['CMD', 'curl', '-f', 'http://localhost:3000/api/healthcheck']
       interval: 1m30s
       timeout: 10s
       retries: 3
