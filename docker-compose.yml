@@ -4,7 +4,14 @@ services:
     container_name: portfolio
     image: portfolio:latest
     restart: always
-    network_mode: "host"
+    network_mode: 'host'
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:3000']
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+      start_interval: 5s
     environment:
       - CRYPTOCLOUD_API_KEY=${CRYPTOCLOUD_API_KEY}
       - CRYPTOCLOUD_SHOP_ID=${CRYPTOCLOUD_SHOP_ID}
