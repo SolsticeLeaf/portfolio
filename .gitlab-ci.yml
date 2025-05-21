@@ -10,7 +10,7 @@ workflow:
 
 default:
   tags:
-    - "mais"
+    - 'mais'
   image: node:23
 
 cache:
@@ -64,7 +64,7 @@ deploy-mais:
   stage: deploy
   image: docker:latest
   tags:
-    - "mais"
+    - 'mais'
   dependencies:
     - build
   before_script:
@@ -82,7 +82,7 @@ deploy-helios:
   stage: deploy
   image: docker:latest
   tags:
-    - "helios"
+    - 'res-5'
   dependencies:
     - build
   before_script:
