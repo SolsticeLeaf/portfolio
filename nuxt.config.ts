@@ -1,4 +1,4 @@
-const isDev = process.env.NODE_ENV === 'development'
+const isDev = process.env.NODE_ENV === 'development';
 
 export default defineNuxtConfig({
   app: {
@@ -9,17 +9,24 @@ export default defineNuxtConfig({
       htmlAttrs: {
         lang: 'en',
       },
+      script: [
+        {
+          src: 'https://metrics.sleaf.dev/api/script.js',
+          'data-site-id': '1',
+          defer: true,
+        },
+      ],
       meta: [
         { charset: 'utf-8' },
         {
-          name: "viewport",
-          content: "width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0"
+          name: 'viewport',
+          content: 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0',
         },
         { name: 'description', content: '' },
         { name: 'format-detection', content: 'telephone=no' },
       ],
-      link: [{ rel: 'icon', type: 'image/x-icon', href: 'https://ik.imagekit.io/kiinse/icons/icon.svg?updatedAt=1740170186956' }]
-    }
+      link: [{ rel: 'icon', type: 'image/x-icon', href: 'https://ik.imagekit.io/kiinse/icons/icon.svg?updatedAt=1740170186956' }],
+    },
   },
   routeRules: {
     '/**': {
@@ -28,9 +35,9 @@ export default defineNuxtConfig({
         swr: true,
         maxAge: 120,
         staleMaxAge: 60,
-        headersOnly: true
-      }
-    }
+        headersOnly: true,
+      },
+    },
   },
   nitro: {
     compressPublicAssets: true,
@@ -45,11 +52,11 @@ export default defineNuxtConfig({
   sourcemap: true,
   compatibilityDate: '2025-01-29',
   devtools: { enabled: true },
-  modules: ['@nuxtjs/i18n', '@nuxt/image', '@nuxtjs/device', '@nuxt/icon', '@nuxt/fonts', 'nuxt-umami', '@nuxtjs/color-mode'],
+  modules: ['@nuxtjs/i18n', '@nuxt/image', '@nuxtjs/device', '@nuxt/icon', '@nuxt/fonts', '@nuxtjs/color-mode'],
   icon: {
     serverBundle: {
-      collections: ['arcticons', 'mdi', 'ic', 'pixelarticons', 'line-md', 'f7', 'codex', 'pixel']
-    }
+      collections: ['arcticons', 'mdi', 'ic', 'pixelarticons', 'line-md', 'f7', 'codex', 'pixel'],
+    },
   },
   plugins: ['@/plugins/Vue3Marquee.client.ts'],
   i18n: {
@@ -60,7 +67,7 @@ export default defineNuxtConfig({
     lazy: true,
     langDir: 'locales',
     bundle: {
-      optimizeTranslationDirective: false
+      optimizeTranslationDirective: false,
     },
     detectBrowserLanguage: {
       useCookie: true,
@@ -78,24 +85,17 @@ export default defineNuxtConfig({
     classPrefix: '',
     classSuffix: '',
     storage: 'localStorage',
-    storageKey: 'site-color-mode'
+    storageKey: 'site-color-mode',
   },
   css: ['@/assets/scss/global.scss', '@/assets/scss/screens.scss'],
-  umami: {
-    id: process.env.UMAMI_ID,
-    host: process.env.UMAMI_HOST,
-    autoTrack: true,
-  },
   runtimeConfig: {
     public: {
       CRYPTOCLOUD_SHOP_ID: process.env.CRYPTOCLOUD_SHOP_ID,
-      UMAMI_ID: process.env.UMAMI_ID,
-      UMAMI_HOST: process.env.UMAMI_HOST,
       DATABASE_NAME: process.env.DATABASE_NAME,
-      DATABASE_URL: process.env.DATABASE_URL
+      DATABASE_URL: process.env.DATABASE_URL,
     },
     private: {
-      CRYPTOCLOUD_API_KEY: process.env.CRYPTOCLOUD_API_KEY
-    }
+      CRYPTOCLOUD_API_KEY: process.env.CRYPTOCLOUD_API_KEY,
+    },
   },
-})
+});
