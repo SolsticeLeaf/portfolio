@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { Vue3Marquee } from "vue3-marquee";
-import initialConfig from "@/config/initial.config";
-import NavigationSection from "~/components/section/NavigationSection.vue";
+import { Vue3Marquee } from 'vue3-marquee';
+import initialConfig from '@/config/initial.config';
+import NavigationSection from '~/components/section/NavigationSection.vue';
 
-const { t } = useI18n()
+const { t } = useI18n();
 const nickname = initialConfig.nickname;
 const repeatRows = ref(4);
 
-function calculateDirection(index: any): "normal" | "reverse" {
-  return (index % 2 === 0) ? "reverse" : "normal";
+function calculateDirection(index: any): 'normal' | 'reverse' {
+  return index % 2 === 0 ? 'reverse' : 'normal';
 }
 
 const resizeEvent = function () {
-  const row = document.querySelector(".background__text__row");
+  const row = document.querySelector('.background__text__row');
   const screenHeight = window.innerHeight;
   const clientHeight = row?.clientHeight || 0;
   if (clientHeight > 0) {
@@ -20,19 +20,15 @@ const resizeEvent = function () {
   }
 };
 
-onMounted(() => {
-  umTrackView();
-});
-
 onBeforeMount(() => {
-  window.addEventListener("resize", resizeEvent);
+  window.addEventListener('resize', resizeEvent);
   nextTick(() => {
     resizeEvent();
   });
 });
 
 onBeforeUnmount(() => {
-  window.removeEventListener("resize", resizeEvent);
+  window.removeEventListener('resize', resizeEvent);
 });
 </script>
 
@@ -41,7 +37,7 @@ onBeforeUnmount(() => {
     <NuxtLayout>
       <div class="background__blur">
         <div class="background__text">
-          <div v-for="(rowIndex) in repeatRows" :key="'row-' + rowIndex" class="background__text__row">
+          <div v-for="rowIndex in repeatRows" :key="'row-' + rowIndex" class="background__text__row">
             <ClientOnly>
               <KeepAlive>
                 <Suspense>
@@ -51,7 +47,7 @@ onBeforeUnmount(() => {
                     </div>
                   </Vue3Marquee>
                   <template #fallback>
-                    <div class="skeleton-marquee"/>
+                    <div class="skeleton-marquee" />
                   </template>
                 </Suspense>
               </KeepAlive>
@@ -79,7 +75,7 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped lang="scss">
-@use "@/assets/scss/screens" as *;
+@use '@/assets/scss/screens' as *;
 
 .body {
   display: flex;
@@ -180,7 +176,7 @@ onBeforeUnmount(() => {
     }
 
     .dark &__word {
-      -webkit-text-stroke: 2px #3D2A5A;
+      -webkit-text-stroke: 2px #3d2a5a;
     }
   }
 }
