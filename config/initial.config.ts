@@ -2,9 +2,9 @@ export default {
   nickname: 'SolsticeLeaf',
   siteName: 'SLEAF',
   hero: {
-    avatar_url: 'https://0af29f8f-sleaf.s3.twcstorage.ru/portfolio/sleaf-icon-full.svg',
+    avatar_url: 'https://s3.sleaf.dev/portfolio/sleaf-icon-full.svg',
   },
-  icon: 'https://0af29f8f-sleaf.s3.twcstorage.ru/portfolio/sleaf-icon-short.png',
+  icon: 'https://s3.sleaf.dev/portfolio/sleaf-icon-short.png',
   socialLinks: [
     {
       icon: 'pixel:github',
