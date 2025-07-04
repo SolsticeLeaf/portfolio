@@ -25,7 +25,7 @@ export default defineNuxtConfig({
         { name: 'description', content: '' },
         { name: 'format-detection', content: 'telephone=no' },
       ],
-      link: [{ rel: 'icon', type: 'image/x-icon', href: 'https://ik.imagekit.io/kiinse/icons/icon.svg?updatedAt=1740170186956' }],
+      link: [{ rel: 'icon', type: 'image/x-icon', href: 'https://0af29f8f-sleaf.s3.twcstorage.ru/portfolio/sleaf-icon-short.png' }],
     },
   },
   routeRules: {
