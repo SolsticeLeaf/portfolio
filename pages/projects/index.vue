@@ -1,28 +1,28 @@
 <script setup lang="ts">
-import ProjectCard from "~/components/card/ProjectCard.vue";
-import config from "~/config/initial.config";
+import ProjectCard from '~/components/card/ProjectCard.vue';
+import config from '~/config/initial.config';
 const { t } = useI18n();
 
-const { data: projects, status: status } = useFetch('/api/getProjectsData', {
+const { data: projects, status: status } = useFetch('/api/projects/getProjectsData', {
   key: 'projects',
   default: () => [],
-  cache: "no-cache",
-  server: false
+  cache: 'no-cache',
+  server: false,
 });
 
 onMounted(() => {
   useHead({
-    title: t('nav_projects') + " | " + config.siteName
+    title: t('nav_projects') + ' | ' + config.siteName,
   });
 });
 
 const hasProjects = computed(() => {
   const items = projects.value;
-  return (items !== null && items.length > 0);
+  return items !== null && items.length > 0;
 });
 
 const isPending = computed(() => {
-  return status.value === "pending";
+  return status.value === 'pending';
 });
 
 const getSortedProjects = computed(() => {
@@ -50,12 +50,7 @@ const getSortedProjects = computed(() => {
         <div class="projects">
           <div class="projects__card" v-for="item in getSortedProjects" :key="item.title">
             <Suspense>
-              <ProjectCard
-                  v-bind:id="item._id"
-                  :title="item.title"
-                  :description="item.description"
-                  :image-link="item.imageLink"
-              />
+              <ProjectCard v-bind:id="item._id" :title="item.title" :description="item.description" :image-link="item.imageLink" />
               <template #fallback>
                 <div class="skeleton-card" />
               </template>

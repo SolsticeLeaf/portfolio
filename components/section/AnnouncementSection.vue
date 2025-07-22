@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import {Vue3Marquee} from "vue3-marquee";
+import { Vue3Marquee } from 'vue3-marquee';
 const { isDesktop } = useDevice();
-const { locale } = useI18n()
-import initialConfig from "~/config/initial.config.js";
-const { data: announcements, status: status } = useFetch('/api/getAnnouncementsData', {
+const { locale } = useI18n();
+import initialConfig from '~/config/initial.config.js';
+const { data: announcements, status: status } = useFetch('/api/system/getAnnouncementsData', {
   key: 'announcements',
   default: () => [],
-  cache: "no-cache",
-  server: false
+  cache: 'no-cache',
+  server: false,
 });
 
 const duration = ref(0);
 const isLoaded = ref(false);
 
 onMounted(() => {
-  const config = initialConfig.announcements
+  const config = initialConfig.announcements;
   if (isDesktop) {
     duration.value = config.desktopSpeed;
     isLoaded.value = true;
@@ -25,16 +25,16 @@ onMounted(() => {
 });
 
 const isShow = computed(() => {
-  return (status.value === "success") && (announcements.value !== null && announcements.value.length > 0)
-})
+  return status.value === 'success' && announcements.value !== null && announcements.value.length > 0;
+});
 
 function getLocaled(value: any): string {
   const currentLocale = locale.value;
-  const localed = value[currentLocale]
+  const localed = value[currentLocale];
   if (localed) {
-    return localed
+    return localed;
   }
-  return value["en"]
+  return value['en'];
 }
 </script>
 
@@ -68,7 +68,7 @@ function getLocaled(value: any): string {
   .announcements__text {
     padding-left: 20rem;
     font-weight: bold;
-    color: #120e1c;;
+    color: #120e1c;
 
     @media screen and (max-width: $screen-md) {
       padding-left: 10rem;
@@ -77,6 +77,6 @@ function getLocaled(value: any): string {
 }
 
 .dark .announcements {
-  background: -webkit-linear-gradient(0deg, #FCF58D 20%, #a45dec 80%);
+  background: -webkit-linear-gradient(0deg, #fcf58d 20%, #a45dec 80%);
 }
 </style>

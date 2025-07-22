@@ -1,66 +1,67 @@
 <script setup lang="ts">
-import config from "@/config/initial.config";
-import TechIcon from "~/components/utilities/TechIcon.vue";
-import iconsConfig from "~/config/icons.config";
-import {Vue3Marquee} from "vue3-marquee";
-import FlexButton from "~/components/utilities/FlexButton.vue";
-import LoadingButton from "~/components/utilities/LoadingButton.vue";
+import config from '@/config/initial.config';
+import TechIcon from '~/components/utilities/TechIcon.vue';
+import iconsConfig from '~/config/icons.config';
+import { Vue3Marquee } from 'vue3-marquee';
+import FlexButton from '~/components/utilities/FlexButton.vue';
+import LoadingButton from '~/components/utilities/LoadingButton.vue';
 
 const { t, locale } = useI18n();
 const theme = useColorMode();
 const route = useRoute();
 
-const { data: project, status: status } = useFetch('/api/getProjectData', {
+const { data: project, status: status } = useFetch('/api/projects/getProjectData', {
   key: 'projects',
   query: {
-    id: route.params.project
+    id: route.params.project,
   },
   default: () => {},
-  cache: "no-cache",
+  cache: 'no-cache',
   server: false,
   onResponse: (response) => {
     const item = response.response._data;
     if (item != null) {
       useHead({
-        title: item.title + " | " + config.siteName,
-        meta: [{
-          name: 'description',
-          content: getDescription(item.description),
-        }]
+        title: item.title + ' | ' + config.siteName,
+        meta: [
+          {
+            name: 'description',
+            content: getDescription(item.description),
+          },
+        ],
       });
     } else {
-      useHead({ title: "ERROR | " + config.siteName });
+      useHead({ title: 'ERROR | ' + config.siteName });
     }
-  }
+  },
 });
 
 const downloadData = ref();
 const isDownloadReady = computed(() => !!downloadData.value);
 
 const isPending = computed(() => {
-  return status.value === "pending";
+  return status.value === 'pending';
 });
 const isSuccess = computed(() => {
-  return status.value === "success" && project.value.title != null;
+  return status.value === 'success' && project.value.title != null;
 });
 
 watchEffect(async () => {
   if (isSuccess.value) {
     try {
-      downloadData.value = await $fetch('/api/getDownloadData', {
+      downloadData.value = await $fetch('/api/projects/getDownloadData', {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
+        headers: { 'Content-Type': 'application/json' },
         default: () => {},
-        body: JSON.stringify({link: project.value.downloadLink}),
-        cache: "no-cache",
-        server: false
+        body: JSON.stringify({ link: project.value.downloadLink }),
+        cache: 'no-cache',
+        server: false,
       });
     } catch (error) {
-      console.error("Ошибка загрузки данных:", error);
+      console.error('Ошибка загрузки данных:', error);
     }
   }
 });
-
 
 const getProjectsPath = computed(() => {
   return `/${locale.value}/projects`;
@@ -68,14 +69,18 @@ const getProjectsPath = computed(() => {
 
 function getDescription(description: any): string {
   const localed = description[locale.value];
-  if (localed) { return localed; }
-  return description["en"];
+  if (localed) {
+    return localed;
+  }
+  return description['en'];
 }
 
 function getButtonName(name: any): string {
   const localed = name[locale.value];
-  if (localed) { return localed; }
-  return name["en"];
+  if (localed) {
+    return localed;
+  }
+  return name['en'];
 }
 
 function hasDownloadLink() {
@@ -98,55 +103,60 @@ function hasDownloadLink() {
     <div v-else class="wrapper">
       <div class="screen-sm">
         <div class="blur__glass info__buttons">
-          <FlexButton v-for="source in project.sources"
-                      :key="source.name"
-                      :text="getButtonName(source.name)"
-                      :text-bold="true"
-                      text-color="#f8f8f8"
-                      :icon="source.icon"
-                      :color="source.color"
-                      :link="source.link"
-                      class="info__buttons__btn"
-                      :outline="false" />
+          <FlexButton
+            v-for="source in project.sources"
+            :key="source.name"
+            :text="getButtonName(source.name)"
+            :text-bold="true"
+            text-color="#f8f8f8"
+            :icon="source.icon"
+            :color="source.color"
+            :link="source.link"
+            class="info__buttons__btn"
+            :outline="false" />
           <div v-if="hasDownloadLink()">
-            <FlexButton v-if="isDownloadReady"
-                        :text="t('download_button') + (downloadData?.data?.version || '')"
-                        :text-bold="true"
-                        text-color="#f8f8f8"
-                        :icon="iconsConfig.download"
-                        color="#50C878"
-                        :link="downloadData?.data?.downloadLink || project.downloadLink"
-                        class="info__buttons__btn"
-                        :outline="false" />
-            <LoadingButton v-else
-                          :text="t('download_button')"
-                          :text-bold="true"
-                          text-color="#f8f8f8"
-                          color="#50C878"
-                          class="info__buttons__btn"
-                          :outline="false" />
+            <FlexButton
+              v-if="isDownloadReady"
+              :text="t('download_button') + (downloadData?.data?.version || '')"
+              :text-bold="true"
+              text-color="#f8f8f8"
+              :icon="iconsConfig.download"
+              color="#50C878"
+              :link="downloadData?.data?.downloadLink || project.downloadLink"
+              class="info__buttons__btn"
+              :outline="false" />
+            <LoadingButton
+              v-else
+              :text="t('download_button')"
+              :text-bold="true"
+              text-color="#f8f8f8"
+              color="#50C878"
+              class="info__buttons__btn"
+              :outline="false" />
           </div>
-          <FlexButton :text="t('back_button')"
-                      :text-bold="true"
-                      text-color="#f8f8f8"
-                      :icon="iconsConfig.back_home"
-                      color="#D30000"
-                      :link="getProjectsPath"
-                      class="info__buttons__btn"
-                      :outline="false" />
+          <FlexButton
+            :text="t('back_button')"
+            :text-bold="true"
+            text-color="#f8f8f8"
+            :icon="iconsConfig.back_home"
+            color="#D30000"
+            :link="getProjectsPath"
+            class="info__buttons__btn"
+            :outline="false" />
         </div>
       </div>
       <div class="content blur__glass">
         <div class="desktop">
           <KeepAlive>
-            <FlexButton :text="t('project_back_button')"
-                        :text-bold="true"
-                        text-color="#c74600"
-                        :icon="iconsConfig.back_home"
-                        color="transparent"
-                        :link="getProjectsPath"
-                        class="back-button"
-                        :outline="false" />
+            <FlexButton
+              :text="t('project_back_button')"
+              :text-bold="true"
+              text-color="#c74600"
+              :icon="iconsConfig.back_home"
+              color="transparent"
+              :link="getProjectsPath"
+              class="back-button"
+              :outline="false" />
           </KeepAlive>
         </div>
         <h1 class="content__title">{{ project.title }}</h1>
@@ -198,33 +208,36 @@ function hasDownloadLink() {
           </div>
           <div class="desktop-md">
             <div class="info__buttons">
-              <FlexButton v-for="source in project.sources"
-                          :key="source.name"
-                          :text="getButtonName(source.name)"
-                          :text-bold="true"
-                          text-color="#f8f8f8"
-                          :icon="source.icon"
-                          :color="source.color"
-                          :link="source.link"
-                          class="info__buttons__btn"
-                          :outline="false" />
+              <FlexButton
+                v-for="source in project.sources"
+                :key="source.name"
+                :text="getButtonName(source.name)"
+                :text-bold="true"
+                text-color="#f8f8f8"
+                :icon="source.icon"
+                :color="source.color"
+                :link="source.link"
+                class="info__buttons__btn"
+                :outline="false" />
               <div v-if="hasDownloadLink()">
-                <FlexButton v-if="isDownloadReady"
-                            :text="t('download_button') + (downloadData?.data?.version || '')"
-                            :text-bold="true"
-                            text-color="#f8f8f8"
-                            :icon="iconsConfig.download"
-                            color="#50C878"
-                            :link="downloadData?.data?.downloadLink || project.downloadLink"
-                            class="info__buttons__btn"
-                            :outline="false" />
-                <LoadingButton v-else
-                              :text="t('download_button')"
-                              :text-bold="true"
-                              text-color="#f8f8f8"
-                              color="#50C878"
-                              class="info__buttons__btn"
-                              :outline="false" />
+                <FlexButton
+                  v-if="isDownloadReady"
+                  :text="t('download_button') + (downloadData?.data?.version || '')"
+                  :text-bold="true"
+                  text-color="#f8f8f8"
+                  :icon="iconsConfig.download"
+                  color="#50C878"
+                  :link="downloadData?.data?.downloadLink || project.downloadLink"
+                  class="info__buttons__btn"
+                  :outline="false" />
+                <LoadingButton
+                  v-else
+                  :text="t('download_button')"
+                  :text-bold="true"
+                  text-color="#f8f8f8"
+                  color="#50C878"
+                  class="info__buttons__btn"
+                  :outline="false" />
               </div>
             </div>
           </div>
@@ -232,14 +245,15 @@ function hasDownloadLink() {
       </div>
       <div class="md-back-button">
         <KeepAlive>
-          <FlexButton :text="t('project_back_button')"
-                      :text-bold="true"
-                      :text-color="theme.value === 'dark' ? '#ffffff' : '#2C2044'"
-                      :icon="iconsConfig.back_home"
-                      color="transparent"
-                      :link="getProjectsPath"
-                      class="back-button"
-                      :outline="false" />
+          <FlexButton
+            :text="t('project_back_button')"
+            :text-bold="true"
+            :text-color="theme.value === 'dark' ? '#ffffff' : '#2C2044'"
+            :icon="iconsConfig.back_home"
+            color="transparent"
+            :link="getProjectsPath"
+            class="back-button"
+            :outline="false" />
         </KeepAlive>
       </div>
     </div>
@@ -308,7 +322,7 @@ function hasDownloadLink() {
 ::-webkit-scrollbar-thumb {
   border-radius: 3rem;
   background-color: rgba(100, 100, 100, 0.5);
-  box-shadow: 0 0 1px rgba(255, 255, 255, .2);
+  box-shadow: 0 0 1px rgba(255, 255, 255, 0.2);
 }
 
 .back-button {
@@ -327,7 +341,7 @@ function hasDownloadLink() {
   }
 
   &__title {
-    background: -webkit-linear-gradient(0deg, #A782FF 15%, #9872cb 60%, #4a2e7c 100%);
+    background: -webkit-linear-gradient(0deg, #a782ff 15%, #9872cb 60%, #4a2e7c 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -350,7 +364,7 @@ function hasDownloadLink() {
   -webkit-filter: none !important;
   border-radius: 3rem;
   border: 1px solid rgba(44, 32, 68, 0.2);
-  background: -webkit-linear-gradient(0deg, #A782FF 15%, #8c67be 60%, #4f3383 100%);
+  background: -webkit-linear-gradient(0deg, #a782ff 15%, #8c67be 60%, #4f3383 100%);
   color: #fffde7;
   font-weight: bold;
 }

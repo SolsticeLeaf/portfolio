@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import { Vue3Marquee } from 'vue3-marquee';
-import initialConfig from '@/config/initial.config';
-import NavigationSection from '~/components/section/NavigationSection.vue';
+import BackgroundWords from './components/utilities/BackgroundWords.vue';
+import Navigation from './components/navigation/Navigation.vue';
 
-const { t } = useI18n();
-const nickname = initialConfig.nickname;
+const { tm } = useI18n();
 const repeatRows = ref(4);
 
 function calculateDirection(index: any): 'normal' | 'reverse' {
@@ -35,32 +33,19 @@ onBeforeUnmount(() => {
 <template>
   <Body>
     <NuxtLayout>
-      <div class="background__blur">
-        <div class="background__text">
-          <div v-for="rowIndex in repeatRows" :key="'row-' + rowIndex" class="background__text__row">
-            <ClientOnly>
-              <KeepAlive>
-                <Suspense>
-                  <Vue3Marquee :duration="60" clone :direction="calculateDirection(rowIndex)">
-                    <div class="background__text__word">
-                      {{ t(nickname) }}
-                    </div>
-                  </Vue3Marquee>
-                  <template #fallback>
-                    <div class="skeleton-marquee" />
-                  </template>
-                </Suspense>
-              </KeepAlive>
-            </ClientOnly>
-          </div>
-        </div>
-      </div>
+      <ClientOnly>
+        <Suspense>
+          <KeepAlive>
+            <BackgroundWords :array="tm('backgroundWords')" />
+          </KeepAlive>
+        </Suspense>
+      </ClientOnly>
       <div id="body" class="body">
         <div class="footer__top">
           <ClientOnly>
             <KeepAlive>
               <Suspense>
-                <NavigationSection />
+                <Navigation />
               </Suspense>
             </KeepAlive>
           </ClientOnly>

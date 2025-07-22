@@ -1,48 +1,50 @@
 <script setup lang="ts">
 import currencies from '~/config/currencies.config';
 import config from '~/config/initial.config';
-import iconsConfig from "~/config/icons.config";
-import ActionButton from "~/components/utilities/ActionButton.vue";
-const { t, locale } = useI18n()
+import iconsConfig from '~/config/icons.config';
+import ActionButton from '~/components/utilities/ActionButton.vue';
+const { t, locale } = useI18n();
 
 onMounted(() => {
   useHead({
-    title: t('donate_title') + " | " + config.siteName
+    title: t('donate_title') + ' | ' + config.siteName,
   });
-})
+});
 
 function getDefaultCurrency(list: any) {
   let defaultCurrency = list[0];
-  if (locale.value === "ru") {
-    defaultCurrency = list.filter((item: any) => { return item.name === "RUB" })[0];
+  if (locale.value === 'ru') {
+    defaultCurrency = list.filter((item: any) => {
+      return item.name === 'RUB';
+    })[0];
   }
   return defaultCurrency;
 }
 
-const defaultCurrency = getDefaultCurrency(currencies)
+const defaultCurrency = getDefaultCurrency(currencies);
 
 const amount = computed(() => {
-  return (document.getElementById("donateInput") as HTMLInputElement) ;
+  return document.getElementById('donateInput') as HTMLInputElement;
 });
 
-const currency = ref(defaultCurrency)
+const currency = ref(defaultCurrency);
 
 const changeAmount = () => {
-  amount.value.value = currency.value.default
-}
+  amount.value.value = currency.value.default;
+};
 const checkAmount = () => {
   if (amount.value.value < currency.value.default) {
-    amount.value.value = currency.value.default
+    amount.value.value = currency.value.default;
   }
-}
+};
 const pay = async () => {
   try {
-    if (amount.value.value <= "0") {
-      amount.value.value = "1";
+    if (amount.value.value <= '0') {
+      amount.value.value = '1';
     }
-    const { success: response_success, payment_url: response_url } = await $fetch('/api/createPayment', {
+    const { success: response_success, payment_url: response_url } = await $fetch('/api/donate/createPayment', {
       default: () => [],
-      cache: "no-cache",
+      cache: 'no-cache',
       server: false,
       method: 'POST',
       headers: {
@@ -52,8 +54,8 @@ const pay = async () => {
         locale: locale.value,
         amount: amount.value.value,
         order_id: `order-${Date.now()}`,
-        currency: currency.value.name
-      })
+        currency: currency.value.name,
+      }),
     });
     if (response_success && response_url) {
       const url = response_url + `?lang=${locale.value}`;
@@ -62,12 +64,11 @@ const pay = async () => {
     } else {
       alert('Ошибка: не удалось получить ссылку на оплату');
     }
-
   } catch (error) {
     console.error('Ошибка:', error);
     alert('Ошибка при отправке запроса');
   }
-}
+};
 
 onMounted(() => {
   nextTick(() => {
@@ -89,30 +90,31 @@ onMounted(() => {
           </h6>
           <div class="card__main">
             <input
-                type="number"
-                id="donateInput"
-                name="amount"
-                class="card__main__input"
-                @change="checkAmount"
-                :placeholder="t('donate_amount')"
-                required
-                size="10" />
+              type="number"
+              id="donateInput"
+              name="amount"
+              class="card__main__input"
+              @change="checkAmount"
+              :placeholder="t('donate_amount')"
+              required
+              size="10" />
             <h6>/</h6>
             <select class="card__main__select" v-model="currency" @change="changeAmount">
               <option v-for="curr in currencies" :value="curr">
-                {{curr.name + " " + curr.symbol}}
+                {{ curr.name + ' ' + curr.symbol }}
               </option>
             </select>
           </div>
           <div class="card__bottom">
-            <ActionButton :text="t('donate_send')"
-                        :text-bold="true"
-                        text-color="#252525"
-                        :icon="iconsConfig.donate_pay"
-                        color="#50C878"
-                        :click="pay"
-                        class="card__bottom__button"
-                        :outline="false" />
+            <ActionButton
+              :text="t('donate_send')"
+              :text-bold="true"
+              text-color="#252525"
+              :icon="iconsConfig.donate_pay"
+              color="#50C878"
+              :click="pay"
+              class="card__bottom__button"
+              :outline="false" />
           </div>
         </div>
       </div>
@@ -159,7 +161,7 @@ onMounted(() => {
       color: #ff9100;
 
       @media screen and (max-width: $screen-sm) {
-        color: #2C2044;
+        color: #2c2044;
       }
     }
 
@@ -173,7 +175,7 @@ onMounted(() => {
   &__title {
     width: 100%;
     text-align: center;
-    color: #2C2044;
+    color: #2c2044;
   }
 
   .dark &__title {
@@ -199,8 +201,8 @@ onMounted(() => {
       padding: 1rem;
       font-weight: bold;
       font-size: 1rem;
-      border: 1px solid #A782FF !important;
-      color: #2C2044 !important;
+      border: 1px solid #a782ff !important;
+      color: #2c2044 !important;
     }
 
     .dark &__input {
@@ -217,8 +219,8 @@ onMounted(() => {
       padding: 1rem;
       font-weight: bold;
       font-size: 1rem;
-      border: 1px solid #A782FF !important;
-      color: #2C2044 !important;
+      border: 1px solid #a782ff !important;
+      color: #2c2044 !important;
     }
 
     .dark &__select {
@@ -243,5 +245,4 @@ onMounted(() => {
     }
   }
 }
-
 </style>

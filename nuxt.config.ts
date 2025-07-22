@@ -1,5 +1,3 @@
-const isDev = process.env.NODE_ENV === 'development';
-
 export default defineNuxtConfig({
   app: {
     pageTransition: false,
@@ -25,7 +23,7 @@ export default defineNuxtConfig({
         { name: 'description', content: '' },
         { name: 'format-detection', content: 'telephone=no' },
       ],
-      link: [{ rel: 'icon', type: 'image/x-icon', href: 'https://0af29f8f-sleaf.s3.twcstorage.ru/portfolio/sleaf-icon-short.png' }],
+      link: [{ rel: 'icon', type: 'image/x-icon', href: 'https://s3.sleaf.dev/portfolio/sleaf-icon-short.png' }],
     },
   },
   routeRules: {
@@ -46,7 +44,7 @@ export default defineNuxtConfig({
     },
   },
   experimental: {
-    viewTransition: true,
+    viewTransition: false,
     renderJsonPayloads: true,
   },
   sourcemap: true,

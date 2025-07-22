@@ -23,5 +23,6 @@
   "donate_success": "Thanks for supporting me!",
   "announcements": [],
   "RU": "RU",
-  "EN": "EN"
+  "EN": "EN",
+  "backgroundWords": ["SolsticeLeaf", "Projects", "Development", "Dev"]
 }

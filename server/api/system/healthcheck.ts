@@ -1,5 +1,5 @@
 import pkg from '~/package.json';
-import { connectDB, isConnected } from './database/MongoDB';
+import { connectDB, isConnected } from '../database/MongoDB';
 
 const startTime = new Date();
 
