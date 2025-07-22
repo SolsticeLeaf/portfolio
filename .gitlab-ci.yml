@@ -68,11 +68,12 @@ deploy-mais:
   dependencies:
     - build
   before_script:
-    - echo "Deploying to mais..."
+    - echo "Deploying..."
     - export CRYPTOCLOUD_API_KEY="$CRYPTOCLOUD_API_KEY"
     - export CRYPTOCLOUD_SHOP_ID="$CRYPTOCLOUD_SHOP_ID"
     - export DATABASE_NAME="$DATABASE_NAME"
     - export DATABASE_URL="$DATABASE_URL"
+    - export DOCKER_BUILDKIT=0
   script:
     - docker compose up --detach --build
 
@@ -84,10 +85,11 @@ deploy-res-5:
   dependencies:
     - build
   before_script:
-    - echo "Deploying to helios..."
+    - echo "Deploying..."
     - export CRYPTOCLOUD_API_KEY="$CRYPTOCLOUD_API_KEY"
     - export CRYPTOCLOUD_SHOP_ID="$CRYPTOCLOUD_SHOP_ID"
     - export DATABASE_NAME="$DATABASE_NAME"
     - export DATABASE_URL="$DATABASE_URL"
+    - export DOCKER_BUILDKIT=0
   script:
     - docker compose up --detach --build
