@@ -42,8 +42,8 @@ onUnmounted(() => {
 <template>
   <div class="background">
     <video class="background__video" autoplay loop muted playsinline>
-      <source src="public/background.webm" type="video/webm" />
-      <source src="public/background.mp4" type="video/mp4" />
+      <source src="@@/public/background.webm" type="video/webm" />
+      <source src="@@/public/background.mp4" type="video/mp4" />
     </video>
     <div class="overlap" />
   </div>

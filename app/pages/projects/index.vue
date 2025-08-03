@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ProjectCard from '~/components/card/ProjectCard.vue';
+import ProjectCard from '@/components/card/ProjectCard.vue';
 const { t } = useI18n();
 
 const { data: projects, status: status } = useFetch('/api/projects/getProjectsData', {
@@ -62,7 +62,7 @@ const getSortedProjects = computed(() => {
 </template>
 
 <style scoped lang="scss">
-@use 'assets/scss/screens' as *;
+@use '@/assets/scss/screens' as *;
 
 .blur__glass {
   @media screen and (max-width: $screen-sm) {

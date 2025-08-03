@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import Logo from '~/public/logo.svg?component';
-import initialConfig from '@/config/initial.config';
-import iconsConfig from '~/config/icons.config';
+import Logo from '@@/public/logo.svg?component';
+import iconsConfig from '@@/config/icons.config';
 import NavItems from './NavItems.vue';
 
 const { locale } = useI18n();

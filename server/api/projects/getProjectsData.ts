@@ -1,5 +1,5 @@
-import { getAllProjects } from '../interfaces/projects/Project';
-import { connectDB } from '../database/MongoDB';
+import { getAllProjects } from '../../database/interfaces/projects/Project';
+import { connectDB } from '../../database/MongoDB';
 
 export default defineEventHandler(async (event) => {
   try {

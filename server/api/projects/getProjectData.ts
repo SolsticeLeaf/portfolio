@@ -1,5 +1,5 @@
-import { getProjectByName } from '../interfaces/projects/Project';
-import { connectDB } from '../database/MongoDB';
+import { getProjectByName } from '../../database/interfaces/projects/Project';
+import { connectDB } from '../../database/MongoDB';
 
 export default defineEventHandler(async (event) => {
   const id = getQuery(event).id || 'null';

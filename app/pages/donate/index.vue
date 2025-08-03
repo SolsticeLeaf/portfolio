@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import currencies from '~/config/currencies.config';
-import config from '~/config/initial.config';
-import iconsConfig from '~/config/icons.config';
-import ActionButton from '~/components/utilities/buttons/ActionButton.vue';
+import currencies from '@@/config/currencies.config';
+import config from '@@/config/initial.config';
+import iconsConfig from '@@/config/icons.config';
+import ActionButton from '@/components/utilities/buttons/ActionButton.vue';
 const { t, locale } = useI18n();
 
 onMounted(() => {
   useHead({
-    title: t('donate_title') + ' | ' + config.siteName,
+    title: t('donate_title'),
   });
 });
 

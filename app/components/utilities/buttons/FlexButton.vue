@@ -12,9 +12,9 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
-  customColor: {
-    type: Boolean,
-    default: true,
+  icon: {
+    type: String,
+    required: true,
   },
   color: {
     type: String,
@@ -23,6 +23,10 @@ const props = defineProps({
   textColor: {
     type: String,
     default: 'white',
+  },
+  link: {
+    type: String,
+    default: '#',
   },
   outline: {
     type: Boolean,
@@ -44,14 +48,14 @@ const textStyle = computed(() => ({
 </script>
 
 <template>
-  <div class="button" :style="buttonStyle">
-    <Icon name="codex:loader" class="button__img" :style="textStyle" />
+  <NuxtLink :to="props.link" class="button" :style="buttonStyle">
+    <Icon :name="props.icon" class="button__img" :style="textStyle" />
     <p :style="textStyle">{{ props.text }}</p>
-  </div>
+  </NuxtLink>
 </template>
 
 <style scoped lang="scss">
-@use '~/assets/scss/screens' as *;
+@use '@/assets/scss/screens' as *;
 
 * {
   cursor: pointer;
@@ -66,11 +70,10 @@ const textStyle = computed(() => ({
   padding: 0.5rem 1rem;
   text-decoration: none;
   border-radius: 2rem;
-  animation: pulse 1.5s infinite;
   transition: background-color 0.3s, transform 0.2s, color 0.3s;
 
   &__img {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
 }
 

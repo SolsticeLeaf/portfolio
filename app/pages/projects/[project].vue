@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import config from '@/config/initial.config';
-import TechIcon from '~/components/utilities/TechIcon.vue';
-import iconsConfig from '~/config/icons.config';
+import config from '@@/config/initial.config';
+import TechIcon from '@/components/utilities/TechIcon.vue';
+import iconsConfig from '@@/config/icons.config';
 import { Vue3Marquee } from 'vue3-marquee';
-import FlexButton from '~/components/utilities/buttons/FlexButton.vue';
-import LoadingButton from '~/components/utilities/buttons/LoadingButton.vue';
+import FlexButton from '@/components/utilities/buttons/FlexButton.vue';
+import LoadingButton from '@/components/utilities/buttons/LoadingButton.vue';
 
 const { t, locale } = useI18n();
 const route = useRoute();
@@ -21,7 +21,7 @@ const { data: project, status: status } = useFetch('/api/projects/getProjectData
     const item = response.response._data;
     if (item != null) {
       useHead({
-        title: item.title + ' | ' + config.siteName,
+        title: item.title,
         meta: [
           {
             name: 'description',
@@ -30,7 +30,7 @@ const { data: project, status: status } = useFetch('/api/projects/getProjectData
         ],
       });
     } else {
-      useHead({ title: 'ERROR | ' + config.siteName });
+      useHead({ title: 'ERROR | ' });
     }
   },
 });
