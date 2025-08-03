@@ -9,8 +9,8 @@ const year = new Date().getFullYear();
 </script>
 
 <template>
+  <Waves class="waves" />
   <footer>
-    <Waves class="waves" />
     <div class="text">
       <p>{{ `Copyright © ${year} by SolsticeLeaf.` }}</p>
       <NuxtLink class="text__mail" :href="`mailto:${initialConfig.mail}`">
@@ -24,26 +24,26 @@ const year = new Date().getFullYear();
 
 <style scoped lang="scss">
 .waves {
-  width: auto;
-  height: 40rem;
+  width: 100%;
   display: flex;
-  position: absolute;
   z-index: 1;
+  margin-bottom: -8%;
 }
 
 footer {
   display: flex;
+  flex-direction: column;
   width: 100%;
-  height: 40rem !important;
   justify-content: center;
+  overflow-x: hidden;
+  padding-bottom: 5rem;
+  background: #ffffff;
 
   .text {
     display: flex;
     flex-direction: column;
-    margin-top: 16rem;
     padding: 0 6rem;
     width: 100%;
-    height: 24rem;
     z-index: 2;
     align-items: start;
     justify-content: center;
