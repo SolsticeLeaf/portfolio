@@ -25,11 +25,11 @@ export default defineNuxtConfig({
         { name: 'description', content: '' },
         { name: 'format-detection', content: 'telephone=no' },
       ],
-      link: [{ rel: 'icon', type: 'image/png', href: 'https://s3.sleaf.dev/portfolio/sleaf-icon-short.png' }],
+      link: [
+        { rel: 'icon', type: 'image/webp', href: 'https://s3.sleaf.dev/portfolio/favicon.webp' },
+        { rel: 'icon', type: 'image/png', href: 'https://s3.sleaf.dev/portfolio/favicon.png' },
+      ],
     },
-  },
-  build: {
-    transpile: ['gsap'],
   },
   routeRules: {
     '/**': {

@@ -21,8 +21,9 @@
   "donate_button_home": "Домой",
   "donate_error": "Платёж был отменён!",
   "donate_success": "Спасибо за поддержку!",
+  "welcome": "Добро пожаловать",
   "announcements": [],
-  "RU": "RU",
-  "EN": "EN",
+  "RU": "Русский",
+  "EN": "English",
   "backgroundWords": ["SolsticeLeaf", "Проекты", "Разработка", "Программист"]
 }

@@ -77,26 +77,9 @@ function isActive(path: string): boolean {
       text-decoration: none;
       color: #ffffff;
 
-      &__label {
-        @media screen and (max-width: $screen-md) {
-          display: none;
-        }
-      }
-
       &__icon {
-        width: 1.2rem;
-        height: 1.2rem;
-
-        @media screen and (max-width: $screen-md) {
-          width: 1.6rem;
-          height: 1.6rem;
-        }
-
-        @media screen and (max-width: $screen-sm) {
-          width: 1rem;
-          height: 1rem;
-          padding: 0;
-        }
+        width: 1.5rem;
+        height: 1.5rem;
       }
     }
 

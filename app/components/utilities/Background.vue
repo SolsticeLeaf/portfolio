@@ -1,29 +1,20 @@
 <script setup lang="ts">
 let ticking = false;
 
-const handleScroll = () => {
+const handleScroll = async () => {
   if (!ticking) {
     window.requestAnimationFrame(() => {
-      const scrollY = window.scrollY;
-      let translateFactor = 3;
-      let blurFactor = 0.03;
-
-      if (scrollY < 0) {
-        translateFactor = 1;
-        blurFactor = 0;
-      }
-
-      const translateY = scrollY / translateFactor;
       const background = document.querySelector('.background') as HTMLElement;
       const video = document.querySelector('.background__video') as HTMLElement;
       const overlap = document.querySelector('.overlap') as HTMLElement;
 
-      if (background && video && overlap) {
-        background.style.filter = `blur(${Math.min(100, scrollY * blurFactor)}px)`;
-        video.style.transform = `translateY(${translateY}px)`;
-        overlap.style.transform = `translateY(${translateY}px)`;
-      }
-
+      let scrollY = window.scrollY;
+      let u = 1.65;
+      let i = 0.03;
+      scrollY < 0 && ((u = 1), (i = 0)),
+        (video.style.transform = `translateY(${((scrollY <= 0 ? 0 : scrollY) / u) * -1}px)`),
+        (overlap.style.transform = `translateY(${((scrollY <= 0 ? 0 : scrollY) / u) * -1}px)`),
+        (background.style.filter = `blur(${Math.min(100, scrollY * i)}px)`);
       ticking = false;
     });
     ticking = true;
@@ -52,17 +43,15 @@ onUnmounted(() => {
 <style scoped lang="scss">
 .background {
   display: flex;
-  position: absolute;
+  position: fixed;
   width: 100%;
-  top: 0;
+  top: -4rem;
   left: 0;
 }
 
 .background__video {
-  display: flex;
   z-index: -2;
   width: 100%;
-  transition: transform 0.3s ease-out;
 }
 
 .overlap {
@@ -73,6 +62,5 @@ onUnmounted(() => {
   position: absolute;
   z-index: 0;
   top: 42vw;
-  transition: transform 0.3s ease-out;
 }
 </style>

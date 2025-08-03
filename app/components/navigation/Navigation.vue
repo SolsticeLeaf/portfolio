@@ -3,8 +3,13 @@ import Logo from '@@/public/logo.svg?component';
 import iconsConfig from '@@/config/icons.config';
 import NavItems from './NavItems.vue';
 
-const { locale } = useI18n();
-const route = useRoute();
+const { locale, locales, setLocale } = useI18n();
+
+const selectedLanguage = ref<any>(
+  locales.value.filter((loc: any) => {
+    return loc.code === locale.value;
+  })[0] || locales.value[0]
+);
 
 const homePath = computed(() => {
   return `/${locale.value}`;
@@ -12,9 +17,6 @@ const homePath = computed(() => {
 
 const links = computed((): any => {
   const currentLocale = locale.value;
-  const alternateLocale = currentLocale === 'en' ? 'ru' : 'en';
-  const currentPath = route.path;
-  const alternatePath = currentPath.replace(`/${currentLocale}`, `/${alternateLocale}`);
   return [
     {
       label: 'nav_home',
@@ -30,38 +32,46 @@ const links = computed((): any => {
       postfix: '',
       vif: true,
       type: 'path',
-      action: `/${currentLocale}/projects`,
+      action: `/projects`,
     },
     {
+      label: 'nav_donate',
       icon: iconsConfig.nav_donate,
       vif: true,
       type: 'path',
-      action: `/${currentLocale}/donate`,
-    },
-    {
-      label: locale.value.toUpperCase(),
-      icon: iconsConfig.nav_lang,
-      vif: true,
-      type: 'path',
-      action: alternatePath,
+      action: `/donate`,
     },
   ];
 });
 </script>
 
 <template>
-  <nav id="navbar">
-    <div class="wrapper glass">
-      <Suspense>
-        <NuxtLink :to="homePath" class="logo">
-          <Logo class="logo__name" />
-        </NuxtLink>
-      </Suspense>
-      <div class="nav">
+  <nav>
+    <Suspense>
+      <NuxtLink :to="homePath" class="logo">
+        <Logo class="logo__name" />
+      </NuxtLink>
+    </Suspense>
+    <div class="main-body">
+      <div class="wrapper glass">
         <Suspense>
           <KeepAlive>
             <NavItems :links="links" />
           </KeepAlive>
+        </Suspense>
+      </div>
+    </div>
+    <div class="locale-body">
+      <div class="locale">
+        <Suspense>
+          <div class="locale__selector glass">
+            <Icon :name="iconsConfig.nav_lang" class="locale__selector__select__icon" />
+            <select class="locale__selector__select" v-model="selectedLanguage" @change="setLocale(selectedLanguage.code)">
+              <option v-for="locale in locales" :value="locale">
+                {{ locale.name }}
+              </option>
+            </select>
+          </div>
         </Suspense>
       </div>
     </div>
@@ -74,47 +84,33 @@ const links = computed((): any => {
 .glass {
   filter: none !important;
   -webkit-filter: none !important;
-  backdrop-filter: blur(40px);
-  -webkit-backdrop-filter: blur(40px);
-  border: 1px solid rgba(44, 32, 68, 0.11);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 3px solid rgba(44, 32, 68, 0.073);
+  border-radius: 2rem;
 }
 
 nav {
   display: flex;
   flex-direction: row;
   vertical-align: middle;
-  width: 50%;
+  width: 100%;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  justify-content: space-between;
-  padding: 1rem 2rem;
+  align-items: center;
+  padding: 1.5rem 0;
   z-index: 100;
-
-  .wrapper {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    border-radius: 2rem;
-    padding: 1rem 1.5rem;
-    width: 100%;
-  }
-
-  .nav {
-    width: fit-content;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    gap: 1.2rem;
-  }
+  position: sticky;
+  height: 4.5rem;
+  top: 0;
+  z-index: 15;
 
   .logo {
     width: fit-content;
     height: 100%;
-    max-height: 100%;
+    width: 20%;
     display: inline-flex;
     flex-direction: column;
     justify-content: center;
@@ -124,11 +120,76 @@ nav {
     text-decoration: none;
 
     &__name {
+      height: 100%;
       fill: #ffffff;
       transition: fill 0.4s ease;
 
       &:hover {
         fill: rgb(0, 255, 178) !important;
+      }
+    }
+  }
+
+  .main-body {
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    width: 60% !important;
+  }
+
+  .wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    gap: 1.2rem;
+    width: fit-content;
+  }
+
+  .locale-body {
+    display: flex;
+    justify-content: center;
+    width: 20%;
+    height: 100%;
+  }
+
+  .locale {
+    display: flex;
+
+    &__selector {
+      display: flex;
+      text-decoration: none;
+      padding: 0 1rem;
+      align-items: center;
+      justify-content: center;
+      gap: 0.2rem;
+
+      &__select {
+        display: inline-block;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background: none;
+        border: none;
+        color: #ffffff;
+        height: 70%;
+        text-align-last: center;
+
+        &:focus {
+          outline: none;
+        }
+
+        &:hover {
+          color: rgb(0, 255, 178);
+          cursor: pointer;
+        }
+
+        &__icon {
+          color: #ffffff;
+          width: 1.5rem;
+          height: 1.5rem;
+        }
       }
     }
   }

@@ -15,6 +15,7 @@
   height: 100%;
   width: 100%;
   mix-blend-mode: color-burn;
+  pointer-events: none;
 }
 
 .grain:after {

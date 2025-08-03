@@ -3,6 +3,7 @@ import { KeepAlive } from 'vue';
 import Navigation from './components/navigation/Navigation.vue';
 import Background from './components/utilities/Background.vue';
 import Grain from './components/utilities/Grain.vue';
+import Footer from './components/footer/Footer.vue';
 </script>
 
 <template>
@@ -12,7 +13,7 @@ import Grain from './components/utilities/Grain.vue';
         <ClientOnly>
           <KeepAlive>
             <Suspense>
-              <Navigation class="navbar" />
+              <Navigation />
             </Suspense>
           </KeepAlive>
           <KeepAlive>
@@ -24,6 +25,9 @@ import Grain from './components/utilities/Grain.vue';
         </ClientOnly>
         <Suspense>
           <NuxtPage />
+        </Suspense>
+        <Suspense>
+          <Footer />
         </Suspense>
       </div>
     </NuxtLayout>
@@ -41,18 +45,5 @@ import Grain from './components/utilities/Grain.vue';
   justify-content: space-between;
   width: 100vw;
   max-width: 100vw;
-}
-
-.navbar {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  position: sticky;
-  top: 0;
-  z-index: 15;
-
-  @media screen and (max-width: $screen-xss) {
-    height: 4rem;
-  }
 }
 </style>

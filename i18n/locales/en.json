@@ -21,8 +21,9 @@
   "donate_button_home": "Home",
   "donate_error": "Payment has been canceled!",
   "donate_success": "Thanks for supporting me!",
+  "welcome": "you're welcome",
   "announcements": [],
-  "RU": "RU",
-  "EN": "EN",
+  "RU": "Russian",
+  "EN": "English",
   "backgroundWords": ["SolsticeLeaf", "Projects", "Development", "Dev"]
 }
