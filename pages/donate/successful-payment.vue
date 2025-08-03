@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import config from "~/config/initial.config";
-import FlexButton from "~/components/utilities/FlexButton.vue";
-import iconsConfig from "~/config/icons.config";
+import config from '~/config/initial.config';
+import FlexButton from '~/components/utilities/buttons/FlexButton.vue';
+import iconsConfig from '~/config/icons.config';
 
-const { t, locale } = useI18n()
+const { t, locale } = useI18n();
 
 onMounted(() => {
   useHead({
-    title: t('donate_success') + " | " + config.siteName
+    title: t('donate_success') + ' | ' + config.siteName,
   });
-})
+});
 
 const getProjectsPath = computed(() => {
-  return `/${locale.value}/`
-})
+  return `/${locale.value}/`;
+});
 </script>
 
 <template>
@@ -21,21 +21,22 @@ const getProjectsPath = computed(() => {
     <div class="wrapper">
       <div class="card">
         <div class="card__top">
-          <Icon class="card__top__image" :name="iconsConfig.donate_success"/>
+          <Icon class="card__top__image" :name="iconsConfig.donate_success" />
         </div>
         <div class="blur__glass">
           <h6 class="card__title">
             {{ t('donate_success') }}
           </h6>
           <div class="card__bottom">
-            <FlexButton :text="t('donate_button_home')"
-                        :text-bold="true"
-                        text-color="#252525"
-                        :icon="iconsConfig.back_home"
-                        color="#50C878"
-                        :link="getProjectsPath"
-                        class="card__bottom__button"
-                        :outline="false" />
+            <FlexButton
+              :text="t('donate_button_home')"
+              :text-bold="true"
+              text-color="#252525"
+              :icon="iconsConfig.back_home"
+              color="#50C878"
+              :link="getProjectsPath"
+              class="card__bottom__button"
+              :outline="false" />
           </div>
         </div>
       </div>
@@ -85,7 +86,7 @@ const getProjectsPath = computed(() => {
     width: 100%;
     text-align: center;
     padding-bottom: 1rem;
-    color: #2C2044;
+    color: #2c2044;
   }
 
   .dark &__title {
@@ -104,5 +105,4 @@ const getProjectsPath = computed(() => {
     }
   }
 }
-
 </style>

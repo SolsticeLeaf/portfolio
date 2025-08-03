@@ -3,11 +3,10 @@ import config from '@/config/initial.config';
 import TechIcon from '~/components/utilities/TechIcon.vue';
 import iconsConfig from '~/config/icons.config';
 import { Vue3Marquee } from 'vue3-marquee';
-import FlexButton from '~/components/utilities/FlexButton.vue';
-import LoadingButton from '~/components/utilities/LoadingButton.vue';
+import FlexButton from '~/components/utilities/buttons/FlexButton.vue';
+import LoadingButton from '~/components/utilities/buttons/LoadingButton.vue';
 
 const { t, locale } = useI18n();
-const theme = useColorMode();
 const route = useRoute();
 
 const { data: project, status: status } = useFetch('/api/projects/getProjectData', {
@@ -248,7 +247,7 @@ function hasDownloadLink() {
           <FlexButton
             :text="t('project_back_button')"
             :text-bold="true"
-            :text-color="theme.value === 'dark' ? '#ffffff' : '#2C2044'"
+            text-color="#ffffff"
             :icon="iconsConfig.back_home"
             color="transparent"
             :link="getProjectsPath"

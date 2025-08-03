@@ -49,13 +49,10 @@ function isActive(path: string): boolean {
 @use '/assets/scss/screens.scss' as *;
 
 .active {
-  color: #502da1 !important;
+  color: rgb(0, 255, 178) !important;
   font-weight: bold;
-  border-bottom: 1px solid;
-}
-
-.dark .active {
-  color: #fcf58d !important;
+  padding-bottom: 0.5rem;
+  border-bottom: 3px rgb(255, 123, 245) solid;
 }
 
 .nav {
@@ -78,7 +75,7 @@ function isActive(path: string): boolean {
       gap: 0.2rem;
       height: 100%;
       text-decoration: none;
-      color: #2c2044;
+      color: #ffffff;
 
       &__label {
         @media screen and (max-width: $screen-md) {
@@ -103,17 +100,11 @@ function isActive(path: string): boolean {
       }
     }
 
-    .dark &__default {
-      color: #ffffff;
-    }
-
     &__default:hover {
-      color: #40267d;
+      color: rgb(0, 255, 178);
+      padding-bottom: 0.5rem;
+      border-bottom: 3px solid;
       cursor: pointer;
-    }
-
-    .dark &__default:hover {
-      color: #c6c071;
     }
   }
 }

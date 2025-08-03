@@ -2,7 +2,7 @@
 import currencies from '~/config/currencies.config';
 import config from '~/config/initial.config';
 import iconsConfig from '~/config/icons.config';
-import ActionButton from '~/components/utilities/ActionButton.vue';
+import ActionButton from '~/components/utilities/buttons/ActionButton.vue';
 const { t, locale } = useI18n();
 
 onMounted(() => {

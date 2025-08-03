@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import ProjectCard from '~/components/card/ProjectCard.vue';
-import config from '~/config/initial.config';
 const { t } = useI18n();
 
 const { data: projects, status: status } = useFetch('/api/projects/getProjectsData', {
@@ -12,7 +11,7 @@ const { data: projects, status: status } = useFetch('/api/projects/getProjectsDa
 
 onMounted(() => {
   useHead({
-    title: t('nav_projects') + ' | ' + config.siteName,
+    title: t('nav_projects'),
   });
 });
 

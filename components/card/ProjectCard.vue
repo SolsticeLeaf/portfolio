@@ -1,39 +1,39 @@
 <script setup lang="ts">
-import FlexButton from "~/components/utilities/FlexButton.vue";
-import iconsConfig from "~/config/icons.config";
+import FlexButton from '~/components/utilities/buttons/FlexButton.vue';
+import iconsConfig from '~/config/icons.config';
 
-const { t, locale } = useI18n()
+const { t, locale } = useI18n();
 
 const props = defineProps({
   id: {
     type: String,
-    required: true
+    required: true,
   },
   title: {
     type: String,
-    required: true
+    required: true,
   },
   description: {
     type: Object,
-    required: true
+    required: true,
   },
   imageLink: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
 });
 
 function getImageUrl(path: string): string {
-  return new URL(path, import.meta.url).href
+  return new URL(path, import.meta.url).href;
 }
 
 function getDescription(description: any): string {
   const currentLocale = locale.value;
-  const localed = description[currentLocale]
+  const localed = description[currentLocale];
   if (localed) {
-    return localed
+    return localed;
   }
-  return description["en"]
+  return description['en'];
 }
 </script>
 
@@ -41,7 +41,7 @@ function getDescription(description: any): string {
   <ClientOnly>
     <div class="card blur__glass">
       <div class="card__image">
-        <nuxt-img loading="lazy" class="card__image__content" :src="getImageUrl(imageLink)"/>
+        <nuxt-img loading="lazy" class="card__image__content" :src="getImageUrl(imageLink)" />
       </div>
       <div class="card__info">
         <div class="card__info__title">
@@ -52,14 +52,15 @@ function getDescription(description: any): string {
         </div>
       </div>
       <div class="card__button">
-        <FlexButton :text="t('read_more')"
-                    :text-bold="true"
-                    text-color="#f8f8f8"
-                    :icon="iconsConfig.read_more"
-                    color="#008080"
-                    :link="`/projects/${props.id}`"
-                    class="main__content__button__btn"
-                    :outline="false" />
+        <FlexButton
+          :text="t('read_more')"
+          :text-bold="true"
+          text-color="#f8f8f8"
+          :icon="iconsConfig.read_more"
+          color="#008080"
+          :link="`/projects/${props.id}`"
+          class="main__content__button__btn"
+          :outline="false" />
       </div>
     </div>
   </ClientOnly>
@@ -76,7 +77,7 @@ function getDescription(description: any): string {
 ::-webkit-scrollbar-thumb {
   border-radius: 3rem;
   background-color: rgba(100, 100, 100, 0.5);
-  box-shadow: 0 0 1px rgba(255, 255, 255, .2);
+  box-shadow: 0 0 1px rgba(255, 255, 255, 0.2);
 }
 
 .blur__glass {
@@ -128,7 +129,7 @@ function getDescription(description: any): string {
 
       &__text {
         overflow: hidden;
-        background: -webkit-linear-gradient(0deg, #A782FF 15%, #9872cb 60%, #4a2e7c 100%);
+        background: -webkit-linear-gradient(0deg, #a782ff 15%, #9872cb 60%, #4a2e7c 100%);
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -192,5 +193,4 @@ function getDescription(description: any): string {
     }
   }
 }
-
 </style>

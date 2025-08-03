@@ -1,62 +1,61 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-
 const props = defineProps({
   text: {
     type: String,
-    default: ''
+    required: true,
   },
   textInvertedColor: {
     type: Boolean,
-    default: false
+    default: false,
   },
   textBold: {
     type: Boolean,
-    default: true
+    default: true,
   },
   icon: {
     type: String,
-    required: true
+    required: true,
   },
   color: {
     type: String,
-    default: '#50C878'
+    default: '#50C878',
   },
   textColor: {
     type: String,
-    default: 'white'
+    default: 'white',
   },
-  click: {
-    type: Promise<void>,
-    default: () => {}
+  link: {
+    type: String,
+    default: '#',
   },
   outline: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
 });
 
 const buttonStyle = computed(() => ({
   backgroundColor: props.outline ? 'transparent' : props.color,
   border: `2px solid ${props.color}`,
-  color: props.outline ? props.color : 'white'
+  color: props.outline ? props.color : 'white',
 }));
 
 const textStyle = computed(() => ({
   color: props.textInvertedColor ? 'white' : props.textColor,
   fontWeight: props.textBold ? 'bold' : 'normal',
-  mixBlendMode: props.textInvertedColor ? 'difference' : 'none'
-}))
+  mixBlendMode: props.textInvertedColor ? 'difference' : 'none',
+}));
 </script>
 
 <template>
-  <div @click="props.click" class="button" :style="buttonStyle">
-    <Icon :name="props.icon" class="button__img" :style="textStyle"></Icon>
-    <p :style="textStyle" v-if="props.text.length > 0">{{ props.text }}</p>
-  </div>
+  <NuxtLink :to="props.link" class="button" :style="buttonStyle">
+    <Icon :name="props.icon" class="button__img" :style="textStyle" />
+    <p :style="textStyle">{{ props.text }}</p>
+  </NuxtLink>
 </template>
 
 <style scoped lang="scss">
+@use '~/assets/scss/screens' as *;
 
 * {
   cursor: pointer;

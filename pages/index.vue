@@ -1,14 +1,14 @@
-<script setup lang="ts">
-import HeroSection from "~/components/section/HeroSection.vue";
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <ClientOnly>
-    <KeepAlive>
-      <HeroSection/>
-    </KeepAlive>
+    <div class="wrapper"></div>
   </ClientOnly>
 </template>
 
 <style scoped lang="scss">
+.wrapper {
+  z-index: 1;
+  height: 500rem !important;
+}
 </style>

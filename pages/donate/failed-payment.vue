@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import config from "~/config/initial.config";
-import FlexButton from "~/components/utilities/FlexButton.vue";
-import iconsConfig from "~/config/icons.config";
+import config from '~/config/initial.config';
+import FlexButton from '~/components/utilities/buttons/FlexButton.vue';
+import iconsConfig from '~/config/icons.config';
 
-const { t, locale } = useI18n()
+const { t, locale } = useI18n();
 
 onMounted(() => {
   useHead({
-    title: t('donate_error') + " | " + config.siteName
+    title: t('donate_error') + ' | ' + config.siteName,
   });
-})
+});
 
 const getProjectsPath = computed(() => {
-  return `/${locale.value}/`
-})
+  return `/${locale.value}/`;
+});
 </script>
 
 <template>
@@ -25,14 +25,15 @@ const getProjectsPath = computed(() => {
             {{ t('donate_error') }}
           </h6>
           <div class="card__bottom">
-            <FlexButton :text="t('donate_button_home')"
-                        :text-bold="true"
-                        text-color="#f8f8f8"
-                        :icon="iconsConfig.back_home"
-                        color="#D30000"
-                        :link="getProjectsPath"
-                        class="card__bottom__button"
-                        :outline="false" />
+            <FlexButton
+              :text="t('donate_button_home')"
+              :text-bold="true"
+              text-color="#f8f8f8"
+              :icon="iconsConfig.back_home"
+              color="#D30000"
+              :link="getProjectsPath"
+              class="card__bottom__button"
+              :outline="false" />
           </div>
         </div>
       </div>
@@ -70,7 +71,7 @@ const getProjectsPath = computed(() => {
     width: 100%;
     text-align: center;
     padding-bottom: 1rem;
-    color: #2C2044;
+    color: #2c2044;
   }
 
   .dark &__title {
@@ -89,5 +90,4 @@ const getProjectsPath = computed(() => {
     }
   }
 }
-
 </style>
