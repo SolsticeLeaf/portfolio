@@ -1,10 +1,9 @@
 <script setup lang="ts">
-
 const props = defineProps({
   words: {
     type: Array<string>,
-    required: true
-  }
+    required: true,
+  },
 });
 
 const typeValue = ref('');
@@ -16,11 +15,9 @@ const displayTextArrayIndex = ref(0);
 const charIndex = ref(0);
 
 const typeText = () => {
-  if (charIndex.value < props.words[displayTextArrayIndex.value].length) {
+  if (charIndex.value < (props.words[displayTextArrayIndex.value]?.length || 0)) {
     if (!typeStatus.value) typeStatus.value = true;
-    typeValue.value += props.words[displayTextArrayIndex.value].charAt(
-        charIndex.value
-    );
+    typeValue.value += props.words[displayTextArrayIndex.value]?.charAt(charIndex.value);
     charIndex.value += 1;
     setTimeout(typeText, typingSpeed);
   } else {
@@ -32,21 +29,20 @@ const typeText = () => {
 const eraseText = () => {
   if (charIndex.value > 0) {
     if (!typeStatus.value) typeStatus.value = true;
-    typeValue.value = props.words[displayTextArrayIndex.value].substring(0, charIndex.value - 1);
+    typeValue.value = props.words[displayTextArrayIndex.value]?.substring(0, charIndex.value - 1) || '';
     charIndex.value -= 1;
     setTimeout(eraseText, erasingSpeed);
   } else {
     typeStatus.value = false;
     displayTextArrayIndex.value += 1;
-    if (displayTextArrayIndex.value >= props.words.length)
-      displayTextArrayIndex.value = 0;
+    if (displayTextArrayIndex.value >= props.words.length) displayTextArrayIndex.value = 0;
     setTimeout(typeText, typingSpeed + 1000);
   }
 };
 
 onMounted(() => {
   setTimeout(typeText, newTextDelay + 200);
-})
+});
 </script>
 
 <template>
@@ -60,18 +56,18 @@ onMounted(() => {
 </template>
 
 <style scoped lang="scss">
-@use "@/assets/scss/screens.scss" as *;
+@use '@/assets/scss/screens.scss' as *;
 
 h6 {
   font-weight: normal;
 }
 
 .typed-text {
-  color: #29183F;
+  color: #29183f;
 }
 
 .dark .typed-text {
-  color: #BFA8E0;
+  color: #bfa8e0;
 }
 
 .typed-text {

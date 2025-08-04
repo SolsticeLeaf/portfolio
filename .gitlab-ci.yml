@@ -56,7 +56,6 @@ build:
     paths:
       - .nuxt/
       - .output/
-      - config/
       - i18n/
     expire_in: 1 hour
 

@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import currencies from '@@/config/currencies.config';
-import config from '@@/config/initial.config';
-import iconsConfig from '@@/config/icons.config';
 import ActionButton from '@/components/utilities/buttons/ActionButton.vue';
+
+const config = useAppConfig();
 const { t, locale } = useI18n();
 
 onMounted(() => {
@@ -21,7 +20,7 @@ function getDefaultCurrency(list: any) {
   return defaultCurrency;
 }
 
-const defaultCurrency = getDefaultCurrency(currencies);
+const defaultCurrency = getDefaultCurrency(config.currencies);
 
 const amount = computed(() => {
   return document.getElementById('donateInput') as HTMLInputElement;
@@ -82,7 +81,7 @@ onMounted(() => {
     <div class="wrapper">
       <div class="card">
         <div class="card__top">
-          <Icon class="card__top__image" :name="iconsConfig.donate" />
+          <Icon class="card__top__image" :name="config.icons.donate" />
         </div>
         <div class="blur__glass">
           <h6 class="card__title">
@@ -100,7 +99,7 @@ onMounted(() => {
               size="10" />
             <h6>/</h6>
             <select class="card__main__select" v-model="currency" @change="changeAmount">
-              <option v-for="curr in currencies" :value="curr">
+              <option v-for="curr in config.currencies" :value="curr">
                 {{ curr.name + ' ' + curr.symbol }}
               </option>
             </select>
@@ -110,9 +109,9 @@ onMounted(() => {
               :text="t('donate_send')"
               :text-bold="true"
               text-color="#252525"
-              :icon="iconsConfig.donate_pay"
+              :icon="config.icons.donate_pay"
               color="#50C878"
-              :click="pay"
+              :click="pay()"
               class="card__bottom__button"
               :outline="false" />
           </div>

@@ -42,15 +42,19 @@ const buttonStyle = computed(() => ({
   color: props.outline ? props.color : 'white',
 }));
 
-const textStyle = computed(() => ({
+const textStyle: any = computed(() => ({
   color: props.textInvertedColor ? 'white' : props.textColor,
   fontWeight: props.textBold ? 'bold' : 'normal',
   mixBlendMode: props.textInvertedColor ? 'difference' : 'none',
 }));
+
+async function runAction() {
+  await props.click;
+}
 </script>
 
 <template>
-  <div @click="props.click" class="button" :style="buttonStyle">
+  <div @click="runAction()" class="button" :style="buttonStyle">
     <Icon :name="props.icon" class="button__img" :style="textStyle"></Icon>
     <p :style="textStyle" v-if="props.text.length > 0">{{ props.text }}</p>
   </div>

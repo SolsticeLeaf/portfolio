@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import config from '@@/config/initial.config';
 import FlexButton from '@/components/utilities/buttons/FlexButton.vue';
-import iconsConfig from '@@/config/icons.config';
 
+const config = useAppConfig();
 const { t, locale } = useI18n();
 
 onMounted(() => {
@@ -29,7 +28,7 @@ const getProjectsPath = computed(() => {
               :text="t('donate_button_home')"
               :text-bold="true"
               text-color="#f8f8f8"
-              :icon="iconsConfig.back_home"
+              :icon="config.icons.back_home"
               color="#D30000"
               :link="getProjectsPath"
               class="card__bottom__button"

@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import Separator from '~/components/utilities/Separator.vue';
+
+const config = useAppConfig();
 </script>
 
 <template>
@@ -8,7 +10,7 @@ import Separator from '~/components/utilities/Separator.vue';
       <div class="hero">
         <section class="main">
           <div class="main__left">
-            <NuxtImg class="main__left__img" src="https://s3.sleaf.dev/portfolio/astronaut.webp" loading="lazy" decoding="async" placeholder />
+            <NuxtImg class="main__left__img" :src="config.data.astronautImg" loading="lazy" decoding="async" placeholder />
           </div>
           <div class="main__right">
             <h1 class="main__right__title">Hello, remember no-ai coding?</h1>

@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import config from '@@/config/initial.config';
 import TechIcon from '@/components/utilities/TechIcon.vue';
-import iconsConfig from '@@/config/icons.config';
 import { Vue3Marquee } from 'vue3-marquee';
 import FlexButton from '@/components/utilities/buttons/FlexButton.vue';
 import LoadingButton from '@/components/utilities/buttons/LoadingButton.vue';
 
+const config = useAppConfig();
 const { t, locale } = useI18n();
 const route = useRoute();
 
@@ -119,7 +118,7 @@ function hasDownloadLink() {
               :text="t('download_button') + (downloadData?.data?.version || '')"
               :text-bold="true"
               text-color="#f8f8f8"
-              :icon="iconsConfig.download"
+              :icon="config.icons.download"
               color="#50C878"
               :link="downloadData?.data?.downloadLink || project.downloadLink"
               class="info__buttons__btn"
@@ -137,7 +136,7 @@ function hasDownloadLink() {
             :text="t('back_button')"
             :text-bold="true"
             text-color="#f8f8f8"
-            :icon="iconsConfig.back_home"
+            :icon="config.icons.back_home"
             color="#D30000"
             :link="getProjectsPath"
             class="info__buttons__btn"
@@ -151,7 +150,7 @@ function hasDownloadLink() {
               :text="t('project_back_button')"
               :text-bold="true"
               text-color="#c74600"
-              :icon="iconsConfig.back_home"
+              :icon="config.icons.back_home"
               color="transparent"
               :link="getProjectsPath"
               class="back-button"
@@ -224,7 +223,7 @@ function hasDownloadLink() {
                   :text="t('download_button') + (downloadData?.data?.version || '')"
                   :text-bold="true"
                   text-color="#f8f8f8"
-                  :icon="iconsConfig.download"
+                  :icon="config.icons.download"
                   color="#50C878"
                   :link="downloadData?.data?.downloadLink || project.downloadLink"
                   class="info__buttons__btn"
@@ -248,7 +247,7 @@ function hasDownloadLink() {
             :text="t('project_back_button')"
             :text-bold="true"
             text-color="#ffffff"
-            :icon="iconsConfig.back_home"
+            :icon="config.icons.back_home"
             color="transparent"
             :link="getProjectsPath"
             class="back-button"

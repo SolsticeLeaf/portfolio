@@ -40,7 +40,7 @@ const buttonStyle = computed(() => ({
   color: props.outline ? props.color : 'white',
 }));
 
-const textStyle = computed(() => ({
+const textStyle: any = computed(() => ({
   color: props.textInvertedColor ? 'white' : props.textColor,
   fontWeight: props.textBold ? 'bold' : 'normal',
   mixBlendMode: props.textInvertedColor ? 'difference' : 'none',

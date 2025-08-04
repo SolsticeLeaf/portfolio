@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import Logo from '@@/public/logo.svg?component';
-import iconsConfig from '@@/config/icons.config';
 import NavItems from './NavItems.vue';
 
+const config = useAppConfig();
 const { locale, locales, setLocale } = useI18n();
 
 const selectedLanguage = ref<any>(
@@ -20,7 +20,7 @@ const links = computed((): any => {
   return [
     {
       label: 'nav_home',
-      icon: iconsConfig.nav_home,
+      icon: config.icons.nav_home,
       postfix: '',
       vif: true,
       type: 'path',
@@ -28,7 +28,7 @@ const links = computed((): any => {
     },
     {
       label: 'nav_projects',
-      icon: iconsConfig.nav_projects,
+      icon: config.icons.nav_projects,
       postfix: '',
       vif: true,
       type: 'path',
@@ -36,7 +36,7 @@ const links = computed((): any => {
     },
     {
       label: 'nav_donate',
-      icon: iconsConfig.nav_donate,
+      icon: config.icons.nav_donate,
       vif: true,
       type: 'path',
       action: `/donate`,
@@ -65,7 +65,7 @@ const links = computed((): any => {
       <div class="locale">
         <Suspense>
           <div class="locale__selector glass">
-            <Icon :name="iconsConfig.nav_lang" class="locale__selector__select__icon" />
+            <Icon :name="config.icons.nav_lang" class="locale__selector__select__icon" />
             <select class="locale__selector__select" v-model="selectedLanguage" @change="setLocale(selectedLanguage.code)">
               <option v-for="locale in locales" :value="locale">
                 {{ locale.name }}

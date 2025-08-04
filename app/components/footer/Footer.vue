@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import iconsConfig from '~~/config/icons.config';
 import Waves from '@@/public/waves.svg?component';
-import initialConfig from '~~/config/initial.config';
 
+const config = useAppConfig();
 const { t } = useI18n();
 
 const year = new Date().getFullYear();
@@ -13,9 +12,9 @@ const year = new Date().getFullYear();
   <footer>
     <div class="text">
       <p>{{ `Copyright © ${year} by SolsticeLeaf.` }}</p>
-      <NuxtLink class="text__mail" :href="`mailto:${initialConfig.mail}`">
-        <Icon :name="iconsConfig.email" class="text__mail__icon" />
-        <p class="text__mail__text">{{ initialConfig.mail }}</p>
+      <NuxtLink class="text__mail" :href="`mailto:${config.data.mail}`">
+        <Icon :name="config.icons.email" class="text__mail__icon" />
+        <p class="text__mail__text">{{ config.data.mail }}</p>
       </NuxtLink>
       <p class="null">{{ `${t('welcome')}, /dev/null™` }}</p>
     </div>
