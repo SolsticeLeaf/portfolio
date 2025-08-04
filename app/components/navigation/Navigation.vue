@@ -102,7 +102,7 @@ nav {
   align-items: center;
   padding: 1.5rem 0;
   z-index: 100;
-  position: sticky;
+  position: absolute;
   height: 4.5rem;
   top: 0;
   z-index: 15;

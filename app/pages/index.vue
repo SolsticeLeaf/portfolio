@@ -41,20 +41,20 @@ import Separator from '~/components/utilities/Separator.vue';
   width: 80%;
   max-width: 80%;
   align-items: center;
-  padding-top: 40vh;
 }
 
 .main {
   display: flex;
   flex-direction: row;
   width: 100%;
-  height: fit-content;
+  height: 95vh;
   color: #ffffff;
   justify-content: center;
-  padding-bottom: 5rem;
 
   &__left {
     display: flex;
+    align-items: baseline;
+    align-self: flex-end;
 
     &__img {
       width: 30rem;
