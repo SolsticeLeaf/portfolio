@@ -9,7 +9,7 @@ const handleScroll = async () => {
       const overlap = document.querySelector('.overlap') as HTMLElement;
 
       let scrollY = window.scrollY;
-      let u = 1.65;
+      let u = 2.65;
       let i = 0.03;
       scrollY < 0 && ((u = 1), (i = 0)),
         (video.style.transform = `translateY(${((scrollY <= 0 ? 0 : scrollY) / u) * -1}px)`),
