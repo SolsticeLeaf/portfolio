@@ -4,10 +4,9 @@ import { connectDB } from '../../database/MongoDB';
 export default defineEventHandler(async (event) => {
   try {
     await connectDB();
-    const projects = await getAllProjects();
-    return projects || [];
+    return { projects: (await getAllProjects()) || [] };
   } catch (error) {
     console.error('Error on getting all projects: ', error);
-    return [];
+    return { projects: [] };
   }
 });

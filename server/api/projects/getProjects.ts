@@ -6,8 +6,7 @@ export default defineEventHandler(async (event) => {
   const { amount } = body;
   try {
     await connectDB();
-    const projects = await getProjects(amount);
-    return { projects: projects || [] };
+    return { projects: (await getProjects(amount)) || [] };
   } catch (error) {
     console.error('Error on getting some projects: ', error);
     return { projects: [] };

@@ -18,14 +18,12 @@ const templateCycle = [
 onBeforeMount(async () => {
   try {
     const { projects: response_projects } = await $fetch('/api/projects/getProjects', {
-      key: 'projects',
       default: () => [],
-      method: 'POST',
       cache: 'no-cache',
       server: false,
+      method: 'POST',
       body: { amount: 4 },
     });
-    console.log(response_projects);
     projects.value = response_projects;
   } finally {
     status.value = true;
