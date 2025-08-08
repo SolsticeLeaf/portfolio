@@ -8,7 +8,8 @@
     "dev": "nuxi dev --host",
     "generate": "nuxi generate",
     "preview": "nuxi preview",
-    "postinstall": "nuxi prepare"
+    "postinstall": "nuxi prepare",
+    "deploy": "node .output/server/index.mjs"
   },
   "dependencies": {
     "@nuxt/fonts": "^0.11.4",
