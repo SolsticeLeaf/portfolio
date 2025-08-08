@@ -1,8 +1,57 @@
 <script setup lang="ts">
 import Calendar from '~/components/gitlab/Calendar.vue';
 import Separator from '~/components/utilities/Separator.vue';
+import ProjectCard from '~/components/projects/ProjectCard.vue';
 
+const { t } = useI18n();
 const config = useAppConfig();
+
+const projects = ref<any[]>([]);
+const status = ref(false);
+
+const templateCycle = [
+  ['60%', '40%'],
+  ['50%', '50%'],
+  ['40%', '60%'],
+];
+
+onBeforeMount(async () => {
+  try {
+    const { projects: response_projects } = await $fetch('/api/projects/getProjects', {
+      key: 'projects',
+      default: () => [],
+      method: 'POST',
+      cache: 'no-cache',
+      server: false,
+      body: { amount: 4 },
+    });
+    console.log(response_projects);
+    projects.value = response_projects;
+  } finally {
+    status.value = true;
+  }
+});
+
+const projectRows = computed(() => {
+  const result = [];
+
+  for (let i = 0; i < projects.value.length; i += 2) {
+    const pair = projects.value.slice(i, i + 2);
+    const rowIndex = Math.floor(i / 2);
+    const template = templateCycle[rowIndex % templateCycle.length] ?? ['50%', '50%'];
+
+    if (pair.length === 1) {
+      result.push([{ project: pair[0], width: '100%' }]);
+    } else {
+      result.push([
+        { project: pair[0], width: template[0] },
+        { project: pair[1], width: template[1] },
+      ]);
+    }
+  }
+
+  return result;
+});
 </script>
 
 <template>
@@ -13,17 +62,29 @@ const config = useAppConfig();
           <NuxtImg class="main-section__left__img" :src="config.images.astronautImg" loading="lazy" decoding="async" placeholder />
         </div>
         <div class="main-section__right">
-          <h1 class="main-section__right__title">Hello, remember no-ai coding?</h1>
+          <h1>{{ t('hero_title') }}</h1>
           <h4 class="main-section__right__text">
-            {{
-              'Your new coding bestie, now available in your favourite terminal. Your tools, your code, and your workflows, wired into your LLM of choice. This is artificial intelligence made glamourous.\n\nAvailable now for macOS, Linux, Windows, and BSD.'
-            }}
+            {{ t('hero_text') }}
           </h4>
         </div>
       </section>
       <Separator />
-      <div class="calendar-section">
-        <Calendar />
+      <div class="last-projects">
+        <h1>{{ t('hero_projects') }}</h1>
+        <div class="last-projects__container" v-if="status">
+          <div v-for="(row, rowIndex) in projectRows" :key="'row-' + rowIndex" class="project-row">
+            <div v-for="(item, colIndex) in row" :key="'project-' + rowIndex + '-' + colIndex" class="project-item" :style="{ width: item.width }">
+              <ProjectCard :project="item.project" :isSmall="item.width === '40%'" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <Separator />
+      <div class="calendar">
+        <h1>{{ t('hero_calendar') }}</h1>
+        <div class="calendar__container">
+          <Calendar class="calendar__container__component" />
+        </div>
       </div>
     </div>
   </div>
@@ -44,14 +105,14 @@ const config = useAppConfig();
   width: 80%;
   max-width: 80%;
   align-items: center;
+  gap: 1.5rem;
 }
 
 .main-section {
   display: flex;
   flex-direction: row;
   width: 100%;
-  height: 95vh;
-  color: #ffffff;
+  height: 96vh;
   justify-content: center;
 
   &__left {
@@ -73,22 +134,8 @@ const config = useAppConfig();
     gap: 1rem;
     width: 50%;
 
-    &__title {
-      font-family: 'Mori-SemiBold', Helvetica, Arial, sans-serif;
-      font-size: 5rem;
-      font-style: normal;
-      font-variation-settings: 'ital' 0, 'wght' 790;
-      font-weight: 400;
-      height: fit-content;
-    }
-
     &__text {
       display: flex;
-      font-family: 'Mori-Regular', Helvetica, Arial, sans-serif;
-      font-size: 1.5rem;
-      font-style: normal;
-      font-variation-settings: 'ital' 0, 'wght' 790;
-      font-weight: bold;
       height: fit-content;
       white-space: pre-line;
       width: 100%;
@@ -98,10 +145,51 @@ const config = useAppConfig();
   }
 }
 
-.calendar-section {
+.last-projects {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: 100%;
-  justify-content: center;
+  gap: 1rem;
+  height: fit-content;
+
+  &__container {
+    display: flex;
+    width: 100%;
+    height: fit-content;
+  }
+
+  .last-projects__container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .project-row {
+    display: flex;
+    width: 100%;
+    gap: 1rem;
+  }
+
+  .project-item {
+    transition: all 0.3s ease;
+  }
+}
+
+.calendar {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1rem;
+
+  &__container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+
+    &__component {
+      display: flex;
+      width: 80%;
+    }
+  }
 }
 </style>

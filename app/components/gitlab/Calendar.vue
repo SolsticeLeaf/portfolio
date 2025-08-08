@@ -59,20 +59,6 @@ const generateCalendar = () => {
   }
 
   weeks.value = groupedWeeks;
-
-  const monthLabels: { month: string; index: number }[] = [];
-  let lastMonth = -1;
-
-  weeks.value.forEach((week, i) => {
-    const firstDay = week.find((d) => d);
-    if (!firstDay) return;
-
-    const month = new Date(firstDay.date).getMonth();
-    if (month !== lastMonth) {
-      monthLabels.push({ month: months[month], index: i });
-      lastMonth = month;
-    }
-  });
 };
 
 const getContributionClass = (contributions: number): string => {
@@ -92,27 +78,29 @@ onUnmounted(() => {});
 </script>
 
 <template>
-  <div class="contribution-calendar">
-    <div
-      class="calendar-grid"
-      :style="{
-        gridTemplateColumns: `repeat(${weeks.length}, minmax(10px, 1fr))`,
-        gridTemplateRows: `repeat(7, minmax(10px, 1fr))`,
-      }">
-      <div v-for="(week, wi) in weeks" :key="wi">
-        <div
-          v-for="(day, di) in week"
-          :key="`${wi}-${di}`"
-          :class="day ? ['day', getContributionClass(day.contributions)] : 'empty'"
-          :title="day ? `${day.date}: ${day.contributions} contributions` : ''" />
+  <div>
+    <div class="contribution-calendar">
+      <div
+        class="calendar-grid"
+        :style="{
+          gridTemplateColumns: `repeat(${weeks.length}, minmax(10px, 1fr))`,
+          gridTemplateRows: `repeat(7, minmax(10px, 1fr))`,
+        }">
+        <div v-for="(week, wi) in weeks" :key="wi">
+          <div
+            v-for="(day, di) in week"
+            :key="`${wi}-${di}`"
+            :class="day ? ['day', getContributionClass(day.contributions)] : 'empty'"
+            :title="day ? `${day.date}: ${day.contributions} contributions` : ''" />
+        </div>
       </div>
-    </div>
-    <div class="legend">
-      <div class="legend-square level-0"></div>
-      <div class="legend-square level-1"></div>
-      <div class="legend-square level-2"></div>
-      <div class="legend-square level-3"></div>
-      <div class="legend-square level-4"></div>
+      <div class="legend">
+        <div class="legend-square level-0"></div>
+        <div class="legend-square level-1"></div>
+        <div class="legend-square level-2"></div>
+        <div class="legend-square level-3"></div>
+        <div class="legend-square level-4"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -139,16 +127,16 @@ onUnmounted(() => {});
         background-color: #ffffff;
       }
       &.level-1 {
-        background-color: #d6e685;
+        background-color: #d485e6;
       }
       &.level-2 {
-        background-color: #8cc665;
+        background-color: #ab38c7;
       }
       &.level-3 {
-        background-color: #44a340;
+        background-color: #781197;
       }
       &.level-4 {
-        background-color: #1e6823;
+        background-color: #630573;
       }
     }
 
@@ -172,16 +160,16 @@ onUnmounted(() => {});
         background-color: #ffffff;
       }
       &.level-1 {
-        background-color: #d6e685;
+        background-color: #d485e6;
       }
       &.level-2 {
-        background-color: #8cc665;
+        background-color: #ab38c7;
       }
       &.level-3 {
-        background-color: #44a340;
+        background-color: #781197;
       }
       &.level-4 {
-        background-color: #1e6823;
+        background-color: #630573;
       }
     }
   }

@@ -48,7 +48,6 @@ defineProps({
   flex-direction: row;
   width: 100%;
   height: 100%;
-  color: #ffffff;
   justify-content: center;
   align-items: center;
   gap: 1rem;
@@ -93,7 +92,6 @@ defineProps({
         font-variation-settings: 'ital' 0, 'wght' 790;
         font-weight: bold;
         font-size: 2rem;
-        color: #ffffff;
         text-shadow: 0.15rem 0.15rem 0rem #000000;
         &:hover {
           color: rgb(0, 255, 178) !important;

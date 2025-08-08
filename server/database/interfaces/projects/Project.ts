@@ -1,25 +1,22 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
 export interface Project extends Document {
-  title: string;
-  imageLink: string;
-  sources: Array<any>;
-  techs: Array<any>;
-  downloadLink: string;
-  languages: Array<any>;
-  description: Object;
+  _id: string;
+  name: string;
+  description: object;
+  icon: string;
+  image: string;
+  url: string;
 }
 
 const schema: Schema = new Schema(
   {
     _id: { type: String },
-    title: { type: String, required: true },
-    imageLink: { type: String, required: true },
-    sources: { type: Array<any>, required: true },
-    techs: { type: Array<any>, required: true },
-    downloadLink: { type: String, required: true },
-    languages: { type: Array<any>, required: true },
+    name: { type: String, required: true },
     description: { type: Object, required: true },
+    icon: { type: Array<any>, required: true },
+    image: { type: Array<any>, required: true },
+    url: { type: String, required: true },
   },
   { collection: 'projects' }
 );
@@ -34,9 +31,18 @@ export async function getProjectByName(id: string): Promise<any> {
   }
 }
 
+export async function getProjects(amount: number): Promise<any> {
+  try {
+    return await ProjectModel.find().sort({ $natural: -1 }).limit(amount);
+  } catch (error) {
+    console.error('Error on getting projects: ', error);
+    return null;
+  }
+}
+
 export async function getAllProjects(): Promise<any> {
   try {
-    return await ProjectModel.find();
+    return await ProjectModel.find().sort({ $natural: -1 });
   } catch (error) {
     console.error('Error on getting projects: ', error);
     return null;

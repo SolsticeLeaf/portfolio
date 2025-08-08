@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
     const projects = await getAllProjects();
     return projects || [];
   } catch (error) {
-    console.error('Error on getting projects: ', error);
+    console.error('Error on getting all projects: ', error);
     return [];
   }
 });
