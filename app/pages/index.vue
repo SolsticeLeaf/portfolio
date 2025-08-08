@@ -1,30 +1,32 @@
 <script setup lang="ts">
+import Calendar from '~/components/gitlab/Calendar.vue';
 import Separator from '~/components/utilities/Separator.vue';
 
 const config = useAppConfig();
 </script>
 
 <template>
-  <ClientOnly>
-    <div class="wrapper">
-      <div class="hero">
-        <section class="main">
-          <div class="main__left">
-            <NuxtImg class="main__left__img" :src="config.data.astronautImg" loading="lazy" decoding="async" placeholder />
-          </div>
-          <div class="main__right">
-            <h1 class="main__right__title">Hello, remember no-ai coding?</h1>
-            <h4 class="main__right__text">
-              {{
-                'Your new coding bestie, now available in your favourite terminal. Your tools, your code, and your workflows, wired into your LLM of choice. This is artificial intelligence made glamourous.\n\nAvailable now for macOS, Linux, Windows, and BSD.'
-              }}
-            </h4>
-          </div>
-        </section>
-        <Separator />
+  <div class="wrapper">
+    <div class="hero">
+      <section class="main-section">
+        <div class="main-section__left">
+          <NuxtImg class="main-section__left__img" :src="config.images.astronautImg" loading="lazy" decoding="async" placeholder />
+        </div>
+        <div class="main-section__right">
+          <h1 class="main-section__right__title">Hello, remember no-ai coding?</h1>
+          <h4 class="main-section__right__text">
+            {{
+              'Your new coding bestie, now available in your favourite terminal. Your tools, your code, and your workflows, wired into your LLM of choice. This is artificial intelligence made glamourous.\n\nAvailable now for macOS, Linux, Windows, and BSD.'
+            }}
+          </h4>
+        </div>
+      </section>
+      <Separator />
+      <div class="calendar-section">
+        <Calendar />
       </div>
     </div>
-  </ClientOnly>
+  </div>
 </template>
 
 <style scoped lang="scss">
@@ -33,7 +35,6 @@ const config = useAppConfig();
   flex-direction: column;
   z-index: 1;
   width: 100%;
-  height: 300vh;
   align-items: center;
 }
 
@@ -45,7 +46,7 @@ const config = useAppConfig();
   align-items: center;
 }
 
-.main {
+.main-section {
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -95,5 +96,12 @@ const config = useAppConfig();
       word-break: break-all;
     }
   }
+}
+
+.calendar-section {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
 }
 </style>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import FlexButton from '@/components/utilities/buttons/FlexButton.vue';
+import FlexButton from '~/components/buttons/FlexButton.vue';
 
 const config = useAppConfig();
 const { t, locale } = useI18n();

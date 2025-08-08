@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import TechIcon from '@/components/utilities/TechIcon.vue';
+import TechIcon from '~/components/utilities/TechIcon.vue';
 import { Vue3Marquee } from 'vue3-marquee';
-import FlexButton from '@/components/utilities/buttons/FlexButton.vue';
-import LoadingButton from '@/components/utilities/buttons/LoadingButton.vue';
+import FlexButton from '~/components/buttons/FlexButton.vue';
+import LoadingButton from '~/components/buttons/LoadingButton.vue';
 
 const config = useAppConfig();
 const { t, locale } = useI18n();

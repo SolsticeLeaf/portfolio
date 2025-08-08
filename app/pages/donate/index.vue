@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ActionButton from '@/components/utilities/buttons/ActionButton.vue';
+import ActionButton from '~/components/buttons/ActionButton.vue';
 
 const config = useAppConfig();
 const { t, locale } = useI18n();

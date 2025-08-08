@@ -1,0 +1,189 @@
+<script setup lang="ts">
+interface ContributionData {
+  [date: string]: number;
+}
+
+interface Day {
+  date: string;
+  contributions: number;
+}
+
+const contributions = ref<ContributionData>({});
+const weeks = ref<Day[][]>([]);
+
+const currentDate = new Date();
+
+const fetchContributions = async () => {
+  try {
+    const { calendar: response_calendar } = await $fetch('/api/gitlab/calendar', {
+      default: () => ({}),
+      cache: 'no-cache',
+      server: false,
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: {},
+    });
+    contributions.value = response_calendar;
+  } catch (error) {
+    contributions.value = {};
+  }
+};
+
+const generateCalendar = () => {
+  const daysArray: Day[] = [];
+
+  const startDate = new Date(currentDate);
+  startDate.setDate(startDate.getDate() - 250);
+  const startDay = startDate.getDay() % 7;
+  startDate.setDate(startDate.getDate() - startDay);
+
+  const endDate = new Date(currentDate);
+
+  const currentDateIter = new Date(startDate);
+
+  while (currentDateIter <= endDate) {
+    const dateStr = currentDateIter.toISOString().split('T')[0];
+    daysArray.push({
+      date: dateStr,
+      contributions: contributions.value[dateStr] ?? 0,
+    });
+    currentDateIter.setDate(currentDateIter.getDate() + 1);
+  }
+
+  const groupedWeeks: Day[][] = [];
+  for (let i = 0; i < daysArray.length; i += 7) {
+    const week = daysArray.slice(i, i + 7);
+    groupedWeeks.push(week);
+  }
+
+  weeks.value = groupedWeeks;
+
+  const monthLabels: { month: string; index: number }[] = [];
+  let lastMonth = -1;
+
+  weeks.value.forEach((week, i) => {
+    const firstDay = week.find((d) => d);
+    if (!firstDay) return;
+
+    const month = new Date(firstDay.date).getMonth();
+    if (month !== lastMonth) {
+      monthLabels.push({ month: months[month], index: i });
+      lastMonth = month;
+    }
+  });
+};
+
+const getContributionClass = (contributions: number): string => {
+  if (contributions === 0) return 'level-0';
+  if (contributions <= 1) return 'level-1';
+  if (contributions <= 3) return 'level-2';
+  if (contributions <= 5) return 'level-3';
+  return 'level-4';
+};
+
+onMounted(async () => {
+  await fetchContributions();
+  generateCalendar();
+});
+
+onUnmounted(() => {});
+</script>
+
+<template>
+  <div class="contribution-calendar">
+    <div
+      class="calendar-grid"
+      :style="{
+        gridTemplateColumns: `repeat(${weeks.length}, minmax(10px, 1fr))`,
+        gridTemplateRows: `repeat(7, minmax(10px, 1fr))`,
+      }">
+      <div v-for="(week, wi) in weeks" :key="wi">
+        <div
+          v-for="(day, di) in week"
+          :key="`${wi}-${di}`"
+          :class="day ? ['day', getContributionClass(day.contributions)] : 'empty'"
+          :title="day ? `${day.date}: ${day.contributions} contributions` : ''" />
+      </div>
+    </div>
+    <div class="legend">
+      <div class="legend-square level-0"></div>
+      <div class="legend-square level-1"></div>
+      <div class="legend-square level-2"></div>
+      <div class="legend-square level-3"></div>
+      <div class="legend-square level-4"></div>
+    </div>
+  </div>
+</template>
+
+<style scoped lang="scss">
+.contribution-calendar {
+  width: 100%;
+  height: fit-content;
+
+  .calendar-grid {
+    display: grid;
+    width: 100%;
+    height: fit-content;
+    grid-gap: 3px;
+
+    .day {
+      border-radius: 0.2rem;
+      width: 100%;
+      height: 100%;
+      margin-top: 3px;
+      aspect-ratio: 20 /1;
+
+      &.level-0 {
+        background-color: #ffffff;
+      }
+      &.level-1 {
+        background-color: #d6e685;
+      }
+      &.level-2 {
+        background-color: #8cc665;
+      }
+      &.level-3 {
+        background-color: #44a340;
+      }
+      &.level-4 {
+        background-color: #1e6823;
+      }
+    }
+
+    .empty {
+      background-color: transparent;
+    }
+  }
+
+  .legend {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+
+    .legend-square {
+      width: 1.2rem;
+      height: 1.2rem;
+      margin: 0.2rem;
+      border-radius: 0.2rem;
+
+      &.level-0 {
+        background-color: #ffffff;
+      }
+      &.level-1 {
+        background-color: #d6e685;
+      }
+      &.level-2 {
+        background-color: #8cc665;
+      }
+      &.level-3 {
+        background-color: #44a340;
+      }
+      &.level-4 {
+        background-color: #1e6823;
+      }
+    }
+  }
+}
+</style>

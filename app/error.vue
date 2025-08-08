@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { NuxtError } from '#app';
-import Background from './components/utilities/Background.vue';
-import Grain from './components/utilities/Grain.vue';
+import Background from './components/layout/other/Background.vue';
+import Grain from './components/layout/other/Grain.vue';
 
 const config = useAppConfig();
 const { t } = useI18n();
@@ -25,7 +25,7 @@ defineProps({
           </NuxtLink>
         </div>
         <div class="error__image">
-          <NuxtImg class="error__image__img" :src="config.data.errorImg" loading="lazy" decoding="async" placeholder />
+          <NuxtImg class="error__image__img" :src="config.images.errorImg" loading="lazy" decoding="async" placeholder />
         </div>
       </div>
     </div>

@@ -2,8 +2,13 @@ export default defineAppConfig({
   data: {
     nickname: 'SolsticeLeaf',
     mail: 'me@sleaf.dev',
+  },
+  images: {
     astronautImg: 'https://s3.sleaf.dev/portfolio/astronaut.webp',
     errorImg: 'https://s3.sleaf.dev/portfolio/error.webp',
+  },
+  gitlab: {
+    calendarUrl: 'https://git.sleaf.dev/users/solsticeleaf/calendar.json',
   },
   icons: {
     nav_home: 'mingcute:home-3-fill',

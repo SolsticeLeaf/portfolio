@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Logo from '@@/public/logo.svg?component';
+import Logo from '~~/public/logo.svg?component';
 import NavItems from './NavItems.vue';
 
 const config = useAppConfig();

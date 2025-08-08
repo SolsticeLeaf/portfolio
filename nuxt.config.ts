@@ -16,15 +16,7 @@ export default defineNuxtConfig({
         //   defer: true,
         // },
       ],
-      meta: [
-        { charset: 'utf-8' },
-        {
-          name: 'viewport',
-          content: 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0',
-        },
-        { name: 'description', content: '' },
-        { name: 'format-detection', content: 'telephone=no' },
-      ],
+      meta: [{ charset: 'utf-8' }, { name: 'description', content: '' }, { name: 'format-detection', content: 'telephone=no' }],
       link: [
         { rel: 'icon', type: 'image/webp', href: 'https://s3.sleaf.dev/portfolio/favicon.webp' },
         { rel: 'icon', type: 'image/png', href: 'https://s3.sleaf.dev/portfolio/favicon.png' },
@@ -55,7 +47,7 @@ export default defineNuxtConfig({
   sourcemap: true,
   compatibilityDate: '2025-01-29',
   devtools: { enabled: true },
-  modules: ['@nuxtjs/i18n', '@nuxt/image', '@nuxtjs/device', '@nuxt/icon', '@nuxt/fonts'],
+  modules: ['@nuxtjs/i18n', '@nuxt/image', '@nuxtjs/device', '@nuxt/icon', '@nuxt/fonts', '@nuxtjs/sitemap', '@nuxtjs/robots'],
   icon: {
     serverBundle: {
       collections: ['mingcute'],
@@ -67,17 +59,20 @@ export default defineNuxtConfig({
       { code: 'en', iso: 'en-US', name: 'English', file: 'en.json' },
       { code: 'ru', iso: 'ru-RU', name: 'Русский', file: 'ru.json' },
     ],
-    lazy: true,
     langDir: 'locales',
-    bundle: {
-      optimizeTranslationDirective: false,
-    },
     detectBrowserLanguage: {
       useCookie: true,
       fallbackLocale: 'en',
     },
     strategy: 'prefix',
     defaultLocale: 'en',
+  },
+  site: {
+    url: 'https://sleaf.dev',
+    name: 'SolsticeLeaf',
+  },
+  robots: {
+    blockNonSeoBots: true,
   },
   css: ['@/assets/scss/global.scss', '@/assets/scss/screens.scss'],
   fonts: {

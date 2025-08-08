@@ -8,20 +8,28 @@ const year = new Date().getFullYear();
 </script>
 
 <template>
-  <Waves class="waves" />
   <footer>
-    <div class="text">
-      <p>{{ `Copyright © ${year} by SolsticeLeaf.` }}</p>
-      <NuxtLink class="text__mail" :href="`mailto:${config.data.mail}`">
-        <Icon :name="config.icons.email" class="text__mail__icon" />
-        <p class="text__mail__text">{{ config.data.mail }}</p>
-      </NuxtLink>
-      <p class="null">{{ `${t('welcome')}, /dev/null™` }}</p>
+    <Waves class="waves" />
+    <div class="footer">
+      <div class="text">
+        <p>{{ `Copyright © ${year} by SolsticeLeaf.` }}</p>
+        <NuxtLink class="text__mail" :href="`mailto:${config.data.mail}`">
+          <Icon :name="config.icons.email" class="text__mail__icon" />
+          <p class="text__mail__text">{{ config.data.mail }}</p>
+        </NuxtLink>
+        <p class="null">{{ `${t('welcome')}, /dev/null™` }}</p>
+      </div>
     </div>
   </footer>
 </template>
 
 <style scoped lang="scss">
+footer {
+  width: 100%;
+  height: fit-content;
+  z-index: 0;
+}
+
 .waves {
   width: 100%;
   display: flex;
@@ -29,7 +37,7 @@ const year = new Date().getFullYear();
   margin-bottom: -8%;
 }
 
-footer {
+.footer {
   display: flex;
   flex-direction: column;
   width: 100%;

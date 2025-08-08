@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ProjectCard from '@/components/card/ProjectCard.vue';
+import ProjectCard from '~/components/projects/ProjectCard.vue';
 const { t } = useI18n();
 
 const { data: projects, status: status } = useFetch('/api/projects/getProjectsData', {
