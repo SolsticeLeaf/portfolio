@@ -20,11 +20,9 @@ import Footer from '~/components/layout/Footer.vue';
       <KeepAlive>
         <Background />
       </KeepAlive>
-    </ClientOnly>
-    <Suspense>
-      <slot />
-    </Suspense>
-    <ClientOnly>
+      <Suspense>
+        <slot />
+      </Suspense>
       <Suspense>
         <Footer />
       </Suspense>
