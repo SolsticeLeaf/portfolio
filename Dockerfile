@@ -1,4 +1,4 @@
-FROM node:16.15.0-slim
+FROM node:23
 
 COPY /.output /nuxt/.output
 COPY ./i18n /nuxt/i18n
