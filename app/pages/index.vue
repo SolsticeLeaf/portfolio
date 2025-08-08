@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import axios from 'axios';
 import Calendar from '~/components/gitlab/Calendar.vue';
 import Separator from '~/components/utilities/Separator.vue';
 import ProjectCard from '~/components/projects/ProjectCard.vue';
@@ -16,18 +17,20 @@ const templateCycle = [
 ];
 
 onBeforeMount(async () => {
-  try {
-    const { projects: response_projects } = await $fetch('/api/projects/getProjects', {
-      default: () => [],
-      cache: 'no-cache',
-      server: false,
-      method: 'POST',
-      body: { amount: 4 },
+  await axios
+    .post('/api/projects/getProjects', {
+      amount: 4,
+    })
+    .then((response) => {
+      projects.value = response.data.projects || [];
+    })
+    .catch((error) => {
+      console.log(error);
+      projects.value = [];
+    })
+    .finally(() => {
+      status.value = true;
     });
-    projects.value = response_projects;
-  } finally {
-    status.value = true;
-  }
 });
 
 const projectRows = computed(() => {

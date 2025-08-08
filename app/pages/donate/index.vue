@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import axios from 'axios';
 import ActionButton from '~/components/buttons/ActionButton.vue';
 
 const config = useAppConfig();
@@ -37,36 +38,29 @@ const checkAmount = () => {
   }
 };
 const pay = async () => {
-  try {
-    if (amount.value.value <= '0') {
-      amount.value.value = '1';
-    }
-    const { success: response_success, payment_url: response_url } = await $fetch('/api/donate/createPayment', {
-      default: () => [],
-      cache: 'no-cache',
-      server: false,
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        locale: locale.value,
-        amount: amount.value.value,
-        order_id: `order-${Date.now()}`,
-        currency: currency.value.name,
-      }),
-    });
-    if (response_success && response_url) {
-      const url = response_url + `?lang=${locale.value}`;
-      window.location.assign(url);
-      window.open(url);
-    } else {
-      alert('Ошибка: не удалось получить ссылку на оплату');
-    }
-  } catch (error) {
-    console.error('Ошибка:', error);
-    alert('Ошибка при отправке запроса');
+  if (amount.value.value <= '0') {
+    amount.value.value = '1';
   }
+  await axios
+    .post('/api/donate/createPayment', {
+      locale: locale.value,
+      amount: amount.value.value,
+      order_id: `order-${Date.now()}`,
+      currency: currency.value.name,
+    })
+    .then((response) => {
+      if (response.data.success) {
+        const url = response.data.response_url + `?lang=${locale.value}`;
+        window.location.assign(url);
+        window.open(url);
+      } else {
+        alert('Ошибка: не удалось получить ссылку на оплату');
+      }
+    })
+    .catch((error) => {
+      console.error('Ошибка:', error);
+      alert('Ошибка при отправке запроса');
+    });
 };
 
 onMounted(() => {

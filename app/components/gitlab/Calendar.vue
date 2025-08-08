@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import axios from 'axios';
+
 interface ContributionData {
   [date: string]: number;
 }
@@ -14,21 +16,15 @@ const weeks = ref<Day[][]>([]);
 const currentDate = new Date();
 
 const fetchContributions = async () => {
-  try {
-    const { calendar: response_calendar } = await $fetch('/api/gitlab/calendar', {
-      default: () => ({}),
-      cache: 'no-cache',
-      server: false,
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: {},
+  await axios
+    .get('/api/gitlab/calendar')
+    .then((response) => {
+      contributions.value = response.data.calendar || {};
+    })
+    .catch((error) => {
+      console.log(error);
+      contributions.value = {};
     });
-    contributions.value = response_calendar;
-  } catch (error) {
-    contributions.value = {};
-  }
 };
 
 const generateCalendar = () => {
