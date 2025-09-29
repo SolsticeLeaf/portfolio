@@ -14,11 +14,8 @@ on:
 jobs:
   dependencies:
     runs-on: [build]
-    container: node:24.0.0-alpine
+    container: node:24-alpine
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
       - name: Restore cache
         uses: actions/cache@v4
         with:
@@ -41,12 +38,9 @@ jobs:
 
   prepare:
     runs-on: [build]
-    container: node:24.0.0-alpine
+    container: node:24-alpine
     needs: dependencies
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
       - name: Restore cache
         uses: actions/cache@v4
         with:
@@ -71,12 +65,9 @@ jobs:
 
   build:
     runs-on: [build]
-    container: node:24.0.0-alpine
+    container: node:24-alpine
     needs: prepare
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
       - name: Restore cache
         uses: actions/cache@v4
         with:
@@ -117,9 +108,6 @@ jobs:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
       DOCKER_BUILDKIT: 0
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
