@@ -65,7 +65,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: prepare-artifacts
-          path: .nuxt/
+          path: ./.nuxt/
           retention-days: 1
 
   build:
@@ -100,9 +100,9 @@ jobs:
         with:
           name: build-artifacts
           path: |
-            .nuxt/
-            .output/
-            i18n/
+            ./.nuxt/
+            ./.output/
+            ./i18n/
           retention-days: 1
 
   deploy:
