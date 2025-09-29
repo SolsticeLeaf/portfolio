@@ -8,7 +8,7 @@
 
 <center>
 
-![Pipeline](https://img.shields.io/gitlab/pipeline-status/sleaf%2Fportfolio?gitlab_url=https%3A%2F%2Fgit.sleaf.dev%2F&branch=master&style=for-the-badge)
+![Pipeline](https://img.shields.io/github/actions/workflow/status/SolsticeLeaf/portfolio/deploy.yaml?style=for-the-badge)
 ![Issues](https://img.shields.io/github/issues/SolsticeLeaf/portfolio?style=for-the-badge)
 ![License](https://img.shields.io/github/license/SolsticeLeaf/portfolio?style=for-the-badge)
 ![CodeSize](https://img.shields.io/github/languages/code-size/SolsticeLeaf/portfolio?style=for-the-badge)
