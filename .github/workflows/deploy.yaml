@@ -14,7 +14,7 @@ on:
 jobs:
   dependencies:
     runs-on: [build]
-    container: node:24
+    container: node:20
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -41,7 +41,7 @@ jobs:
 
   prepare:
     runs-on: [build]
-    container: node:24
+    container: node:20
     needs: dependencies
     steps:
       - name: Checkout code
@@ -71,7 +71,7 @@ jobs:
 
   build:
     runs-on: [build]
-    container: node:24
+    container: node:20
     needs: prepare
     steps:
       - name: Checkout code
