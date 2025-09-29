@@ -65,7 +65,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: prepare-artifacts
-          path: ${{ github.workspace }}/.nuxt/
+          path: .nuxt/
+          include-hidden-files: true
           retention-days: 1
 
   build:
@@ -103,6 +104,7 @@ jobs:
             .nuxt/
             .output/
             i18n/
+          include-hidden-files: true
           retention-days: 1
 
   deploy:
