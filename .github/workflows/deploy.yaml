@@ -25,9 +25,13 @@ jobs:
           path: node_modules
           restore-keys: node_modules-
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
       - name: Install dependencies
         run: |
-          echo "Install dependencies..."
           npm install -g pnpm
           npm install -g nuxi
           pnpm i
@@ -53,9 +57,13 @@ jobs:
           path: node_modules
           restore-keys: node_modules-
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
       - name: Prepare for build
         run: |
-          echo "Prepare for build..."
           npm install -g pnpm
           npm install -g nuxi
           pnpm run postinstall
@@ -87,6 +95,11 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: prepare-artifacts
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
 
       - name: Building
         run: |
