@@ -11,9 +11,9 @@ const projects = ref<any[]>([]);
 const status = ref(false);
 
 const templateCycle = [
-  ['60%', '40%'],
+  ['70%', '30%'],
   ['50%', '50%'],
-  ['40%', '60%'],
+  ['30%', '70%'],
 ];
 
 onBeforeMount(async () => {
@@ -75,7 +75,7 @@ const projectRows = computed(() => {
         <div class="last-projects__container" v-if="status">
           <div v-for="(row, rowIndex) in projectRows" :key="'row-' + rowIndex" class="project-row">
             <div v-for="(item, colIndex) in row" :key="'project-' + rowIndex + '-' + colIndex" class="project-item" :style="{ width: item.width }">
-              <ProjectCard :project="item.project" :isSmall="item.width === '40%'" />
+              <ProjectCard :project="item.project" :isSmall="item.width === '30%'" />
             </div>
           </div>
         </div>
@@ -106,7 +106,7 @@ const projectRows = computed(() => {
   width: 80%;
   max-width: 80%;
   align-items: center;
-  gap: 1.5rem;
+  gap: 2rem;
 }
 
 .main-section {

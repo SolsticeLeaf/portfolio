@@ -42,8 +42,8 @@ const generateCalendar = () => {
   while (currentDateIter <= endDate) {
     const dateStr = currentDateIter.toISOString().split('T')[0];
     daysArray.push({
-      date: dateStr,
-      contributions: contributions.value[dateStr] ?? 0,
+      date: dateStr || '',
+      contributions: contributions.value[dateStr || ''] ?? 0,
     });
     currentDateIter.setDate(currentDateIter.getDate() + 1);
   }

@@ -15,7 +15,7 @@ const schema: Schema = new Schema(
     name: { type: String, required: true },
     description: { type: Object, required: true },
     icon: { type: Array<any>, required: true },
-    image: { type: Array<any>, required: true },
+    image: { type: String, required: true },
     url: { type: String, required: true },
   },
   { collection: 'projects' }
