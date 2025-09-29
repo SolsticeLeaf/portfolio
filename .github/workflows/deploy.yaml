@@ -44,7 +44,6 @@ jobs:
 
   prepare:
     runs-on: [build]
-    container: node:24
     needs: dependencies
     steps:
       - name: Checkout code
@@ -78,7 +77,6 @@ jobs:
 
   build:
     runs-on: [build]
-    container: node:24
     needs: prepare
     steps:
       - name: Checkout code
